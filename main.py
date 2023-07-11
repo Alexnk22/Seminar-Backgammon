@@ -95,9 +95,21 @@ def Figuren(Ratio):
 #        if int((event.x-75*Ratio)/38-r) == int(i):
 #            print(i)
 
+def move(event):
+
+    if root.winfo_width() < root.winfo_height():
+        Ratio = root.winfo_width()/800
+         
+    else:
+        Ratio = root.winfo_height()/800
+
+    for i in range (12):
+        if (((event.x/Ratio)-73)// (75*Ratio)) == i:
+            print (i)
+
 def würfel():
     pass
 
-#canvas.bind("<Button-1>", move)
+canvas.bind("<Button-1>", move)
 root.bind("<Configure>", Ratios)
 root.mainloop()
