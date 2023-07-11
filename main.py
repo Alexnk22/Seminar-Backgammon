@@ -21,9 +21,12 @@ def Ratios (event=NONE):
          
     else:
         Ratio = root.winfo_height()/800
+    
         
     Feld(Ratio)
     Figuren(Ratio)
+    
+    
 
 #Erstellt das Feld 
 def Feld(Ratio):
@@ -43,7 +46,6 @@ def Feld(Ratio):
 #erstellt die anzahl von keisen die in der liste gefragt sind 
 def Figuren(Ratio):
 
-    global spielfeld1
 
     for u in range(12):
         for i in range(int(spielfeld1[int(u)])):
@@ -77,7 +79,25 @@ def Figuren(Ratio):
             canvas.create_oval((75+u*53+r)*Ratio,(75+i*50)*Ratio,(125+u*53+r)*Ratio,(125+i*50)*Ratio,fill="maroon",width=1.33)
 
 
+#def move(event):
+#
+#    if root.winfo_width() < root.winfo_height():
+#        Ratio = root.winfo_width()/800
+#         
+#    else:
+#        Ratio = root.winfo_height()/800
+#    
+#    for i in range(12):
+#        if event.x >= 400:
+#            r = 0.1
+#        else: 
+#            r = 0
+#        if int((event.x-75*Ratio)/38-r) == int(i):
+#            print(i)
+
 def würfel():
     pass
+
+#canvas.bind("<Button-1>", move)
 root.bind("<Configure>", Ratios)
 root.mainloop()
