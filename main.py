@@ -40,13 +40,18 @@ def Feld(Ratio):
             canvas.create_polygon((i*106+75+u*333)*Ratio, 650*Ratio, (i*106+100+u*333)*Ratio, 400*Ratio, (i*106+125+u*333)*Ratio, 650*Ratio)
             canvas.create_polygon((i*106+127.5+u*333)*Ratio, 650*Ratio, (i*106+152.5+u*333)*Ratio, 400*Ratio, (i*106+177.5+u*333)*Ratio, 650*Ratio,fill="red",outline="black")
 
-
+#erstellt die anzahl von keisen die in der liste gefragt sind 
 def Figuren(Ratio):
 
     global spielfeld1
 
-    for i in range(int(spielfeld1[0])):
-        canvas.create_oval(673*Ratio,(600-(i)*50)*Ratio,723*Ratio,(650-(i)*50)*Ratio,fill="white")
+    for u in range(12):
+        for i in range(int(spielfeld1[int(u)])):
+            if u >= 6:
+                r = 15
+            else: 
+                r = 0
+            canvas.create_oval((673-(u*53)-r)*Ratio,(600-(i)*50)*Ratio,(723-(u*53)-r)*Ratio,(650-(i)*50)*Ratio,fill="white")
 
 root.bind("<Configure>", Ratios)
 root.mainloop()
