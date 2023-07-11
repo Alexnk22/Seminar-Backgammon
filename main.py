@@ -9,8 +9,8 @@ canvas = Canvas(root,height=550, width=550)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 
-spielfeld1 = (2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0)    #withe 
-spielfeld2 = (2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0)    #black
+spielfeld1 = (2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0)    #white
+spielfeld2 = (0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2)    #black
 
 
 def Ratios (event=NONE):
@@ -51,7 +51,33 @@ def Figuren(Ratio):
                 r = 15
             else: 
                 r = 0
-            canvas.create_oval((673-(u*53)-r)*Ratio,(600-(i)*50)*Ratio,(723-(u*53)-r)*Ratio,(650-(i)*50)*Ratio,fill="white")
+            canvas.create_oval((673-(u*53)-r)*Ratio,(600-(i)*50)*Ratio,(723-(u*53)-r)*Ratio,(650-(i)*50)*Ratio,fill="white",width=1.33)
 
+    for u in range(12):
+        for i in range(int(spielfeld1[int(u)+12])):
+            if u >= 6:
+                r = 15
+            else: 
+                r = 0
+            canvas.create_oval((75+u*53+r)*Ratio,(75+i*50)*Ratio,(125+u*53+r)*Ratio,(125+i*50)*Ratio,fill="white",width=1.33)
+    for u in range(12):
+        for i in range(int(spielfeld2[int(u)])):
+            if u >= 6:
+                r = 15
+            else: 
+                r = 0
+            canvas.create_oval((673-(u*53)-r)*Ratio,(600-(i)*50)*Ratio,(723-(u*53)-r)*Ratio,(650-(i)*50)*Ratio,fill="maroon",width=1.33)
+
+    for u in range(12):
+        for i in range(int(spielfeld2[int(u)+12])):
+            if u >= 6:
+                r = 15
+            else: 
+                r = 0
+            canvas.create_oval((75+u*53+r)*Ratio,(75+i*50)*Ratio,(125+u*53+r)*Ratio,(125+i*50)*Ratio,fill="maroon",width=1.33)
+
+
+def würfel():
+    pass
 root.bind("<Configure>", Ratios)
 root.mainloop()
