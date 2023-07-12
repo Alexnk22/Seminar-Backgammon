@@ -1,6 +1,6 @@
 from tkinter import *
-from tkinter import ttk
-import random
+
+
 
 root = Tk()
 
@@ -25,7 +25,8 @@ def Ratios (event=NONE):
     
         
     Feld(Ratio)
-    Figuren(Ratio)
+    Figuren(Ratio, spielfeld1, "white",12)
+    Figuren(Ratio, spielfeld2, "maroon",12)
     
     
 
@@ -44,61 +45,30 @@ def Feld(Ratio):
             canvas.create_polygon((i*106+75+u*333)*Ratio, 650*Ratio, (i*106+100+u*333)*Ratio, 400*Ratio, (i*106+125+u*333)*Ratio, 650*Ratio)
             canvas.create_polygon((i*106+127.5+u*333)*Ratio, 650*Ratio, (i*106+152.5+u*333)*Ratio, 400*Ratio, (i*106+177.5+u*333)*Ratio, 650*Ratio,fill="red",outline="black")
 
-#erstellt die anzahl von keisen die in der liste gefragt sind 
-def Figuren(Ratio):
 
 
+#zuerst aufgerufen mit weiß und dann mit schwarz 
+def Figuren(Ratio, spielfeld, fill_color,verschiebung):
     for u in range(12):
-        for i in range(int(spielfeld1[int(u)])) :
+        for i in range(int(spielfeld[u])):
             if u >= 6:
                 r = 15
-            else: 
+            else:
                 r = 0
-            canvas.create_oval((673-(u*53)-r)*Ratio,(600-(i)*50)*Ratio,(723-(u*53)-r)*Ratio,(650-(i)*50)*Ratio,fill="white",width=1.33)
-
+            canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=fill_color, width=1.33)
+                               
     for u in range(12):
-        for i in range(int(spielfeld1[int(u)+12])):
+        for i in range(int(spielfeld[int(u) + verschiebung])):
             if u >= 6:
                 r = 15
-            else: 
+            else:
                 r = 0
-            canvas.create_oval((75+u*53+r)*Ratio,(75+i*50)*Ratio,(125+u*53+r)*Ratio,(125+i*50)*Ratio,fill="white",width=1.33)
-    for u in range(12):
-        for i in range(int(spielfeld2[int(u)])):
-            if u >= 6:
-                r = 15
-            else: 
-                r = 0
-            canvas.create_oval((673-(u*53)-r)*Ratio,(600-(i)*50)*Ratio,(723-(u*53)-r)*Ratio,(650-(i)*50)*Ratio,fill="maroon",width=1.33)
-
-    for u in range(12):
-        for i in range(int(spielfeld2[int(u)+12])):
-            if u >= 6:
-                r = 15
-            else: 
-                r = 0
-            canvas.create_oval((75+u*53+r)*Ratio,(75+i*50)*Ratio,(125+u*53+r)*Ratio,(125+i*50)*Ratio,fill="maroon",width=1.33)
-
-
-#def move(event):
-#
-#    if root.winfo_width() < root.winfo_height():
-#        Ratio = root.winfo_width()/800
-#         
-#    else:
-#        Ratio = root.winfo_height()/800
-#    
-#    for i in range(12):
-#        if event.x >= 400:
-#            r = 0.1
-#        else: 
-#            r = 0
-#        if int((event.x-75*Ratio)/38-r) == int(i):
-#            print(i)
-
+            canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=fill_color, width=1.33)
+                               
 
 
 def move(event):
+    
 
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/800
@@ -109,6 +79,8 @@ def move(event):
     for i in range (12):
         if (((event.x/Ratio)-73)// (75*Ratio)) == i:
             print (i)
+
+
 
 def würfel():
     pass
