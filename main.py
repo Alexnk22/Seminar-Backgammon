@@ -23,7 +23,7 @@ def Ratios (event=NONE):
     else:
         Ratio = root.winfo_height()/800
     
-        
+    
     Feld(Ratio)
     Figuren(Ratio, spielfeld1, "white",12)
     Figuren(Ratio, spielfeld2, "maroon",12)
@@ -48,37 +48,36 @@ def Feld(Ratio):
 
 
 #zuerst aufgerufen mit weiß und dann mit schwarz 
-def Figuren(Ratio, spielfeld, fill_color,verschiebung):
+def Figuren(Ratio, spielfeld, farbe,verschiebung):
     for u in range(12):
         for i in range(int(spielfeld[u])):
             if u >= 6:
                 r = 15
             else:
                 r = 0
-            canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=fill_color, width=1.33)
+            canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1.33)
                                
     for u in range(12):
-        for i in range(int(spielfeld[int(u) + verschiebung])):
+        for i in range(int(spielfeld[int(u)+verschiebung])):
             if u >= 6:
                 r = 15
             else:
                 r = 0
-            canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=fill_color, width=1.33)
+            canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1.33)
                                
 
 
 def move(event):
     
+    print(event.x)
 
-    if root.winfo_width() < root.winfo_height():
-        Ratio = root.winfo_width()/800
-         
-    else:
-        Ratio = root.winfo_height()/800
 
-    for i in range (12):
-        if (((event.x/Ratio)-73)// (75*Ratio)) == i:
-            print (i)
+
+
+
+    #for i in range (12):
+     #   if (((event.x/Ratio)-73)// (75*Ratio)) == i:
+      #      print (i)
 
 
 
