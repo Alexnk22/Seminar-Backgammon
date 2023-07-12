@@ -29,7 +29,7 @@ def Ratios (event=NONE):
     Figuren(Ratio, spielfeld2, "maroon",12)
     
     
-
+#sdsdsd
 #Erstellt das Feld 
 def Feld(Ratio):
     
