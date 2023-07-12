@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 import random
 
 root = Tk()
@@ -9,9 +10,9 @@ canvas = Canvas(root,height=550, width=550)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 
-spielfeld1 = (2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0)    #white
-spielfeld2 = (0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2)    #black
 
+spielfeld2 = (0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2)    #black
+spielfeld1 = (2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0)    #white
 
 def Ratios (event=NONE):
     canvas.delete("all")
@@ -48,7 +49,7 @@ def Figuren(Ratio):
 
 
     for u in range(12):
-        for i in range(int(spielfeld1[int(u)])):
+        for i in range(int(spielfeld1[int(u)])) :
             if u >= 6:
                 r = 15
             else: 
@@ -95,6 +96,8 @@ def Figuren(Ratio):
 #        if int((event.x-75*Ratio)/38-r) == int(i):
 #            print(i)
 
+
+
 def move(event):
 
     if root.winfo_width() < root.winfo_height():
@@ -104,7 +107,7 @@ def move(event):
         Ratio = root.winfo_height()/800
 
     for i in range (12):
-        if (((event.x/Ratio)-73)// (75*Ratio)) == i:
+        if (((event.x/Ratio)-73)// (38/Ratio)) == i:
             print (i)
 
 def würfel():
