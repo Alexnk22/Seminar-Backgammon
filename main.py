@@ -107,7 +107,7 @@ def move(event):
         Ratio = root.winfo_height()/800
 
     for i in range (12):
-        if (((event.x/Ratio)-73)// (38/Ratio)) == i:
+        if (((event.x/Ratio)-73)// (75*Ratio)) == i:
             print (i)
 
 def würfel():
