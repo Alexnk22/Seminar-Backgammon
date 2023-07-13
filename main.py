@@ -69,20 +69,29 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
 
 def move(event):
     
-    print(event.x)
+    if root.winfo_width() < root.winfo_height():
+        Ratio = root.winfo_width()/800
+        
+         
+    else:
+        Ratio = root.winfo_height()/800
 
 
-
-
-
-    #for i in range (12):
-     #   if (((event.x/Ratio)-73)// (75*Ratio)) == i:
-      #      print (i)
+    for i in range (12):
+        if i >= 6:
+            r = 8
+            b = 1
+        else:
+            r = 0
+            b = 0
+        if (((event.x-48-r))// (((56-b)*Ratio))) == i:
+            print (i)
 
 
 
 def würfel():
     pass
+
 
 canvas.bind("<Button-1>", move)
 root.bind("<Configure>", Ratios)
