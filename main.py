@@ -1,6 +1,7 @@
 from tkinter import *
 
-
+TOPorBOT = -1 
+Dreieck = -1
 
 root = Tk()
 
@@ -66,28 +67,40 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
             canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1.33)
                                
 
-
 def move(event):
+
+    global Dreieck
+    global TOPorBOT
+    a = 0
     
     if root.winfo_width() < root.winfo_height():
-        Ratio = root.winfo_width()/800
-        
-         
+        Ratio = root.winfo_width()/800         
     else:
         Ratio = root.winfo_height()/800
 
-
-    for i in range (12):
-        if i >= 6:
-            r = 8
-            b = 1
+    for i in range (1,13):
+        if i > 6:
+            r = 18
         else:
             r = 0
-            b = 0
-        if (((event.x-48-r))// (((56-b)*Ratio))) == i:
-            print (i)
 
+        if ((event.x/Ratio)-27-r)//((52)) == i:
+            Dreieck = i
+            
 
+    if (event.y/Ratio-75) > 0 and (event.y/Ratio-75) < 250:
+            TOPorBOT = 2
+            
+    elif (event.y/Ratio-75) > 325 and (event.y/Ratio-75) < 575:
+            TOPorBOT = 1
+            
+    
+    if int(TOPorBOT) == 1 and 75 < (event.x/Ratio) < 725 and 400 < (event.y/Ratio) < 650:
+        a = 13 - int(Dreieck)
+        print(a)
+    elif int(TOPorBOT) == 2 and 75 < (event.x/Ratio) < 725 and 75 < (event.y/Ratio) < 325:
+        a = int(Dreieck) + 12
+        print(a)
 
 def würfel():
     pass
