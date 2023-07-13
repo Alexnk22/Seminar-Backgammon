@@ -85,15 +85,13 @@ def Position(event):
             r = 18
         else:
             r = 0
-
         if (event.x/Ratio-27-r)//52 == i:
             Dreieck = i
             
     if   0 < (event.y/Ratio-75) < 250:
-            TOPorBOT = 2
-            
+        TOPorBOT = 2
     elif 325 < (event.y/Ratio-75) < 575:
-            TOPorBOT = 1
+        TOPorBOT = 1
     else:
         TOPorBOT = 0
 
