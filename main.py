@@ -29,6 +29,8 @@ def Ratios (event=NONE):
     Feld(Ratio)
     Figuren(Ratio, spielfeld1, "white",12)
     Figuren(Ratio, spielfeld2, "maroon",12)
+    Mark(Ratio,Pos1,spielfeld1)
+    Mark(Ratio,Pos1,spielfeld2)
     
     
 
@@ -58,6 +60,7 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
             else:
                 r = 0
             canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1.33)
+           
                                
     for u in range(12):
         for i in range(int(spielfeld[int(u)+verschiebung])):
@@ -95,19 +98,40 @@ def Position(event):
     else:
         TOPorBOT = 0
 
-    if int(TOPorBOT) == 1 and 75 < (event.x/Ratio) < 725 :
+    if (int(TOPorBOT) == 1 and 75 < (event.x/Ratio) < 725) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725):
         Pos1 = 13 - int(Dreieck)
         print(Pos1)
-    elif int(TOPorBOT) == 2 and 75 < (event.x/Ratio) < 725:
+        Ratios(event)
+
+    elif (int(TOPorBOT) == 2 and 75 < (event.x/Ratio) < 725) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725):
         Pos1 = int(Dreieck) + 12
         print(Pos1)
+        Ratios(event)        
+        
+def Mark (Ratio,Pos1,spielfeld):
+    
+    
 
+    if Pos1 != 0:
+        if Pos1 > 6:
+            r = 15
+        else:
+            r = 0
 
+        for u in range (12):
+        
+            if spielfeld[u] != 0 and spielfeld[Pos1-1] != 0:   
+                canvas.create_oval((725-(Pos1*53)-r)*Ratio, (650-(int(spielfeld[Pos1-1]))*50)*Ratio, (775-(Pos1*53)-r)*Ratio, (700-(int(spielfeld[Pos1-1]))*50)*Ratio, width=4,outline="green")
+    
+            
+           
+
+    
 
 def würfel():
     pass
 
 
-canvas.bind("<Button-1>", Position)
+canvas.bind("<Button-1>", Position, Mark)
 root.bind("<Configure>", Ratios)
 root.mainloop()
