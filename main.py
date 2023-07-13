@@ -1,7 +1,9 @@
 from tkinter import *
 
-TOPorBOT = -1 
-Dreieck = -1
+
+TOPorBOT = 0 
+Dreieck = 0
+Pos1 = 0
 
 root = Tk()
 
@@ -10,10 +12,9 @@ root.minsize(width=550,height=550)
 canvas = Canvas(root,height=550, width=550)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
-
-
 spielfeld2 = (0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2)    #black
 spielfeld1 = (2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0)    #white
+
 
 def Ratios (event=NONE):
     canvas.delete("all")
@@ -30,7 +31,7 @@ def Ratios (event=NONE):
     Figuren(Ratio, spielfeld2, "maroon",12)
     
     
-#sdsdsd
+
 #Erstellt das Feld 
 def Feld(Ratio):
     
@@ -67,11 +68,12 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
             canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1.33)
                                
 
-def move(event):
+
+def Position(event):
 
     global Dreieck
     global TOPorBOT
-    a = 0
+    global Pos1
     
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/800         
@@ -84,28 +86,30 @@ def move(event):
         else:
             r = 0
 
-        if ((event.x/Ratio)-27-r)//((52)) == i:
+        if (event.x/Ratio-27-r)//52 == i:
             Dreieck = i
             
-
-    if (event.y/Ratio-75) > 0 and (event.y/Ratio-75) < 250:
+    if   0 < (event.y/Ratio-75) < 250:
             TOPorBOT = 2
             
-    elif (event.y/Ratio-75) > 325 and (event.y/Ratio-75) < 575:
+    elif 325 < (event.y/Ratio-75) < 575:
             TOPorBOT = 1
-            
-    
-    if int(TOPorBOT) == 1 and 75 < (event.x/Ratio) < 725 and 400 < (event.y/Ratio) < 650:
-        a = 13 - int(Dreieck)
-        print(a)
-    elif int(TOPorBOT) == 2 and 75 < (event.x/Ratio) < 725 and 75 < (event.y/Ratio) < 325:
-        a = int(Dreieck) + 12
-        print(a)
+    else:
+        TOPorBOT = 0
+
+    if int(TOPorBOT) == 1 and 75 < (event.x/Ratio) < 725 :
+        Pos1 = 13 - int(Dreieck)
+        print(Pos1)
+    elif int(TOPorBOT) == 2 and 75 < (event.x/Ratio) < 725:
+        Pos1 = int(Dreieck) + 12
+        print(Pos1)
+
+
 
 def würfel():
     pass
 
 
-canvas.bind("<Button-1>", move)
+canvas.bind("<Button-1>", Position)
 root.bind("<Configure>", Ratios)
 root.mainloop()
