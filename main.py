@@ -1,4 +1,5 @@
 from tkinter import *
+import random
 
 
 TOPorBOT = 0 
@@ -8,13 +9,15 @@ Pos1 = 0
 root = Tk()
 
 root.minsize(width=550,height=550)
+root.maxsize(width=900,height=900)
+
 
 canvas = Canvas(root,height=550, width=550)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld2 = (0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2)    #black
 spielfeld1 = (2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0)    #white
-   #          1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
+#             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
 
 def Ratios (event=NONE):
@@ -108,18 +111,6 @@ def Position(event):
 
 
 
-
-
-#    if   ((spielfeld2[Dreieck+11]*50)-50) < (event.y/Ratio-75) < (spielfeld2[Dreieck+11])*50 or ((spielfeld1[Dreieck+11]*50)-50) < (event.y/Ratio-75) < (spielfeld1[Dreieck+11])*50:
-#        TOPorBOT = 2    #oben
-#    
-#    elif 575 - spielfeld2[13-Dreieck]*(50) < (event.y/Ratio-75) < 575 - spielfeld2[13-Dreieck]*(50)+50 or 575 - spielfeld1[13-Dreieck]*(50) < (event.y/Ratio-75) < 575 - spielfeld1[13-Dreieck]*(50)+50:
-#        TOPorBOT = 1    #unten
-#    else:
-#        TOPorBOT = 0
-
-
-
     if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725):
         Pos1 = 13 - int(Dreieck)
         print(Pos1)
@@ -147,12 +138,16 @@ def Mark (Ratio,Pos1,spielfeld, farbe):
         if spielfeld[Pos1-1] != 0:
             canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
             
-           
+                 
+def Würfel_wurf ():
+    a = random.randint(1,6)
+    b = random.randint(1,6)
+    print(a)
+    print(b)
 
-    
+Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
+Knopf.place(relx=0.5, rely=0.9, anchor="c")
 
-def würfel():
-    pass
 
 
 canvas.bind("<Button-1>", Position, Mark)
