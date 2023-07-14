@@ -78,37 +78,48 @@ def Position(event):
     global Dreieck
     global TOPorBOT
     global Pos1
+    global spielfeld1
+    global spielfeld2
     
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/800         
     else:
         Ratio = root.winfo_height()/800
 
+
+
     for i in range (1,13):
         if i > 6:
             r = 18
         else:
             r = 0
+
+
         if (event.x/Ratio-27-r)//52 == i:
             Dreieck = i
-            
+
+
     if   0 < (event.y/Ratio-75) < 250:
-        TOPorBOT = 2
+        TOPorBOT = 2    #oben
     elif 325 < (event.y/Ratio-75) < 575:
-        TOPorBOT = 1
+        TOPorBOT = 1    #unten
     else:
         TOPorBOT = 0
 
-    if (int(TOPorBOT) == 1 and 75 < (event.x/Ratio) < 725) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725):
+
+
+    if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725):
         Pos1 = 13 - int(Dreieck)
         print(Pos1)
         Ratios(event)
 
-    elif (int(TOPorBOT) == 2 and 75 < (event.x/Ratio) < 725) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725):
+    elif (int(TOPorBOT) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725):
         Pos1 = int(Dreieck) + 12
         print(Pos1)
         Ratios(event)        
         
+
+
 def Mark (Ratio,Pos1,spielfeld, farbe):
   
     if 6 < Pos1 < 13 or 18 < Pos1 < 25:
