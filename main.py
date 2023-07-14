@@ -14,7 +14,8 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld2 = (0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2)    #black
 spielfeld1 = (2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0)    #white
-
+   #          1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
+#                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
 
 def Ratios (event=NONE):
     canvas.delete("all")
@@ -29,8 +30,8 @@ def Ratios (event=NONE):
     Feld(Ratio)
     Figuren(Ratio, spielfeld1, "white",12)
     Figuren(Ratio, spielfeld2, "maroon",12)
-    Mark(Ratio,Pos1,spielfeld1)
-    Mark(Ratio,Pos1,spielfeld2)
+    Mark(Ratio,Pos1,spielfeld1,"green")
+    Mark(Ratio,Pos1,spielfeld2,"blue")
     
     
 
@@ -108,21 +109,20 @@ def Position(event):
         print(Pos1)
         Ratios(event)        
         
-def Mark (Ratio,Pos1,spielfeld):
-    
-    
+def Mark (Ratio,Pos1,spielfeld, farbe):
+  
+    if 6 < Pos1 < 13 or 18 < Pos1 < 25:
+        r = 15
+    else:
+        r = 0
 
-    if Pos1 != 0:
-        if Pos1 > 6:
-            r = 15
-        else:
-            r = 0
-
-        for u in range (12):
-        
-            if spielfeld[u] != 0 and spielfeld[Pos1-1] != 0:   
-                canvas.create_oval((725-(Pos1*53)-r)*Ratio, (650-(int(spielfeld[Pos1-1]))*50)*Ratio, (775-(Pos1*53)-r)*Ratio, (700-(int(spielfeld[Pos1-1]))*50)*Ratio, width=4,outline="green")
+    if 0 < Pos1 < 13 :
+        if spielfeld[Pos1-1] != 0:   
+            canvas.create_oval((725-(Pos1*53)-r)*Ratio, (650-(int(spielfeld[Pos1-1]))*50)*Ratio, (775-(Pos1*53)-r)*Ratio, (700-(int(spielfeld[Pos1-1]))*50)*Ratio, width=4,outline=farbe)
     
+    if 12 < Pos1 < 25 : 
+        if spielfeld[Pos1-1] != 0:
+            canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
             
            
 
