@@ -108,6 +108,18 @@ def Position(event):
 
 
 
+
+
+#    if   ((spielfeld2[Dreieck+11]*50)-50) < (event.y/Ratio-75) < (spielfeld2[Dreieck+11])*50 or ((spielfeld1[Dreieck+11]*50)-50) < (event.y/Ratio-75) < (spielfeld1[Dreieck+11])*50:
+#        TOPorBOT = 2    #oben
+#    
+#    elif 575 - spielfeld2[13-Dreieck]*(50) < (event.y/Ratio-75) < 575 - spielfeld2[13-Dreieck]*(50)+50 or 575 - spielfeld1[13-Dreieck]*(50) < (event.y/Ratio-75) < 575 - spielfeld1[13-Dreieck]*(50)+50:
+#        TOPorBOT = 1    #unten
+#    else:
+#        TOPorBOT = 0
+
+
+
     if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725):
         Pos1 = 13 - int(Dreieck)
         print(Pos1)
