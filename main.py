@@ -81,8 +81,7 @@ def Position(event):
     global Dreieck
     global TOPorBOT
     global Pos1
-    global spielfeld1
-    global spielfeld2
+    
     
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/800         
@@ -108,6 +107,14 @@ def Position(event):
         TOPorBOT = 1    #unten
     else:
         TOPorBOT = 0
+
+
+    #if   0 < ((spielfeld2[Dreieck+11]*50)-50) < (event.y/Ratio-75) < (spielfeld2[Dreieck+11])*50 or 0 < ((spielfeld1[Dreieck+11]*50)-50) < (event.y/Ratio-75) < (spielfeld1[Dreieck+11])*50:
+    #    TOPorBOT = 2    #oben
+    
+    #elif (575 - ((spielfeld2[13-Dreieck])*50)) < (event.y/Ratio-75) < (525 - ((spielfeld2[13-Dreieck])*50)) < 575 or (575 - ((spielfeld1[13-Dreieck])*50)) < (event.y/Ratio-75) < (525 - ((spielfeld1[13-Dreieck])*50)) < 575:
+    #    TOPorBOT = 1    #unten
+    
 
 
 
@@ -139,11 +146,11 @@ def Mark (Ratio,Pos1,spielfeld, farbe):
             canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
             
                  
-def Würfel_wurf ():
+def Würfel_wurf():
     a = random.randint(1,6)
     b = random.randint(1,6)
-    print(a)
-    print(b)
+    print(a,"_",b)
+    
 
 Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
 Knopf.place(relx=0.5, rely=0.9, anchor="c")
