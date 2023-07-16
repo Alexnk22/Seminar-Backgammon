@@ -150,6 +150,12 @@ def Würfel_wurf():
     a = random.randint(1,6)
     b = random.randint(1,6)
     print(a,"_",b)
+    show_Würfel(a,b)
+
+def show_Würfel(a,b):
+    if a < 5:
+        print("allo")
+    
     
 
 Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
