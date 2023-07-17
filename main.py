@@ -20,7 +20,6 @@ spielfeld1 = (2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0)    #
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
 
-
 def Ratios (event=NONE):
     canvas.delete("all")
     
@@ -36,7 +35,7 @@ def Ratios (event=NONE):
     Figuren(Ratio, spielfeld2, "maroon",12)
     Mark(Ratio,Pos1,spielfeld1,"green")
     Mark(Ratio,Pos1,spielfeld2,"blue")
-    
+    show_Würfel(a,b,Ratio)
     
     
 
@@ -152,11 +151,13 @@ def Würfel_wurf():
     a = random.randint(1,6)
     b = random.randint(1,6)
     print(a,"_",b)
-    show_Würfel(a,b)
+    Ratios(a,b)
 
-def show_Würfel(a,b):
-    
-    canvas.create_rectangle(100,100,500,500,width = 5)
+def show_Würfel(a,b,Ratio):
+    for i in range (7):
+        if a == i:
+            pass
+
     
     
 
