@@ -174,9 +174,11 @@ def show_Würfel(Ratio,Würfel,Ver):
                 canvas.create_oval((503+Ver*80)*Ratio,355*Ratio,(513+Ver*80)*Ratio,365*Ratio,fill = "black")
                 canvas.create_oval((537+Ver*80)*Ratio,355*Ratio,(547+Ver*80)*Ratio,365*Ratio,fill = "black")
 
+def move():
+    pass
+
 Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
 Knopf.place(relx=0.5, rely=0.9, anchor="c")
-
 
 canvas.bind("<Button-1>", Position, Mark)
 root.bind("<Configure>", Ratios)
