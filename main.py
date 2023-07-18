@@ -1,7 +1,7 @@
 from tkinter import *
 import random
 
-
+movecounter = 0
 TOPorBOT = 0 
 Dreieck = 0
 Pos1 = 0
@@ -38,11 +38,8 @@ def Ratios (event=NONE):
     Figuren(Ratio, spielfeld2, "maroon",12)
     Mark(Ratio,Pos1,spielfeld1,"green")
     Mark(Ratio,Pos1,spielfeld2,"blue")
-    show_Würfel(Ratio)
-    
-    
-    
-    
+    show_Würfel(Ratio,Würfel1,0)
+    show_Würfel(Ratio,Würfel2,1)
 
 #Erstellt das Feld 
 def Feld(Ratio):
@@ -59,8 +56,6 @@ def Feld(Ratio):
             canvas.create_polygon((i*106+75+u*333)*Ratio, 650*Ratio, (i*106+100+u*333)*Ratio, 400*Ratio, (i*106+125+u*333)*Ratio, 650*Ratio)
             canvas.create_polygon((i*106+127.5+u*333)*Ratio, 650*Ratio, (i*106+152.5+u*333)*Ratio, 400*Ratio, (i*106+177.5+u*333)*Ratio, 650*Ratio,fill="red",outline="black")
 
-
-
 #zuerst aufgerufen mit weiß und dann mit schwarz 
 def Figuren(Ratio, spielfeld, farbe,verschiebung):
     for u in range(12):
@@ -70,8 +65,7 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
             else:
                 r = 0
             canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1.33)
-           
-                               
+                        
     for u in range(12):
         for i in range(int(spielfeld[int(u)+verschiebung])):
             if u >= 6:
@@ -81,20 +75,15 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
             canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1.33)
                                
 
-
 def Position(event):
-
     global Dreieck
     global TOPorBOT
     global Pos1
-    
     
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/800         
     else:
         Ratio = root.winfo_height()/800
-
-
 
     for i in range (1,13):
         if i > 6:
@@ -102,10 +91,8 @@ def Position(event):
         else:
             r = 0
 
-
         if (event.x/Ratio-27-r)//52 == i:
             Dreieck = i
-
 
     if   0 < (event.y/Ratio-75) < 250:
         TOPorBOT = 2    #oben
@@ -114,16 +101,12 @@ def Position(event):
     else:
         TOPorBOT = 0
 
-
     #if   0 < ((spielfeld2[Dreieck+11]*50)-50) < (event.y/Ratio-75) < (spielfeld2[Dreieck+11])*50 or 0 < ((spielfeld1[Dreieck+11]*50)-50) < (event.y/Ratio-75) < (spielfeld1[Dreieck+11])*50:
     #    TOPorBOT = 2    #oben
     
     #elif (575 - ((spielfeld2[13-Dreieck])*50)) < (event.y/Ratio-75) < (525 - ((spielfeld2[13-Dreieck])*50)) < 575 or (575 - ((spielfeld1[13-Dreieck])*50)) < (event.y/Ratio-75) < (525 - ((spielfeld1[13-Dreieck])*50)) < 575:
     #    TOPorBOT = 1    #unten
     
-
-
-
     if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725):
         Pos1 = 13 - int(Dreieck)
         print(Pos1)
@@ -134,8 +117,6 @@ def Position(event):
         print(Pos1)
         Ratios(event)        
         
-
-
 def Mark (Ratio,Pos1,spielfeld, farbe):
   
     if 6 < Pos1 < 13 or 18 < Pos1 < 25:
@@ -153,50 +134,48 @@ def Mark (Ratio,Pos1,spielfeld, farbe):
             
                  
 def Würfel_wurf():
-    
-    
     a = random.randint(1,6)
     b = random.randint(1,6)
+    
+    Würfel1.clear()
+    Würfel2.clear()
 
-    Würfel1.pop()
-    Würfel2.pop()
+    if a == b:
+        Würfel1.append(a)
+        Würfel1.append(a)
+        Würfel2.append(b)
+        Würfel2.append(b)
+        Ratios()
 
-    Würfel1.append(a)
-    Würfel2.append(b)
-
-    Ratios()
-
+    else:
+        Würfel1.append(a)
+        Würfel2.append(b)
+        Ratios()
     print(Würfel1,Würfel2)
     
-
-def show_Würfel(Ratio):
+def show_Würfel(Ratio,Würfel,Ver):
     for i in range (1,7):
-        if int(Würfel1[0]) == i :
-            canvas.create_rectangle(500*Ratio,335*Ratio,550*Ratio,385*Ratio)
-            canvas.create_rectangle(580*Ratio,335*Ratio,630*Ratio,385*Ratio)
+        if int(Würfel[0]) == i :
+            canvas.create_rectangle(500*Ratio,335*Ratio,550*Ratio,385*Ratio,width=1.2)
+            canvas.create_rectangle(580*Ratio,335*Ratio,630*Ratio,385*Ratio,width=1.2)
 
-    if int(Würfel1[0]) == 1 or int(Würfel1[0]) == 5 or int(Würfel1[0]) == 3:# mitte 
-        canvas.create_oval(520*Ratio,355*Ratio,530*Ratio,365*Ratio,fill = "black")
-    if int(Würfel1[0]) == 2 or int(Würfel1[0]) == 3 or int(Würfel1[0]) == 4 or int(Würfel1[0]) == 5 or int(Würfel1[0]) == 6:#oben links
-        canvas.create_oval(503*Ratio,338*Ratio,513*Ratio,348*Ratio,fill = "black")
-    if int(Würfel1[0]) == 2 or int(Würfel1[0]) == 3 or int(Würfel1[0]) == 4 or int(Würfel1[0]) == 5 or int(Würfel1[0]) == 6:#unten rechts 
-        canvas.create_oval(537*Ratio,373*Ratio,547*Ratio,382*Ratio,fill = "black")
-    if int(Würfel1[0]) == 4 or int(Würfel1[0]) == 5 or int(Würfel1[0]) == 6:# unten links 
-        canvas.create_oval(503*Ratio,373*Ratio,513*Ratio,382*Ratio,fill = "black")
-    if int(Würfel1[0]) == 4 or int(Würfel1[0]) == 5 or int(Würfel1[0]) == 6:#oben rechts
-        canvas.create_oval(537*Ratio,338*Ratio,547*Ratio,348*Ratio,fill = "black")
-    if int(Würfel1[0]) == 6:#links mitte und rechts mitte 
-        canvas.create_oval(503*Ratio,355*Ratio,513*Ratio,365*Ratio,fill = "black")
-        canvas.create_oval(537*Ratio,355*Ratio,547*Ratio,365*Ratio,fill = "black")
+            if i == 1 or i == 3 or i == 5: 
+                canvas.create_oval((520+Ver*80)*Ratio,355*Ratio,(530+Ver*80)*Ratio,365*Ratio,fill = "black")
+ 
+            if 1 < i < 7:
+                canvas.create_oval((503+Ver*80)*Ratio,338*Ratio,(513+Ver*80)*Ratio,348*Ratio,fill = "black") 
+                canvas.create_oval((537+Ver*80)*Ratio,373*Ratio,(547+Ver*80)*Ratio,382*Ratio,fill = "black")
+            
+            if 3 < i < 7: 
+                canvas.create_oval((503+Ver*80)*Ratio,373*Ratio,(513+Ver*80)*Ratio,382*Ratio,fill = "black")
+                canvas.create_oval((537+Ver*80)*Ratio,338*Ratio,(547+Ver*80)*Ratio,348*Ratio,fill = "black")
 
-    
-    
-    
-    
+            if i == 6:
+                canvas.create_oval((503+Ver*80)*Ratio,355*Ratio,(513+Ver*80)*Ratio,365*Ratio,fill = "black")
+                canvas.create_oval((537+Ver*80)*Ratio,355*Ratio,(547+Ver*80)*Ratio,365*Ratio,fill = "black")
 
 Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
 Knopf.place(relx=0.5, rely=0.9, anchor="c")
-
 
 
 canvas.bind("<Button-1>", Position, Mark)
