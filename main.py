@@ -5,6 +5,9 @@ import random
 TOPorBOT = 0 
 Dreieck = 0
 Pos1 = 0
+Würfel1 = [7]
+Würfel2 = [7]
+
 
 root = Tk()
 
@@ -35,7 +38,9 @@ def Ratios (event=NONE):
     Figuren(Ratio, spielfeld2, "maroon",12)
     Mark(Ratio,Pos1,spielfeld1,"green")
     Mark(Ratio,Pos1,spielfeld2,"blue")
-    show_Würfel(a,b,Ratio)
+    show_Würfel(Ratio)
+    
+    
     
     
 
@@ -148,16 +153,44 @@ def Mark (Ratio,Pos1,spielfeld, farbe):
             
                  
 def Würfel_wurf():
+    
+    
     a = random.randint(1,6)
     b = random.randint(1,6)
-    print(a,"_",b)
-    Ratios(a,b)
 
-def show_Würfel(a,b,Ratio):
-    for i in range (7):
-        if a == i:
-            pass
+    Würfel1.pop()
+    Würfel2.pop()
 
+    Würfel1.append(a)
+    Würfel2.append(b)
+
+    Ratios()
+
+    print(Würfel1,Würfel2)
+    
+
+def show_Würfel(Ratio):
+    for i in range (1,7):
+        if int(Würfel1[0]) == i :
+            canvas.create_rectangle(500*Ratio,335*Ratio,550*Ratio,385*Ratio)
+            canvas.create_rectangle(580*Ratio,335*Ratio,630*Ratio,385*Ratio)
+
+    if int(Würfel1[0]) == 1 or int(Würfel1[0]) == 5 or int(Würfel1[0]) == 3:# mitte 
+        canvas.create_oval(520*Ratio,355*Ratio,530*Ratio,365*Ratio,fill = "black")
+    if int(Würfel1[0]) == 2 or int(Würfel1[0]) == 3 or int(Würfel1[0]) == 4 or int(Würfel1[0]) == 5 or int(Würfel1[0]) == 6:#oben links
+        canvas.create_oval(503*Ratio,338*Ratio,513*Ratio,348*Ratio,fill = "black")
+    if int(Würfel1[0]) == 2 or int(Würfel1[0]) == 3 or int(Würfel1[0]) == 4 or int(Würfel1[0]) == 5 or int(Würfel1[0]) == 6:#unten rechts 
+        canvas.create_oval(537*Ratio,373*Ratio,547*Ratio,382*Ratio,fill = "black")
+    if int(Würfel1[0]) == 4 or int(Würfel1[0]) == 5 or int(Würfel1[0]) == 6:# unten links 
+        canvas.create_oval(503*Ratio,373*Ratio,513*Ratio,382*Ratio,fill = "black")
+    if int(Würfel1[0]) == 4 or int(Würfel1[0]) == 5 or int(Würfel1[0]) == 6:#oben rechts
+        canvas.create_oval(537*Ratio,338*Ratio,547*Ratio,348*Ratio,fill = "black")
+    if int(Würfel1[0]) == 6:#links mitte und rechts mitte 
+        canvas.create_oval(503*Ratio,355*Ratio,513*Ratio,365*Ratio,fill = "black")
+        canvas.create_oval(537*Ratio,355*Ratio,547*Ratio,365*Ratio,fill = "black")
+
+    
+    
     
     
 
