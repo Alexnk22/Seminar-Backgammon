@@ -81,6 +81,8 @@ def Position(event):
     global Dreieck
     global TOPorBOT
     global Pos1
+
+    
     
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/800         
@@ -109,18 +111,18 @@ def Position(event):
     #elif (575 - ((spielfeld2[13-Dreieck])*50)) < (event.y/Ratio-75) < (525 - ((spielfeld2[13-Dreieck])*50)) < 575 or (575 - ((spielfeld1[13-Dreieck])*50)) < (event.y/Ratio-75) < (525 - ((spielfeld1[13-Dreieck])*50)) < 575:
     #    TOPorBOT = 1    #unten
     
-    if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725):
+    if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
         Pos1 = 13 - int(Dreieck)
         print(Pos1)
         Ratios()
 
-    elif (int(TOPorBOT) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725):
+    elif (int(TOPorBOT) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
         Pos1 = int(Dreieck) + 12
         print(Pos1)
         Ratios()        
         
 def Mark (Ratio,Pos1,spielfeld, farbe):
-  
+    
     if 6 < Pos1 < 13 or 18 < Pos1 < 25:
         r = 15
     else:
@@ -145,6 +147,8 @@ def Würfel_wurf():
     Würfel2.clear()
 
     if a == b:
+        Würfel1.append(a)
+        Würfel2.append(b)
         Würfel1.append(a)
         Würfel2.append(b)
         Ratios()
@@ -178,25 +182,18 @@ def show_Würfel(Ratio,Würfel,Ver):
                     
 
 def mark_Pos(event=NONE):
-
     if Würfel1[0] == Würfel2[0]:
         Pos21 = Pos1 + int(Würfel1[0])
         Pos22 = Pos1 + int(Würfel2[0])
-        Pos23 = Pos1 + int(Würfel2[0])
-        Pos24 = Pos1 + int(Würfel2[0])
-    else:
-        Pos21 = Pos1 + int(Würfel1[0])
-        Pos22 = Pos1 + int(Würfel2[0])
-        Pos23 = 0
-        Pos24 = 0
+        
+        print(Pos21,Pos22)
     
-def move(event):    
-    pass
+
 
 Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
 Knopf.place(relx=0.5, rely=0.9, anchor="c")
 
 canvas.bind("<Button-1>", Position)
-canvas.bind("<Button-2>", Position)
+
 root.bind("<Configure>", Ratios)
 root.mainloop()
