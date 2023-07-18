@@ -5,8 +5,8 @@ movecounter = 0
 TOPorBOT = 0 
 Dreieck = 0
 Pos1 = 0
-Würfel1 = []
-Würfel2 = []
+Würfel1 = [7]
+Würfel2 = [7]
 
 
 root = Tk()
@@ -40,6 +40,8 @@ def Ratios (event=NONE):
     Mark(Ratio,Pos1,spielfeld2,"blue")
     show_Würfel(Ratio,Würfel1,0)
     show_Würfel(Ratio,Würfel2,1)
+    
+    
 
 
 def Feld(Ratio):
@@ -127,10 +129,12 @@ def Mark (Ratio,Pos1,spielfeld, farbe):
     if 0 < Pos1 < 13 :
         if spielfeld[Pos1-1] != 0:   
             canvas.create_oval((725-(Pos1*53)-r)*Ratio, (650-(int(spielfeld[Pos1-1]))*50)*Ratio, (775-(Pos1*53)-r)*Ratio, (700-(int(spielfeld[Pos1-1]))*50)*Ratio, width=4,outline=farbe)
-    
+            mark_Pos()
+
     if 12 < Pos1 < 25 : 
         if spielfeld[Pos1-1] != 0:
             canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
+            mark_Pos()
             
                  
 def Würfel_wurf():
@@ -142,8 +146,6 @@ def Würfel_wurf():
 
     if a == b:
         Würfel1.append(a)
-        Würfel1.append(a)
-        Würfel2.append(b)
         Würfel2.append(b)
         Ratios()
 
@@ -159,6 +161,7 @@ def show_Würfel(Ratio,Würfel,Ver):
         if int(Würfel[0]) == i :
             canvas.create_rectangle(500*Ratio,335*Ratio,550*Ratio,385*Ratio,width=1.2)
             canvas.create_rectangle(580*Ratio,335*Ratio,630*Ratio,385*Ratio,width=1.2)
+            
 
             if i == 1 or i == 3 or i == 5: 
                 canvas.create_oval((520+Ver*80)*Ratio,355*Ratio,(530+Ver*80)*Ratio,365*Ratio,fill = "black")
@@ -174,12 +177,26 @@ def show_Würfel(Ratio,Würfel,Ver):
                     canvas.create_oval(((u*34)+503+Ver*80)*Ratio,355*Ratio,((u*34)+513+Ver*80)*Ratio,365*Ratio,fill = "black")
                     
 
-def move():
+def mark_Pos(event=NONE):
+
+    if Würfel1[0] == Würfel2[0]:
+        Pos21 = Pos1 + int(Würfel1[0])
+        Pos22 = Pos1 + int(Würfel2[0])
+        Pos23 = Pos1 + int(Würfel2[0])
+        Pos24 = Pos1 + int(Würfel2[0])
+    else:
+        Pos21 = Pos1 + int(Würfel1[0])
+        Pos22 = Pos1 + int(Würfel2[0])
+        Pos23 = 0
+        Pos24 = 0
+    
+def move(event):    
     pass
 
 Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
 Knopf.place(relx=0.5, rely=0.9, anchor="c")
 
 canvas.bind("<Button-1>", Position)
+canvas.bind("<Button-2>", Position)
 root.bind("<Configure>", Ratios)
 root.mainloop()
