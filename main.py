@@ -7,6 +7,8 @@ Dreieck = 0
 Pos1 = 0
 Würfel1 = [7]
 Würfel2 = [7]
+Pos21= 0
+Pos22= 0
 
 
 
@@ -82,8 +84,9 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
 def Position(event):
     global Dreieck
     global TOPorBOT
-    global Pos1
-
+    global Pos1,Pos22,Pos21
+    spielfeld3[int(Pos21)-1] = 0
+    spielfeld3[int(Pos22)-1] = 0
     
     
     if root.winfo_width() < root.winfo_height():
@@ -115,13 +118,11 @@ def Position(event):
     
     if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
         Pos1 = 13 - int(Dreieck)
-        print(Pos1)
         Ratios()
         mark_Pos2()
 
     elif (int(TOPorBOT) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
         Pos1 = int(Dreieck) + 12
-        print(Pos1)
         Ratios()        
         mark_Pos2()
 
@@ -144,6 +145,10 @@ def Mark (Ratio,Pos1,spielfeld, farbe):
             
                  
 def Würfel_wurf():
+    global Pos21,Pos22,Pos1
+    Pos1 = 15
+    spielfeld3[int(Pos21)-1] = 0
+    spielfeld3[int(Pos22)-1] = 0
     a = random.randint(1,6)
     b = random.randint(1,6)
     
@@ -163,7 +168,7 @@ def Würfel_wurf():
         Würfel2.append(b)
         Ratios()
         
-    print(Würfel1,Würfel2)
+    
     
 
 def show_Würfel(Ratio,Würfel,Ver):
@@ -188,37 +193,45 @@ def show_Würfel(Ratio,Würfel,Ver):
                     
 
 def mark_Pos2():
-
+    global Pos21,Pos22
+    spielfeld3[int(Pos21)-1] = 0
+    spielfeld3[int(Pos22)-1] = 0
     
     if spielfeld1[Pos1-1] != 0:
         if Pos1 + int(Würfel1[0]) < 25:
             Pos21 = Pos1 + int(Würfel1[0])
+        else:
+            Pos21 = 0
         if Pos1 + int(Würfel2[0]) < 25:
             Pos22 = Pos1 + int(Würfel2[0])
+        else:
+            Pos21 = 0
 
         if spielfeld1[int(Pos21)-1] == 0 and spielfeld2[int(Pos21)-1] == 0 :
                 spielfeld3[int(Pos21)-1] = 1
                 Ratios()
                 
-        if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos21)-1] == 0 :
+        if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] == 0 :
                 spielfeld3[int(Pos22)-1] = 1
                 Ratios()
-        spielfeld3[int(Pos21)-1] = 0
-        spielfeld3[int(Pos22)-1] = 0
+        
 
     elif spielfeld2[Pos1-1] != 0:
         if Pos1 - int(Würfel1[0]) > 0 :
             Pos21 = Pos1 - int(Würfel1[0])
+        else:
+            Pos21 = 0
         if  Pos1 - int(Würfel2[0]) > 0:
             Pos22 = Pos1 - int(Würfel2[0])
+        else:
+            Pos22 = 0
         if spielfeld2[int(Pos21)-1] == 0 and spielfeld1[int(Pos21)-1] == 0:
                 spielfeld3[int(Pos21)-1] = 1
                 Ratios()
-        if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos21)-1] == 0:
+        if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] == 0:
                 spielfeld3[int(Pos22)-1] = 1
                 Ratios()
-        spielfeld3[int(Pos21)-1] = 0
-        spielfeld3[int(Pos22)-1] = 0
+        
 
 def mark_field(Ratio,spielfeld,farbe,verschiebung):
     
