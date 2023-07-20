@@ -9,6 +9,7 @@ Würfel1 = [7]
 Würfel2 = [7]
 Pos21= 0
 Pos22= 0
+padding = 50
 
 
 
@@ -254,7 +255,7 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
             
 
 Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
-Knopf.place(relx=0.5, rely=0.9, anchor="c")
+Knopf.place(x=75, rely=0.9, anchor="c")
 
 canvas.bind("<Button-1>", Position)
 
