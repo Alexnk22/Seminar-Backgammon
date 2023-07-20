@@ -208,12 +208,14 @@ def mark_Pos2():
         else:
             Pos21 = 0
 
-        if spielfeld1[int(Pos21)-1] == 0 and spielfeld2[int(Pos21)-1] == 0 :
-                spielfeld3[int(Pos21)-1] = 1
+        if spielfeld2[int(Pos21)-1] == 0 :
+                spielfeld3[int(Pos21)-1] = int((spielfeld1[int(Pos21)-1])+1)
+                print(spielfeld3[int(Pos21)-1])
                 Ratios()
                 
-        if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] == 0 :
-                spielfeld3[int(Pos22)-1] = 1
+        if spielfeld2[int(Pos22)-1] == 0 :
+                spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)
+                print(spielfeld3[int(Pos22)-1])
                 Ratios()
         
 
@@ -226,36 +228,45 @@ def mark_Pos2():
             Pos22 = Pos1 - int(Würfel2[0])
         else:
             Pos22 = 0
-        if spielfeld2[int(Pos21)-1] == 0 and spielfeld1[int(Pos21)-1] == 0:
-                spielfeld3[int(Pos21)-1] = 1
+        if spielfeld1[int(Pos21)-1] == 0:
+                spielfeld3[int(Pos21)-1] = int((spielfeld2[int(Pos21)-1])+1)
                 Ratios()
         if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] == 0:
-                spielfeld3[int(Pos22)-1] = 1
+                spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
                 Ratios()
         
 
 def mark_field(Ratio,spielfeld,farbe,verschiebung):
-    
-        for u in range(12):
-            for i in range(int(spielfeld[u])):
-                if u >= 6:
+        
+    for u in range(12):
+        for i in range(int(spielfeld[u])):
+            
+            if u >= 6:
                     r = 15
-                else:
+            else:
                     r = 0
-                canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
+            
+            canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
+            
+
                 
                             
-        for u in range(12):
-            for i in range(int(spielfeld[int(u)+verschiebung])):
-                if u >= 6:
+    for u in range(12):
+        for i in range(int(spielfeld[int(u)+verschiebung])):
+            
+            if u >= 6:
                     r = 15
-                else:
+            else:
                     r = 0
-                canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1)
+        
+            canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1)
+            
+
+
             
 
 Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
-Knopf.place(x=75, rely=0.9, anchor="c")
+Knopf.place(x=275, rely=0.9, anchor="c")
 
 canvas.bind("<Button-1>", Position)
 
