@@ -211,12 +211,12 @@ def mark_Pos2():
         if spielfeld2[int(Pos21)-1] == 0 :
                 spielfeld3[int(Pos21)-1] = int((spielfeld1[int(Pos21)-1])+1)
                 print(spielfeld3[int(Pos21)-1])
-                Ratios()
+        
                 
-        if spielfeld2[int(Pos22)-1] == 0 :
+        if spielfeld2[int(Pos22)-1] == 0:
                 spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)
                 print(spielfeld3[int(Pos22)-1])
-                Ratios()
+        Ratios()
         
 
     elif spielfeld2[Pos1-1] != 0:
@@ -230,10 +230,10 @@ def mark_Pos2():
             Pos22 = 0
         if spielfeld1[int(Pos21)-1] == 0:
                 spielfeld3[int(Pos21)-1] = int((spielfeld2[int(Pos21)-1])+1)
-                Ratios()
-        if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] == 0:
+                
+        if spielfeld1[int(Pos22)-1] == 0:
                 spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
-                Ratios()
+        Ratios()
         
 
 def mark_field(Ratio,spielfeld,farbe,verschiebung):
@@ -247,6 +247,12 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
                     r = 0
             
             canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
+            Figuren(Ratio, spielfeld1, "white",12)
+            Figuren(Ratio, spielfeld2, "maroon",12)
+            Mark(Ratio,Pos1,spielfeld1,"green")
+            Mark(Ratio,Pos1,spielfeld2,"blue")
+            
+
             
 
                 
@@ -259,8 +265,11 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
             else:
                     r = 0
         
-            canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1)
-            
+            canvas.create_oval((75+u*53+r)*Ratio, (75+(i)*50)*Ratio, (125+u*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=1)
+            Figuren(Ratio, spielfeld1, "white",12)
+            Figuren(Ratio, spielfeld2, "maroon",12)
+            Mark(Ratio,Pos1,spielfeld1,"green")
+            Mark(Ratio,Pos1,spielfeld2,"blue")
 
 
             
