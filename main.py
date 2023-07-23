@@ -277,7 +277,73 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
             Mark(Ratio,Pos1,spielfeld1,"green")
             Mark(Ratio,Pos1,spielfeld2,"blue")
 
+        if spielfeld2[int(Pos21)-1] == 0 :
+                spielfeld3[int(Pos21)-1] = int((spielfeld1[int(Pos21)-1])+1)
+                print(spielfeld3[int(Pos21)-1])
+        
+                
+        if spielfeld2[int(Pos22)-1] == 0:
+                spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)
+                print(spielfeld3[int(Pos22)-1])
+        Ratios()
+        
 
+    elif spielfeld2[Pos1-1] != 0:
+        if Pos1 - int(Würfel1[0]) > 0 :
+            Pos21 = Pos1 - int(Würfel1[0])
+        else:
+            Pos21 = 0
+        if  Pos1 - int(Würfel2[0]) > 0:
+            Pos22 = Pos1 - int(Würfel2[0])
+        else:
+            Pos22 = 0
+        if spielfeld1[int(Pos21)-1] == 0:
+                spielfeld3[int(Pos21)-1] = int((spielfeld2[int(Pos21)-1])+1)
+                
+        if spielfeld1[int(Pos22)-1] == 0:
+                spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
+        Ratios()
+        
+
+def mark_field(Ratio,spielfeld,farbe,verschiebung):
+        
+    for u in range(12):
+        for i in range(int(spielfeld[u])):
+            
+            if u >= 6:
+                    r = 15
+            else:
+                    r = 0
+            
+            canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
+            Figuren(Ratio, spielfeld1, "white",12)
+            Figuren(Ratio, spielfeld2, "maroon",12)
+            Mark(Ratio,Pos1,spielfeld1,"green")
+            Mark(Ratio,Pos1,spielfeld2,"blue")
+            
+
+            
+
+                
+                            
+    for u in range(12):
+        for i in range(int(spielfeld[int(u)+verschiebung])):
+            
+            if u >= 6:
+                    r = 15
+            else:
+                    r = 0
+        
+            canvas.create_oval((75+u*53+r)*Ratio, (75+(i)*50)*Ratio, (125+u*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=1)
+            Figuren(Ratio, spielfeld1, "white",12)
+            Figuren(Ratio, spielfeld2, "maroon",12)
+            Mark(Ratio,Pos1,spielfeld1,"green")
+            Mark(Ratio,Pos1,spielfeld2,"blue")
+
+
+            
+
+<<<<<<< HEAD
             
 
 
@@ -301,6 +367,10 @@ mein_menu.add_cascade(label="Würfel",command=Würfel_wurf)
 #Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
 #Knopf.place(relx=0.5, rely=0.9, anchor="c")
 
+=======
+Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
+Knopf.place(x=275, rely=0.9, anchor="c")
+>>>>>>> 54d6f759d8db3c208e385b1ee03f2a70f8f4109f
 
 canvas.bind("<Button-1>", Position)
 
