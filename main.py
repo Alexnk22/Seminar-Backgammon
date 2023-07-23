@@ -288,21 +288,7 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
         Ratios()
         
 
-    elif spielfeld2[Pos1-1] != 0:
-        if Pos1 - int(Würfel1[0]) > 0 :
-            Pos21 = Pos1 - int(Würfel1[0])
-        else:
-            Pos21 = 0
-        if  Pos1 - int(Würfel2[0]) > 0:
-            Pos22 = Pos1 - int(Würfel2[0])
-        else:
-            Pos22 = 0
-        if spielfeld1[int(Pos21)-1] == 0:
-                spielfeld3[int(Pos21)-1] = int((spielfeld2[int(Pos21)-1])+1)
-                
-        if spielfeld1[int(Pos22)-1] == 0:
-                spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
-        Ratios()
+    
         
 
 def mark_field(Ratio,spielfeld,farbe,verschiebung):
@@ -343,7 +329,6 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
 
             
 
-<<<<<<< HEAD
             
 
 
@@ -367,10 +352,7 @@ mein_menu.add_cascade(label="Würfel",command=Würfel_wurf)
 #Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
 #Knopf.place(relx=0.5, rely=0.9, anchor="c")
 
-=======
-Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
-Knopf.place(x=275, rely=0.9, anchor="c")
->>>>>>> 54d6f759d8db3c208e385b1ee03f2a70f8f4109f
+
 
 canvas.bind("<Button-1>", Position)
 
