@@ -193,14 +193,12 @@ def show_Würfel(Ratio,Würfel,Ver):
                     canvas.create_oval(((u*34)+503+Ver*80)*Ratio,355*Ratio,((u*34)+513+Ver*80)*Ratio,365*Ratio,fill = "black")
                     
 
-<<<<<<< HEAD
 def mark_Pos(event=NONE):
     if Würfel1[0] == Würfel2[0]:
         Pos21 = Pos1 + int(Würfel1[0])
         Pos22 = Pos1 + int(Würfel2[0])
         
         print(Pos21,Pos22)
-=======
 def mark_Pos2():
     global Pos21,Pos22
     spielfeld3[int(Pos21)-1] = 0
@@ -215,7 +213,6 @@ def mark_Pos2():
             Pos22 = Pos1 + int(Würfel2[0])
         else:
             Pos21 = 0
->>>>>>> 54d6f759d8db3c208e385b1ee03f2a70f8f4109f
 
         if spielfeld2[int(Pos21)-1] == 0 :
                 spielfeld3[int(Pos21)-1] = int((spielfeld1[int(Pos21)-1])+1)
@@ -283,7 +280,6 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
 
             
 
-<<<<<<< HEAD
 
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
@@ -304,10 +300,7 @@ mein_menu.add_cascade(label="Würfel",command=Würfel_wurf)
 
 #Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
 #Knopf.place(relx=0.5, rely=0.9, anchor="c")
-=======
-Knopf = Button(root,text="Würfeln", command=Würfel_wurf)
-Knopf.place(x=275, rely=0.9, anchor="c")
->>>>>>> 54d6f759d8db3c208e385b1ee03f2a70f8f4109f
+
 
 canvas.bind("<Button-1>", Position)
 
