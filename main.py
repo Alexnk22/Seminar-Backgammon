@@ -285,9 +285,18 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
             Figuren(Ratio, spielfeld2, "maroon",12)
             Mark(Ratio,Pos1,spielfeld1,"green")
             Mark(Ratio,Pos1,spielfeld2,"blue")
+
             show_Würfel(Ratio,Würfel1,0)
             show_Würfel(Ratio,Würfel2,1)
             canvas.create_oval((75+u*53+r)*Ratio, (75+(i)*50)*Ratio, (125+u*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=1)
+
+
+
+            
+
+
+            
+
 
 
 mein_menu = Menu(root)
@@ -303,6 +312,8 @@ file_menu.add_command(label="Exit", command=root.quit)
 
 Würfel_menu = Menu(mein_menu)
 mein_menu.add_cascade(label="Würfel",command=Würfel_wurf)
+
+
 
 
 canvas.bind("<Button-1>", Position)
