@@ -256,16 +256,14 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
             else:
                     r = 0
 
-            canvas.delete("all")
             
-            Feld(Ratio)
+            canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
+            
             Figuren(Ratio, spielfeld1, "white",12)
             Figuren(Ratio, spielfeld2, "maroon",12)
             Mark(Ratio,Pos1,spielfeld1,"green")
             Mark(Ratio,Pos1,spielfeld2,"blue")
-            show_Würfel(Ratio,Würfel1,0)
-            show_Würfel(Ratio,Würfel2,1)
-            canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
+            
             
 
                             
@@ -277,19 +275,17 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
             else:
                     r = 0
         
-            canvas.delete("all")
-
             
-            Feld(Ratio)
+
+            canvas.create_oval((75+u*53+r)*Ratio, (75+(i)*50)*Ratio, (125+u*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=1)
+
             Figuren(Ratio, spielfeld1, "white",12)
             Figuren(Ratio, spielfeld2, "maroon",12)
             Mark(Ratio,Pos1,spielfeld1,"green")
             Mark(Ratio,Pos1,spielfeld2,"blue")
 
-            show_Würfel(Ratio,Würfel1,0)
-            show_Würfel(Ratio,Würfel2,1)
-            canvas.create_oval((75+u*53+r)*Ratio, (75+(i)*50)*Ratio, (125+u*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=1)
-
+            
+           
 
 
             
