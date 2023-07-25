@@ -215,12 +215,12 @@ def mark_Pos2():
         else:
             Pos21 = 0
 
-        if spielfeld2[int(Pos21)-1] == 0 :
+        if spielfeld2[int(Pos21)-1] == 0 and spielfeld1[int(Pos21)-1] <5:
                 spielfeld3[int(Pos21)-1] = int((spielfeld1[int(Pos21)-1])+1)
                 print(spielfeld3[int(Pos21)-1])
         
                 
-        if spielfeld2[int(Pos22)-1] == 0:
+        if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] <5:
                 spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)
                 print(spielfeld3[int(Pos22)-1])
         Ratios()
@@ -235,10 +235,10 @@ def mark_Pos2():
             Pos22 = Pos1 - int(Würfel2[0])
         else:
             Pos22 = 0
-        if spielfeld1[int(Pos21)-1] == 0:
+        if spielfeld1[int(Pos21)-1] == 0 and spielfeld2[int(Pos21)-1] <5:
                 spielfeld3[int(Pos21)-1] = int((spielfeld2[int(Pos21)-1])+1)
                 
-        if spielfeld1[int(Pos22)-1] == 0:
+        if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] <5:
                 spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
         Ratios()
         
