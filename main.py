@@ -1,6 +1,7 @@
 from tkinter import *
 import random
 
+
 movecounter = 0
 TOPorBOT = 0 
 Dreieck = 0
@@ -14,6 +15,20 @@ padding = 50
 
 
 root = Tk()
+
+def open():
+    top = Toplevel()
+
+
+btn = Button(root, text="Play", command=open).pack()
+
+
+
+
+
+
+
+
 
 root.minsize(width=550,height=550)
 root.maxsize(width=900,height=900)
