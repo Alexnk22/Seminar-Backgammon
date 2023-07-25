@@ -1,5 +1,6 @@
 from tkinter import *
 import random
+from side import * 
 
 
 movecounter = 0
@@ -15,15 +16,6 @@ padding = 50
 
 
 root = Tk()
-
-def open():
-    top = Toplevel()
-
-
-btn = Button(root, text="Play", command=open).pack()
-
-
-
 
 
 
