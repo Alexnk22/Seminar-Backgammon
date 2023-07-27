@@ -26,8 +26,8 @@ canvas = Canvas(root,height=550, width=550)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
-spielfeld2 = (0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2)    #black
-spielfeld1 = (2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0)    #white
+spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
+spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
 
@@ -307,12 +307,30 @@ def Position2(event=NONE):
     
     if (int(TOPorBOT2) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
         Pos2 = 13 - int(Dreieck2)
-        print(Pos2)
+        move()
         
 
     elif (int(TOPorBOT2) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
         Pos2 = int(Dreieck2) + 12
-        print(Pos2)
+        move()
+        
+def move():
+    global Pos1
+    if spielfeld3[Pos2-1] != 0 and spielfeld1[Pos1-1] != 0:
+        spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
+        spielfeld1[Pos2-1] = spielfeld1[Pos2-1]+1
+        spielfeld3[int(Pos21)-1] = 0
+        spielfeld3[int(Pos22)-1] = 0
+
+    elif spielfeld3[Pos2-1] != 0 and spielfeld2[Pos1-1] != 0:
+        spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
+        spielfeld2[Pos2-1] = spielfeld2[Pos2-1]+1
+        spielfeld3[int(Pos21)-1] = 0
+        spielfeld3[int(Pos22)-1] = 0
+
+   
+    Pos1 = 0
+    Ratios()
         
 
 
