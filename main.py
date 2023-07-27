@@ -41,11 +41,11 @@ def Ratios (event=NONE):
     Feld(Ratio)
     Figuren(Ratio, spielfeld1, "white",12)
     Figuren(Ratio, spielfeld2, "maroon",12)
-    Mark(Ratio,Pos1,spielfeld1,"green")
-    Mark(Ratio,Pos1,spielfeld2,"blue")
+    mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
+    mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
     show_Würfel(Ratio,Würfel1,0)
     show_Würfel(Ratio,Würfel2,1)
-    mark_field(Ratio, spielfeld3,"yellow",12)
+    mark_possible_pos(Ratio, spielfeld3,"yellow",12)
     
 
 
@@ -120,14 +120,14 @@ def Position(event):
     if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
         Pos1 = 13 - int(Dreieck)
         Ratios()
-        mark_Pos2()
+        set_possibel_pos()
 
     elif (int(TOPorBOT) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
         Pos1 = int(Dreieck) + 12
         Ratios()        
-        mark_Pos2()
+        set_possibel_pos()
 
-def Mark (Ratio,Pos1,spielfeld, farbe):
+def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
     
     if 6 < Pos1 < 13 or 18 < Pos1 < 25:
         r = 15
@@ -193,14 +193,7 @@ def show_Würfel(Ratio,Würfel,Ver):
                     canvas.create_oval(((u*34)+503+Ver*80)*Ratio,355*Ratio,((u*34)+513+Ver*80)*Ratio,365*Ratio,fill = "black")
                     
 
-def mark_Pos(event=NONE):
-    if Würfel1[0] == Würfel2[0]:
-        Pos21 = Pos1 + int(Würfel1[0])
-        Pos22 = Pos1 + int(Würfel2[0])
-
-        print(Pos21,Pos22)
-
-def mark_Pos2():
+def set_possibel_pos():
     global Pos21,Pos22
     spielfeld3[int(Pos21)-1] = 0
     spielfeld3[int(Pos22)-1] = 0
@@ -246,7 +239,7 @@ def mark_Pos2():
         
     
 
-def mark_field(Ratio,spielfeld,farbe,verschiebung):
+def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
         
     for u in range(12):
         for i in range(int(spielfeld[u])):
@@ -260,8 +253,8 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
             
             Figuren(Ratio, spielfeld1, "white",12)
             Figuren(Ratio, spielfeld2, "maroon",12)
-            Mark(Ratio,Pos1,spielfeld1,"green")
-            Mark(Ratio,Pos1,spielfeld2,"blue")
+            mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
+            mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
             
             
 
@@ -278,8 +271,8 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
 
             Figuren(Ratio, spielfeld1, "white",12)
             Figuren(Ratio, spielfeld2, "maroon",12)
-            Mark(Ratio,Pos1,spielfeld1,"green")
-            Mark(Ratio,Pos1,spielfeld2,"blue")
+            mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
+            mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
 
 def key(event):
     if event.char == "w":
