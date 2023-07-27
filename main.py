@@ -315,7 +315,7 @@ def Position2(event=NONE):
         move()
         
 def move():
-    global Pos1
+    global Pos1, movecounter
     if spielfeld3[Pos2-1] != 0 and spielfeld1[Pos1-1] != 0:
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
         spielfeld1[Pos2-1] = spielfeld1[Pos2-1]+1
@@ -328,7 +328,7 @@ def move():
         spielfeld3[int(Pos21)-1] = 0
         spielfeld3[int(Pos22)-1] = 0
 
-   
+    movecounter = movecounter + 1
     Pos1 = 0
     Ratios()
         
