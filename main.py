@@ -5,8 +5,11 @@ import random
 
 movecounter = 0
 TOPorBOT = 0 
+TOPorBOT2 = 0
 Dreieck = 0
+Dreieck2 = 0
 Pos1 = 0
+Pos2 = 0
 Würfel1 = [7]
 Würfel2 = [7]
 Pos21= 0
@@ -210,12 +213,12 @@ def set_possibel_pos():
 
         if spielfeld2[int(Pos21)-1] == 0 and spielfeld1[int(Pos21)-1] <5:
                 spielfeld3[int(Pos21)-1] = int((spielfeld1[int(Pos21)-1])+1)
-                print(spielfeld3[int(Pos21)-1])
+                
         
                 
         if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] <5:
                 spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)
-                print(spielfeld3[int(Pos22)-1])
+                
         Ratios()
         
 
@@ -274,6 +277,46 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
             mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
             mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
 
+
+def Position2(event=NONE):
+    global Dreieck2
+    global TOPorBOT2
+    global Pos2
+    
+     
+    if root.winfo_width() < root.winfo_height():
+        Ratio = root.winfo_width()/800         
+    else:
+        Ratio = root.winfo_height()/800
+
+    for i in range (1,13):
+        if i > 6:
+            r = 18
+        else:
+            r = 0
+
+        if (event.x/Ratio-27-r)//52 == i:
+            Dreieck2 = i
+
+    if   0 < (event.y/Ratio-75) < 250:
+        TOPorBOT2 = 2    #oben
+    elif 325 < (event.y/Ratio-75) < 575:
+        TOPorBOT2 = 1    #unten
+    else:
+        TOPorBOT2 = 0
+    
+    if (int(TOPorBOT2) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
+        Pos2 = 13 - int(Dreieck2)
+        print(Pos2)
+        
+
+    elif (int(TOPorBOT2) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
+        Pos2 = int(Dreieck2) + 12
+        print(Pos2)
+        
+
+
+
 def key(event):
     if event.char == "w":
         Würfel_wurf()
@@ -297,6 +340,7 @@ mein_menu.add_cascade(label="Würfel",command=Würfel_wurf)
 
 
 canvas.bind("<Button-1>", Position)
+canvas.bind("<Button-3>", Position2)
 root.bind("<Key>", key)
 root.bind("<Configure>", Ratios)
 root.mainloop()
