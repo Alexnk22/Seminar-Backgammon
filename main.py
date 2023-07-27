@@ -1,6 +1,6 @@
 from tkinter import *
 import random
-from side import * 
+
 
 
 movecounter = 0
@@ -13,14 +13,7 @@ Pos21= 0
 Pos22= 0
 padding = 50
 
-
-
 root = Tk()
-
-
-
-
-
 
 root.minsize(width=550,height=550)
 root.maxsize(width=900,height=900)
@@ -177,7 +170,7 @@ def Würfel_wurf():
         Ratios()
         
     
-    
+ #root.bind(<"Controle-w">, Würfel_wurf)  
 
 def show_Würfel(Ratio,Würfel,Ver):
     for i in range (1,7):
@@ -263,7 +256,6 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
             else:
                     r = 0
 
-            
             canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
             
             Figuren(Ratio, spielfeld1, "white",12)
@@ -282,8 +274,6 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
             else:
                     r = 0
         
-            
-
             canvas.create_oval((75+u*53+r)*Ratio, (75+(i)*50)*Ratio, (125+u*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=1)
 
             Figuren(Ratio, spielfeld1, "white",12)
@@ -291,15 +281,9 @@ def mark_field(Ratio,spielfeld,farbe,verschiebung):
             Mark(Ratio,Pos1,spielfeld1,"green")
             Mark(Ratio,Pos1,spielfeld2,"blue")
 
-            
-           
-
-
-            
-
-
-            
-
+def key(event):
+    if event.char == "w":
+        Würfel_wurf()
 
 
 mein_menu = Menu(root)
@@ -320,6 +304,6 @@ mein_menu.add_cascade(label="Würfel",command=Würfel_wurf)
 
 
 canvas.bind("<Button-1>", Position)
-
+root.bind("<Key>", key)
 root.bind("<Configure>", Ratios)
 root.mainloop()
