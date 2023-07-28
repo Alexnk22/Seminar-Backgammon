@@ -120,12 +120,12 @@ def Position(event):
     #elif (575 - ((spielfeld2[13-Dreieck])*50)) < (event.y/Ratio-75) < (525 - ((spielfeld2[13-Dreieck])*50)) < 575 or (575 - ((spielfeld1[13-Dreieck])*50)) < (event.y/Ratio-75) < (525 - ((spielfeld1[13-Dreieck])*50)) < 575:
     #    TOPorBOT = 1    #unten
     
-    if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
+    if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7 :
         Pos1 = 13 - int(Dreieck)
         Ratios()
         set_possibel_pos()
 
-    elif (int(TOPorBOT) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
+    elif (int(TOPorBOT) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7 :
         Pos1 = int(Dreieck) + 12
         Ratios()        
         set_possibel_pos()
@@ -316,6 +316,12 @@ def Position2(event=NONE):
         
 def move():
     global Pos1, movecounter
+
+    if Pos2 == Pos21:
+        Würfel1[0] = 0
+    elif Pos2 == Pos22:
+        Würfel2[0] = 0
+
     if spielfeld3[Pos2-1] != 0 and spielfeld1[Pos1-1] != 0:
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
         spielfeld1[Pos2-1] = spielfeld1[Pos2-1]+1
