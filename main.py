@@ -3,7 +3,7 @@ import random
 
 
 
-movecounter = 0
+movecounter = 2
 TOPorBOT = 0 
 TOPorBOT2 = 0
 Dreieck = 0
@@ -44,8 +44,14 @@ def Ratios (event=NONE):
     Feld(Ratio)
     Figuren(Ratio, spielfeld1, "white",12)
     Figuren(Ratio, spielfeld2, "maroon",12)
-    mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
-    mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
+
+    if movecounter % 2 == 0:
+        mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
+    else:
+        mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
+
+
+
     show_Würfel(Ratio,Würfel1,0)
     show_Würfel(Ratio,Würfel2,1)
     mark_possible_pos(Ratio, spielfeld3,"yellow",12)
@@ -201,7 +207,7 @@ def set_possibel_pos():
     spielfeld3[int(Pos21)-1] = 0
     spielfeld3[int(Pos22)-1] = 0
     
-    if spielfeld1[Pos1-1] != 0:
+    if spielfeld1[Pos1-1] != 0 and movecounter % 2 == 0:
         if Pos1 + int(Würfel1[0]) < 25:
             Pos21 = Pos1 + int(Würfel1[0])
         else:
@@ -222,7 +228,7 @@ def set_possibel_pos():
         Ratios()
         
 
-    elif spielfeld2[Pos1-1] != 0:
+    elif spielfeld2[Pos1-1] != 0 and movecounter % 2 != 0:
         if Pos1 - int(Würfel1[0]) > 0 :
             Pos21 = Pos1 - int(Würfel1[0])
         else:
@@ -335,8 +341,9 @@ def move():
         spielfeld2[Pos2-1] = spielfeld2[Pos2-1]+1
         spielfeld3[int(Pos21)-1] = 0
         spielfeld3[int(Pos22)-1] = 0
-
-    movecounter = movecounter + 1
+    if Würfel1[0] == 0 and Würfel2[0] == 0:
+        movecounter = movecounter + 1
+        print(movecounter)
     Pos1 = 0
     Ratios()
     
