@@ -120,12 +120,12 @@ def Position(event):
     #elif (575 - ((spielfeld2[13-Dreieck])*50)) < (event.y/Ratio-75) < (525 - ((spielfeld2[13-Dreieck])*50)) < 575 or (575 - ((spielfeld1[13-Dreieck])*50)) < (event.y/Ratio-75) < (525 - ((spielfeld1[13-Dreieck])*50)) < 575:
     #    TOPorBOT = 1    #unten
     
-    if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7 ):
+    if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7 ) and (Würfel1[0] != 0 or Würfel2[0] != 0 ):
         Pos1 = 13 - int(Dreieck)
         Ratios()
         set_possibel_pos()
 
-    elif (int(TOPorBOT) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7):
+    elif (int(TOPorBOT) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0 ):
         Pos1 = int(Dreieck) + 12
         Ratios()        
         set_possibel_pos()
@@ -211,12 +211,12 @@ def set_possibel_pos():
         else:
             Pos21 = 0
 
-        if spielfeld2[int(Pos21)-1] == 0 and spielfeld1[int(Pos21)-1] <5:
+        if spielfeld2[int(Pos21)-1] == 0 and spielfeld1[int(Pos21)-1] <5 and int(Würfel1[0]) != 0:
                 spielfeld3[int(Pos21)-1] = int((spielfeld1[int(Pos21)-1])+1)
                 
         
                 
-        if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] <5:
+        if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] <5 and int(Würfel2[0]) != 0:
                 spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)
                 
         Ratios()
@@ -231,11 +231,15 @@ def set_possibel_pos():
             Pos22 = Pos1 - int(Würfel2[0])
         else:
             Pos22 = 0
-        if spielfeld1[int(Pos21)-1] == 0 and spielfeld2[int(Pos21)-1] <5:
+        if spielfeld1[int(Pos21)-1] == 0 and spielfeld2[int(Pos21)-1] <5 and int(Würfel1[0]) != 0:
                 spielfeld3[int(Pos21)-1] = int((spielfeld2[int(Pos21)-1])+1)
+        
                 
-        if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] <5:
+        if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] <5 and int(Würfel2[0]) != 0:
                 spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
+        
+            
+
         Ratios()
         
 
@@ -251,17 +255,13 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
                     r = 15
             else:
                     r = 0
-
+            
             canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
             
             Figuren(Ratio, spielfeld1, "white",12)
             Figuren(Ratio, spielfeld2, "maroon",12)
             mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
-            mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
-            
-            
-
-                            
+            mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")                 
     for u in range(12):
         for i in range(int(spielfeld[int(u)+verschiebung])):
             
@@ -269,7 +269,7 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
                     r = 15
             else:
                     r = 0
-        
+            
             canvas.create_oval((75+u*53+r)*Ratio, (75+(i)*50)*Ratio, (125+u*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=1)
 
             Figuren(Ratio, spielfeld1, "white",12)
