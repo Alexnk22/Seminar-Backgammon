@@ -1,8 +1,6 @@
 from tkinter import *
 import random
 
-
-
 movecounter = 1
 TOPorBOT = 0 
 TOPorBOT2 = 0
@@ -151,9 +149,7 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
     if 12 < Pos1 < 25 : 
         if spielfeld[Pos1-1] != 0:
             canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
-            
-            
-                 
+                     
 def Würfel_wurf():
     global Pos21,Pos22,Pos1, movecounter
     Pos1 = 15
@@ -173,14 +169,10 @@ def Würfel_wurf():
         Würfel2.append(b)
         Ratios()
         
-
     else:
         Würfel1.append(a)
         Würfel2.append(b)
         Ratios()
-        
-    
- #root.bind(<"Controle-w">, Würfel_wurf)  
 
 def show_Würfel(Ratio,Würfel,Ver):
     for i in range (1,7):
@@ -202,7 +194,6 @@ def show_Würfel(Ratio,Würfel,Ver):
                 if i == 6:
                     canvas.create_oval(((u*34)+503+Ver*80)*Ratio,355*Ratio,((u*34)+513+Ver*80)*Ratio,365*Ratio,fill = "black")
                     
-
 def set_possibel_pos():
     global Pos21,Pos22
     spielfeld3[int(Pos21)-1] = 0
@@ -220,15 +211,11 @@ def set_possibel_pos():
 
         if spielfeld2[int(Pos21)-1] == 0 and spielfeld1[int(Pos21)-1] <5 and int(Würfel1[0]) != 0:
                 spielfeld3[int(Pos21)-1] = int((spielfeld1[int(Pos21)-1])+1)
-                
-        
-                
+                      
         if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] <5 and int(Würfel2[0]) != 0:
-                spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)
-                
+                spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)            
         Ratios()
         
-
     elif spielfeld2[Pos1-1] != 0 and movecounter % 2 != 0:
         if Pos1 - int(Würfel1[0]) > 0 :
             Pos21 = Pos1 - int(Würfel1[0])
@@ -245,14 +232,8 @@ def set_possibel_pos():
         if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] <5 and int(Würfel2[0]) != 0:
                 spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
         
-            
-
         Ratios()
         
-
-        
-    
-
 def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
         
     for u in range(12):
@@ -268,7 +249,8 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
             Figuren(Ratio, spielfeld1, "white",12)
             Figuren(Ratio, spielfeld2, "maroon",12)
             mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
-            mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")                 
+            mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")   
+
     for u in range(12):
         for i in range(int(spielfeld[int(u)+verschiebung])):
             
@@ -284,13 +266,11 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
             mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
             mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
 
-
 def Position2(event=NONE):
     global Dreieck2
     global TOPorBOT2
     global Pos2
     
-     
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/800         
     else:
@@ -301,10 +281,8 @@ def Position2(event=NONE):
             r = 18
         else:
             r = 0
-
         if (event.x/Ratio-27-r)//52 == i:
             Dreieck2 = i
-
     if   0 < (event.y/Ratio-75) < 250:
         TOPorBOT2 = 2    #oben
     elif 325 < (event.y/Ratio-75) < 575:
@@ -315,7 +293,6 @@ def Position2(event=NONE):
     if (int(TOPorBOT2) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
         Pos2 = 13 - int(Dreieck2)
         move()
-        
 
     elif (int(TOPorBOT2) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
         Pos2 = int(Dreieck2) + 12
@@ -329,8 +306,6 @@ def move():
     elif Pos2 == Pos22 :
         Würfel2[0] = 0
         
-        
-
     if spielfeld3[Pos2-1] != 0 and spielfeld1[Pos1-1] != 0:
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
         spielfeld1[Pos2-1] = spielfeld1[Pos2-1]+1
@@ -342,14 +317,9 @@ def move():
         spielfeld2[Pos2-1] = spielfeld2[Pos2-1]+1
         spielfeld3[int(Pos21)-1] = 0
         spielfeld3[int(Pos22)-1] = 0
-    
         
     Pos1 = 0
     Ratios()
-    
-        
-
-
 
 def key(event):
     if event.char == "w":
@@ -369,8 +339,6 @@ file_menu.add_command(label="Exit", command=root.quit)
 
 Würfel_menu = Menu(mein_menu)
 mein_menu.add_cascade(label="Würfel",command=Würfel_wurf)
-
-
 
 
 canvas.bind("<Button-1>", Position)
