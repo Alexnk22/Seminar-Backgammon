@@ -3,7 +3,7 @@ import random
 
 
 
-movecounter = 2
+movecounter = 1
 TOPorBOT = 0 
 TOPorBOT2 = 0
 Dreieck = 0
@@ -155,10 +155,11 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
             
                  
 def Würfel_wurf():
-    global Pos21,Pos22,Pos1
+    global Pos21,Pos22,Pos1, movecounter
     Pos1 = 15
     spielfeld3[int(Pos21)-1] = 0
     spielfeld3[int(Pos22)-1] = 0
+    movecounter = movecounter + 1
     a = random.randint(1,6)
     b = random.randint(1,6)
     
@@ -341,9 +342,8 @@ def move():
         spielfeld2[Pos2-1] = spielfeld2[Pos2-1]+1
         spielfeld3[int(Pos21)-1] = 0
         spielfeld3[int(Pos22)-1] = 0
-    if Würfel1[0] == 0 and Würfel2[0] == 0:
-        movecounter = movecounter + 1
-        print(movecounter)
+    
+        
     Pos1 = 0
     Ratios()
     
