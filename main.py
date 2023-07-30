@@ -12,7 +12,7 @@ Würfel1 = [7]
 Würfel2 = [7]
 Pos21= 0
 Pos22= 0
-padding = 50
+
 
 root = Tk()
 
@@ -322,11 +322,33 @@ def key(event):
     if event.char == "w":
         Würfel_wurf()
 
+
+def File():
+    global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22
+    spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
+    spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
+    spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
+    movecounter = 1
+    TOPorBOT = 0 
+    TOPorBOT2 = 0
+    Dreieck = 0
+    Dreieck2 = 0
+    Pos1 = 0
+    Pos2 = 0
+    Würfel1 = [7]
+    Würfel2 = [7]
+    Pos21= 0
+    Pos22= 0
+    Ratios()
+
+def AI():
+    pass
+def PvP():
+    pass
+
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
 
-def File():
-    pass
 
 file_menu = Menu(mein_menu)
 mein_menu.add_cascade(label="File", menu=file_menu)
@@ -334,7 +356,16 @@ file_menu.add_command(label="New...", command=File)
 file_menu.add_command(label="Exit", command=root.quit)
 
 Würfel_menu = Menu(mein_menu)
-mein_menu.add_cascade(label="Würfel",command=Würfel_wurf)
+mein_menu.add_cascade(label="Dice",command=Würfel_wurf)
+
+Game_mode_menu = Menu(mein_menu)
+mein_menu.add_cascade(label="Game mode", menu=Game_mode_menu)
+Game_mode_menu.add_command(label="Player vs. AI", command=AI)
+Game_mode_menu.add_command(label="Player  vs. Player",command=PvP)
+
+
+
+
 
 canvas.bind("<Button-1>", Position)
 canvas.bind("<Button-3>", Position2)
