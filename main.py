@@ -176,6 +176,7 @@ def Würfel_wurf():
             Würfel2.append(b)
             Ratios()
         Pass = False
+        
 
 #lässt den würfel erscheinen. Wird auch wieder 2 mal aufgerufen. Einmal mit dem ersten und dann mit dem zweiten Würfel. die Verschiebung (Ver) macht den unterschied 
 def show_Würfel(Ratio,Würfel,Ver):
@@ -305,6 +306,7 @@ def move():
     # prüfft ob das feld was man anklickt (Pos2) mit der Possible position (Pos21 nd Pos22)übereinstimmt. Wenn ja setzt es den jewiligen würfel auf 0.
     if Pos2 == Pos21 :
         Würfel1[0] = 0
+        
     elif Pos2 == Pos22 :
         Würfel2[0] = 0
     
