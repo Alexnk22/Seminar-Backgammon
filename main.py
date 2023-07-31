@@ -12,6 +12,7 @@ Würfel1 = [7]
 Würfel2 = [7]
 Pos21= 0
 Pos22= 0
+Pass=False
 
 
 root = Tk()
@@ -49,6 +50,12 @@ def Ratios (event=NONE):
     
 # erstellt das stielfeld ohne Figuren 
 def Feld(Ratio):
+
+    if movecounter % 2 != 0 and movecounter != 1:
+        canvas.create_rectangle(0,0,70*Ratio,70*Ratio,fill="red")
+    elif movecounter % 2 == 0:
+        canvas.create_rectangle(0,0,70*Ratio,70*Ratio,fill="white")
+
     for u in range (2):
         canvas.create_rectangle((75+u*332.5)*Ratio,75*Ratio,(392.5+u*332.5)*Ratio,650*Ratio,fill="goldenrod",width=2)
         canvas.create_rectangle(75*Ratio,75*Ratio,(725)*Ratio,650*Ratio,width=4)
@@ -139,31 +146,36 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
             canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
                     
 def Würfel_wurf():
-    global Pos21,Pos22,Pos1, movecounter
+    global Pos21,Pos22,Pos1, movecounter, Pass
     Pos1 = 15
-    # nach jedem Würfel wurf soll die possible Position gelöscht werden da sie ja entweder augebrauht wurden oder der spieler nicht fahren kann 
-    spielfeld3[int(Pos21)-1] = 0
-    spielfeld3[int(Pos22)-1] = 0
+    #! es feht das wenn man nicht ziehen kann das man dann trotzdem würfeln kann. dafür muss warscheinlih noch ein or bedingung in abhängigkeit von spielfeld3 kommen.
+    if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass==True:
+        if Pass == False:
+            movecounter = movecounter + 1 
+        # nach jedem Würfel wurf soll die possible Position gelöscht werden da sie ja entweder augebrauht wurden oder der spieler nicht fahren kann 
+        spielfeld3[int(Pos21)-1] = 0
+        spielfeld3[int(Pos22)-1] = 0
 
-    #movecounter geht bei jedem wurf hoch d.h mit jedem wurf wächstelt der spieler 
-    movecounter = movecounter + 1
-    a = random.randint(1,6)
-    b = random.randint(1,6)
-    
-    #löscht die liste jedes mal (nur notwendig wegen den pasch bis jetzt)
-    Würfel1.clear()
-    Würfel2.clear()
-    #! soll für pasch sein (funktioniert noch nicht)
-    if a == b:
-        Würfel1.append(a)
-        Würfel2.append(b)
-        Würfel1.append(a)
-        Würfel2.append(b)
-        Ratios()
-    else:
-        Würfel1.append(a)
-        Würfel2.append(b)
-        Ratios()
+        #movecounter geht bei jedem wurf hoch d.h mit jedem wurf wächstelt der spieler 
+        #movecounter = movecounter + 1
+        a = random.randint(1,6)
+        b = random.randint(1,6)
+        
+        #löscht die liste jedes mal (nur notwendig wegen den pasch bis jetzt)
+        Würfel1.clear()
+        Würfel2.clear()
+        #! soll für pasch sein. Muss mir was ganz neues dafür überlegen 
+        if a == b:
+            Würfel1.append(a)
+            Würfel2.append(b)
+            Würfel1.append(a)
+            Würfel2.append(b)
+            Ratios()
+        else:
+            Würfel1.append(a)
+            Würfel2.append(b)
+            Ratios()
+        Pass = False
 
 #lässt den würfel erscheinen. Wird auch wieder 2 mal aufgerufen. Einmal mit dem ersten und dann mit dem zweiten Würfel. die Verschiebung (Ver) macht den unterschied 
 def show_Würfel(Ratio,Würfel,Ver):
@@ -291,7 +303,7 @@ def Position2(event=NONE):
 def move():
     global Pos1, movecounter
     # prüfft ob das feld was man anklickt (Pos2) mit der Possible position (Pos21 nd Pos22)übereinstimmt. Wenn ja setzt es den jewiligen würfel auf 0.
-    if Pos2 == Pos21:
+    if Pos2 == Pos21 :
         Würfel1[0] = 0
     elif Pos2 == Pos22 :
         Würfel2[0] = 0
@@ -314,6 +326,7 @@ def move():
         spielfeld3[int(Pos21)-1] = 0
         spielfeld3[int(Pos22)-1] = 0
     # damit nach der Ratios() die markierung weg ist bei der angeklickten figur 
+    
     Pos1 = 0
     Ratios()
 
@@ -321,6 +334,9 @@ def move():
 def key(event):
     if event.char == "w":
         Würfel_wurf()
+    elif event.char == "p":
+        Pass_turn()
+    
 
 
 def File():
@@ -345,6 +361,15 @@ def AI():
     pass
 def PvP():
     pass
+def Pass_turn():
+    global Pass, movecounter,Pos1, spielfeld3
+    movecounter = movecounter +1
+    Würfel1[0] = 0
+    Würfel2[0] = 0
+    Pos1 = 0
+    spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+    Ratios()
+    Pass=True
 
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
@@ -358,12 +383,13 @@ file_menu.add_command(label="Exit", command=root.quit)
 Würfel_menu = Menu(mein_menu)
 mein_menu.add_cascade(label="Dice",command=Würfel_wurf)
 
+Pass_menu = Menu(mein_menu)
+mein_menu.add_cascade(label="Pass",command=Pass_turn)
+
 Game_mode_menu = Menu(mein_menu)
 mein_menu.add_cascade(label="Game mode", menu=Game_mode_menu)
 Game_mode_menu.add_command(label="Player vs. AI", command=AI)
 Game_mode_menu.add_command(label="Player  vs. Player",command=PvP)
-
-
 
 
 
