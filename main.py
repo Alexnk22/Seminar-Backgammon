@@ -222,9 +222,9 @@ def set_possibel_pos():
         #! die erste bedingung muss geändert werden zu 1 damit man figuren schlagen kann  
         # 2 bedingung mach ein maximum von 5 stinen pro Dreieck 
         # 3 bedingung löst den fehler das bei 0 keine pos Posiition auf dem gleichen feld angezeigt wird 
-        if spielfeld2[int(Pos21)-1] == 0 and spielfeld1[int(Pos21)-1] <5 and int(Würfel1[0]) != 0:
+        if spielfeld2[int(Pos21)-1] == 0 and spielfeld1[int(Pos21)-1] < 5 and int(Würfel1[0]) != 0:
                 spielfeld3[int(Pos21)-1] = int((spielfeld1[int(Pos21)-1])+1)
-        if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] <5 and int(Würfel2[0]) != 0:
+        if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] < 5 and int(Würfel2[0]) != 0:
                 spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)            
         Ratios()
     
