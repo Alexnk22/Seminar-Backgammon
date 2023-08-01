@@ -129,6 +129,7 @@ def Position(event):
         Pos1 = int(Dreieck) + 12
         Ratios()        
         set_possibel_pos()
+    
 
 # markiert die position die angeklickt wurde 
 # würd 2 mal aufgerufen in Ratios. Ein mal wird die liste durchgegangen mit den weißen steine dan mit den roten 
@@ -144,7 +145,7 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
     if 12 < Pos1 < 25 : 
         if spielfeld[Pos1-1] != 0:
             canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
-                    
+    
 def Würfel_wurf():
     global Pos21,Pos22,Pos1, movecounter, Pass
     Pos1 = 15
@@ -176,6 +177,7 @@ def Würfel_wurf():
             Würfel2.append(b)
             Ratios()
         Pass = False
+    
         
 
 #lässt den würfel erscheinen. Wird auch wieder 2 mal aufgerufen. Einmal mit dem ersten und dann mit dem zweiten Würfel. die Verschiebung (Ver) macht den unterschied 
@@ -329,6 +331,7 @@ def move():
         spielfeld3[int(Pos22)-1] = 0
     # damit nach der Ratios() die markierung weg ist bei der angeklickten figur 
     
+    
     Pos1 = 0
     Ratios()
 
@@ -365,6 +368,7 @@ def PvP():
     pass
 def Pass_turn():
     global Pass, movecounter,Pos1, spielfeld3
+
     movecounter = movecounter +1
     Würfel1[0] = 0
     Würfel2[0] = 0
@@ -372,6 +376,8 @@ def Pass_turn():
     spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
     Ratios()
     Pass=True
+
+
 
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
