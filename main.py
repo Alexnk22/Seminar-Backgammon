@@ -340,8 +340,6 @@ def move():
         spielfeld3[int(Pos21)-1] = 0
         spielfeld3[int(Pos22)-1] = 0
     # damit nach der Ratios() die markierung weg ist bei der angeklickten figur 
-    
-    
     Pos1 = 0
     Ratios()
 
@@ -378,7 +376,6 @@ def PvP():
     pass
 def Pass_turn():
     global Pass, movecounter,Pos1, spielfeld3
-
     movecounter = movecounter +1
     Würfel1[0] = 0
     Würfel2[0] = 0
