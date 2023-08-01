@@ -230,11 +230,11 @@ def set_possibel_pos():
     
     # gleiche für die roten steine 
     elif spielfeld2[Pos1-1] != 0 and movecounter % 2 != 0:
-        if Pos1 - int(Würfel1[0]) > 0 :
+        if 0 < Pos1 - int(Würfel1[0]) :
             Pos21 = Pos1 - int(Würfel1[0])
         else:
             Pos21 = 0
-        if  Pos1 - int(Würfel2[0]) > 0:
+        if 0 < Pos1 - int(Würfel2[0]) :
             Pos22 = Pos1 - int(Würfel2[0])
         else:
             Pos22 = 0
