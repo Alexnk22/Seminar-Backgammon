@@ -175,6 +175,8 @@ def Würfel_wurf():
         else:
             Würfel1.append(a)
             Würfel2.append(b)
+            Würfel1.append(1)
+            Würfel2.append(2)
             Ratios()
         Pass = False
     
@@ -306,12 +308,20 @@ def Position2(event=NONE):
 def move():
     global Pos1, movecounter
     # prüfft ob das feld was man anklickt (Pos2) mit der Possible position (Pos21 nd Pos22)übereinstimmt. Wenn ja setzt es den jewiligen würfel auf 0.
-    if Pos2 == Pos21 :
-        Würfel1[0] = 0
-        
-    elif Pos2 == Pos22 :
-        Würfel2[0] = 0
-    
+    if Pos2 == Pos21:
+        if Würfel1[1] == Würfel2[1]:
+            Würfel1[0] = Würfel1[1]
+            Würfel1[1] = 0
+        else:
+            Würfel1[0] = 0
+
+    elif Pos2 == Pos22:
+        if Würfel1[0] == 0 and Würfel1[1] == 0:
+            Würfel2[0] = Würfel2[1]
+            Würfel2[1] = 0
+        else:
+            Würfel2[0] = 0
+
     # Prüft spielfeld3 ob die angeklickte position möglich ist 
     # zweite nedingung schaut ob die angeklickte figur eine weise figur ist und somit in spielfeld1 nicht 0 ist.
     if spielfeld3[Pos2-1] != 0 and spielfeld1[Pos1-1] != 0:
