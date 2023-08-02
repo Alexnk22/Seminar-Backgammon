@@ -224,8 +224,12 @@ def set_possibel_pos():
         # 3 bedingung löst den fehler das bei 0 keine pos Posiition auf dem gleichen feld angezeigt wird 
         if spielfeld2[int(Pos21)-1] == 0 and spielfeld1[int(Pos21)-1] < 5 and int(Würfel1[0]) != 0:
                 spielfeld3[int(Pos21)-1] = int((spielfeld1[int(Pos21)-1])+1)
+        if spielfeld2[Pos21-1] == 1  and spielfeld1[Pos21-1] == 0 and Würfel1[0] != 0:
+            spielfeld3[Pos21-1] = -1 
         if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] < 5 and int(Würfel2[0]) != 0:
-                spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)            
+                spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)       
+        if spielfeld2[Pos22-1] == 1  and spielfeld1[Pos22-1] == 0 and Würfel2[0] != 0:
+            spielfeld3[Pos22-1] = -1      
         Ratios()
     
     # gleiche für die roten steine 
@@ -240,8 +244,12 @@ def set_possibel_pos():
             Pos22 = 0
         if spielfeld1[int(Pos21)-1] == 0 and spielfeld2[int(Pos21)-1] <5 and int(Würfel1[0]) != 0:
                 spielfeld3[int(Pos21)-1] = int((spielfeld2[int(Pos21)-1])+1)
+        if spielfeld1[Pos21-1] == 1  and spielfeld2[Pos21-1] == 0 and Würfel1[0] != 0:
+            spielfeld3[Pos21-1] = -1 
         if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] <5 and int(Würfel2[0]) != 0:
                 spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
+        if spielfeld1[Pos22-1] == 1  and spielfeld2[Pos22-1] == 0 and Würfel2[0] != 0:
+            spielfeld3[Pos21-1] = -1 
         Ratios()
 
 # wird mit spielfeld3 gerufen 
@@ -306,16 +314,30 @@ def Position2(event=NONE):
         move()
         
 def move():
-    global Pos1, movecounter
+    global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3
     # prüfft ob das feld was man anklickt (Pos2) mit der Possible position (Pos21 nd Pos22)übereinstimmt. Wenn ja setzt es den jewiligen würfel auf 0.
-    if Pos2 == Pos21:
+    if Pos2 == Pos21 and movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1):
         if Würfel1[1] == Würfel2[1]:
             Würfel1[0] = Würfel1[1]
             Würfel1[1] = 0
         else:
             Würfel1[0] = 0
 
-    elif Pos2 == Pos22:
+    elif Pos2 == Pos22 and movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1):
+        if Würfel1[0] == 0 and Würfel1[1] == 0:
+            Würfel2[0] = Würfel2[1]
+            Würfel2[1] = 0
+        else:
+            Würfel2[0] = 0
+
+    if Pos2 == Pos21 and movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1):
+        if Würfel1[1] == Würfel2[1]:
+            Würfel1[0] = Würfel1[1]
+            Würfel1[1] = 0
+        else:
+            Würfel1[0] = 0
+
+    elif Pos2 == Pos22 and movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1):
         if Würfel1[0] == 0 and Würfel1[1] == 0:
             Würfel2[0] = Würfel2[1]
             Würfel2[1] = 0
@@ -324,24 +346,38 @@ def move():
 
     # Prüft spielfeld3 ob die angeklickte position möglich ist 
     # zweite nedingung schaut ob die angeklickte figur eine weise figur ist und somit in spielfeld1 nicht 0 ist.
-    if spielfeld3[Pos2-1] != 0 and spielfeld1[Pos1-1] != 0:
+    if (spielfeld3[Pos2-1] != 0 ) and spielfeld1[Pos1-1] != 0:
         # zieht eine figur von der Pos1 ab 
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
         # füght eine figur bei Pos2 hinzu 
         spielfeld1[Pos2-1] = spielfeld1[Pos2-1]+1
+        if spielfeld3[Pos2-1] == -1:
+            spielfeld2[Pos2-1] = 0
+            Cap_Pieces()
         #setzt spielfeld3 zurück 
         spielfeld3[int(Pos21)-1] = 0
         spielfeld3[int(Pos22)-1] = 0
 
     # gleiche nur schaut nun ob das angeklickte feld rot ist 
-    elif spielfeld3[Pos2-1] != 0 and spielfeld2[Pos1-1] != 0:
+    elif (spielfeld3[Pos2-1] != 0 ) and spielfeld2[Pos1-1] != 0:
         spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
         spielfeld2[Pos2-1] = spielfeld2[Pos2-1]+1
+        if spielfeld3[Pos2-1] == -1:
+            spielfeld1[Pos2-1] = 0
+            Cap_Pieces()
         spielfeld3[int(Pos21)-1] = 0
         spielfeld3[int(Pos22)-1] = 0
-    # damit nach der Ratios() die markierung weg ist bei der angeklickten figur 
+    # damit nach der Ratios() die markierung weg ist bei der angeklickten figur
+    spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+    Pos21 = 0
+    Pos22 = 0
+    Pos2 = 0 
     Pos1 = 0
     Ratios()
+
+           
+def  Cap_Pieces():
+    pass
 
 #lässt einen mit "w" würfeln
 def key(event):
