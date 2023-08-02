@@ -210,46 +210,48 @@ def set_possibel_pos():
     if spielfeld1[Pos1-1] != 0 and movecounter % 2 == 0:
         # < 25 da die Possible Possitions nicht auserhalb der 25 möglichen felder sein darf und da weiß von 0 -> 25 geht muss nicht auf > 0 sein 
         # Pos 21 and Pos 22 sind die möglichen positionen die sich durch den würfel 1 und würfel 2 ergeben  
-        if Pos1 + int(Würfel1[0]) < 25:
+        if 0 < Pos1 + int(Würfel1[0]) < 25:
             Pos21 = Pos1 + int(Würfel1[0])
+            if spielfeld2[int(Pos21)-1] == 0 and spielfeld1[int(Pos21)-1] < 5 and int(Würfel1[0]) != 0:
+                spielfeld3[int(Pos21)-1] = int((spielfeld1[int(Pos21)-1])+1)
+            if spielfeld2[Pos21-1] == 1  and spielfeld1[Pos21-1] == 0 and Würfel1[0] != 0:
+                spielfeld3[Pos21-1] = -1 
         else:
             Pos21 = 0
-        if Pos1 + int(Würfel2[0]) < 25:
+        if 0 < Pos1 + int(Würfel2[0]) < 25:
             Pos22 = Pos1 + int(Würfel2[0])
+            if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] < 5 and int(Würfel2[0]) != 0:
+                spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)       
+            if spielfeld2[Pos22-1] == 1  and spielfeld1[Pos22-1] == 0 and Würfel2[0] != 0:
+                spielfeld3[Pos22-1] = -1 
         else:
             Pos22 = 0
         # erste bedingung damit man nicht auf die figur des gegners platzieren kann 
         #! die erste bedingung muss geändert werden zu 1 damit man figuren schlagen kann  
         # 2 bedingung mach ein maximum von 5 stinen pro Dreieck 
-        # 3 bedingung löst den fehler das bei 0 keine pos Posiition auf dem gleichen feld angezeigt wird 
-        if spielfeld2[int(Pos21)-1] == 0 and spielfeld1[int(Pos21)-1] < 5 and int(Würfel1[0]) != 0:
-                spielfeld3[int(Pos21)-1] = int((spielfeld1[int(Pos21)-1])+1)
-        if spielfeld2[Pos21-1] == 1  and spielfeld1[Pos21-1] == 0 and Würfel1[0] != 0:
-            spielfeld3[Pos21-1] = -1 
-        if spielfeld2[int(Pos22)-1] == 0 and spielfeld1[int(Pos22)-1] < 5 and int(Würfel2[0]) != 0:
-                spielfeld3[int(Pos22)-1] = int((spielfeld1[int(Pos22)-1])+1)       
-        if spielfeld2[Pos22-1] == 1  and spielfeld1[Pos22-1] == 0 and Würfel2[0] != 0:
-            spielfeld3[Pos22-1] = -1      
+        # 3 bedingung löst den fehler das bei 0 keine pos Posiition auf dem gleichen feld angezeigt wird   
         Ratios()
     
     # gleiche für die roten steine 
     elif spielfeld2[Pos1-1] != 0 and movecounter % 2 != 0:
         if 0 < Pos1 - int(Würfel1[0]) :
             Pos21 = Pos1 - int(Würfel1[0])
+            if spielfeld1[int(Pos21)-1] == 0 and spielfeld2[int(Pos21)-1] <5 and int(Würfel1[0]) != 0:
+                spielfeld3[int(Pos21)-1] = int((spielfeld2[int(Pos21)-1])+1)
+            if spielfeld1[Pos21-1] == 1  and spielfeld2[Pos21-1] == 0 and Würfel1[0] != 0:
+                spielfeld3[Pos21-1] = -1 
         else:
             Pos21 = 0
         if 0 < Pos1 - int(Würfel2[0]) :
             Pos22 = Pos1 - int(Würfel2[0])
+            if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] <5 and int(Würfel2[0]) != 0:
+                spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
+            if spielfeld1[Pos22-1] == 1  and spielfeld2[Pos22-1] == 0 and Würfel2[0] != 0:
+                spielfeld3[Pos21-1] = -1 
         else:
             Pos22 = 0
-        if spielfeld1[int(Pos21)-1] == 0 and spielfeld2[int(Pos21)-1] <5 and int(Würfel1[0]) != 0:
-                spielfeld3[int(Pos21)-1] = int((spielfeld2[int(Pos21)-1])+1)
-        if spielfeld1[Pos21-1] == 1  and spielfeld2[Pos21-1] == 0 and Würfel1[0] != 0:
-            spielfeld3[Pos21-1] = -1 
-        if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] <5 and int(Würfel2[0]) != 0:
-                spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
-        if spielfeld1[Pos22-1] == 1  and spielfeld2[Pos22-1] == 0 and Würfel2[0] != 0:
-            spielfeld3[Pos21-1] = -1 
+        
+        
         print(spielfeld3)
         Ratios()
 
@@ -317,28 +319,28 @@ def Position2(event=NONE):
 def move():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3
     # prüfft ob das feld was man anklickt (Pos2) mit der Possible position (Pos21 nd Pos22)übereinstimmt. Wenn ja setzt es den jewiligen würfel auf 0.
-    if Pos2 == Pos21 and movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1):
+    if Pos2 == Pos21 and movecounter % 2 == 0 and ((spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5):
         if Würfel1[1] == Würfel2[1]:
             Würfel1[0] = Würfel1[1]
             Würfel1[1] = 0
         else:
             Würfel1[0] = 0
 
-    elif Pos2 == Pos22 and movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1):
+    elif Pos2 == Pos22 and movecounter % 2 == 0 and ((spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5):
         if Würfel1[0] == 0 and Würfel1[1] == 0:
             Würfel2[0] = Würfel2[1]
             Würfel2[1] = 0
         else:
             Würfel2[0] = 0
 
-    if Pos2 == Pos21 and movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1):
+    if Pos2 == Pos21 and movecounter % 2 != 0 and ((spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5):
         if Würfel1[1] == Würfel2[1]:
             Würfel1[0] = Würfel1[1]
             Würfel1[1] = 0
         else:
             Würfel1[0] = 0
 
-    elif Pos2 == Pos22 and movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1):
+    elif Pos2 == Pos22 and movecounter % 2 != 0 and ((spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5):
         if Würfel1[0] == 0 and Würfel1[1] == 0:
             Würfel2[0] = Würfel2[1]
             Würfel2[1] = 0
