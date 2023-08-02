@@ -217,7 +217,7 @@ def set_possibel_pos():
         if Pos1 + int(Würfel2[0]) < 25:
             Pos22 = Pos1 + int(Würfel2[0])
         else:
-            Pos21 = 0
+            Pos22 = 0
         # erste bedingung damit man nicht auf die figur des gegners platzieren kann 
         #! die erste bedingung muss geändert werden zu 1 damit man figuren schlagen kann  
         # 2 bedingung mach ein maximum von 5 stinen pro Dreieck 
@@ -250,6 +250,7 @@ def set_possibel_pos():
                 spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
         if spielfeld1[Pos22-1] == 1  and spielfeld2[Pos22-1] == 0 and Würfel2[0] != 0:
             spielfeld3[Pos21-1] = -1 
+        print(spielfeld3)
         Ratios()
 
 # wird mit spielfeld3 gerufen 
