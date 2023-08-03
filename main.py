@@ -124,14 +124,9 @@ def Position(event):
     # ersten and und or bedinungen damit nichts passiert wenn man auserhalb des feldes drückt
     # zweite and und or bedingung damit am anfang man einmal würfel muss damit man etwas machen kann (Würfel = 7 am anfang)
     # drittens and und or damit das wenn beide würfel 0 sind das man nichts meht machen kann bis wieder gewürfeld wird 
-    if (int(TOPorBOT) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7 ) and (Würfel1[0] != 0 or Würfel2[0] != 0 ):
-        Pos1 = 13 - int(Dreieck)
-        Ratios()
-        set_possibel_pos()
+    if (int(TOPorBOT) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 407.5 < event.x / Ratio < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0):
+        Pos1 = 13 - int(Dreieck) if TOPorBOT == 1 else int(Dreieck) + 12
 
-    #das gleiche für die oberen postionen
-    elif (int(TOPorBOT) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0 ):
-        Pos1 = int(Dreieck) + 12
         Ratios()        
         set_possibel_pos()
     
@@ -153,7 +148,7 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
     
 def Würfel_wurf():
     global Pos21,Pos22,Pos1, movecounter, Pass
-    Pos1 = 15
+    
     #! es feht das wenn man nicht ziehen kann das man dann trotzdem würfeln kann. dafür muss warscheinlih noch ein or bedingung in abhängigkeit von spielfeld3 kommen.
     if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass==True:
         if Pass == False:
@@ -310,12 +305,9 @@ def Position2(event=NONE):
         TOPorBOT2 = 1    #unten
     else:
         TOPorBOT2 = 0
-    if (int(TOPorBOT2) == 1) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
-        Pos2 = 13 - int(Dreieck2)
-        #nach einem rechtsklick muss aber der move passieren und ruft daher move()
-        move()
-    elif (int(TOPorBOT2) == 2) and (75 < (event.x/Ratio) < 392.5 or 407.5 < (event.x/Ratio) < 725) and Würfel1[0] != 7:
-        Pos2 = int(Dreieck2) + 12
+    if (int(TOPorBOT2) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 407.5 < event.x / Ratio < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0):
+        Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
+
         move()
         
 def move():
