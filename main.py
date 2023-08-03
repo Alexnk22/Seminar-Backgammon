@@ -252,7 +252,7 @@ def set_possibel_pos():
             if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] <5 and int(Würfel2[0]) != 0:
                 spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
             if spielfeld1[Pos22-1] == 1  and spielfeld2[Pos22-1] == 0 and Würfel2[0] != 0:
-                spielfeld3[Pos22-1] = -1 
+                spielfeld3[Pos21-1] = -1 
         else:
             Pos22 = 0
         
