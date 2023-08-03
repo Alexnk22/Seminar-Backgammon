@@ -12,6 +12,8 @@ Würfel1 = [7]
 Würfel2 = [7]
 Pos21= 0
 Pos22= 0
+CapPieceR = 0
+CapPieceW = 0
 Pass=False
 
 
@@ -264,7 +266,12 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
             else:
                     r = 0
             #erstellt einen gelben kreis bei der pos von spielfeld3 (immer eine nkreis mehr wie die kreise die bisher das sind)
-            canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
+            if spielfeld[u] != -1:
+                canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
+            else:
+                canvas.create_oval((673-(1*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(1*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=5)
+            
+
             
             #feld muss gerufen werden um die unnötigen gelben kreise zu verdecken 
             # dann muss auch die mouse markierung neu sein da es sonst schlecht aussieht 
@@ -281,7 +288,11 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
                     r = 15
             else:
                     r = 0
-            canvas.create_oval((75+u*53+r)*Ratio, (75+(i)*50)*Ratio, (125+u*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=1)
+            if spielfeld[u+verschiebung] != -1:
+                canvas.create_oval((75+u*53+r)*Ratio, (75+(i)*50)*Ratio, (125+u*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=1)
+            else :
+                canvas.create_oval((75+1*53+r)*Ratio, (75+(i)*50)*Ratio, (125+1*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=5)
+
             Figuren(Ratio, spielfeld1, "white",12)
             Figuren(Ratio, spielfeld2, "maroon",12)
             mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
@@ -378,9 +389,10 @@ def move():
     Pos1 = 0
     Ratios()
 
-           
-def  Cap_Pieces():
+
+def Cap_Pieces():
     pass
+
 
 #lässt einen mit "w" würfeln
 def key(event):
