@@ -148,7 +148,6 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
     
 def Würfel_wurf():
     global Pos21,Pos22,Pos1, movecounter, Pass
-    
     #! es feht das wenn man nicht ziehen kann das man dann trotzdem würfeln kann. dafür muss warscheinlih noch ein or bedingung in abhängigkeit von spielfeld3 kommen.
     if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass==True:
         if Pass == False:
@@ -159,25 +158,19 @@ def Würfel_wurf():
 
         #movecounter geht bei jedem wurf hoch d.h mit jedem wurf wächstelt der spieler 
         #movecounter = movecounter + 1
-        a = random.randint(1,6)
-        b = random.randint(1,6)
-        
-        #löscht die liste jedes mal (nur notwendig wegen den pasch bis jetzt)
         Würfel1.clear()
         Würfel2.clear()
-        #! soll für pasch sein. Muss mir was ganz neues dafür überlegen 
+
+        a, b = random.randint(1, 6), random.randint(1, 6)
+
         if a == b:
-            Würfel1.append(a)
-            Würfel2.append(b)
-            Würfel1.append(a)
-            Würfel2.append(b)
-            Ratios()
+            Würfel1.extend([a, a])
+            Würfel2.extend([b, b])
+            
         else:
-            Würfel1.append(a)
-            Würfel2.append(b)
-            Würfel1.append(1)
-            Würfel2.append(2)
-            Ratios()
+            Würfel1.extend([a, 1])
+            Würfel2.extend([b, 2])
+        Ratios()
         Pass = False
     
         
@@ -226,10 +219,8 @@ def set_possibel_pos():
                 spielfeld3[Pos22-1] = -1 
         else:
             Pos22 = 0
-        # erste bedingung damit man nicht auf die figur des gegners platzieren kann 
-        #! die erste bedingung muss geändert werden zu 1 damit man figuren schlagen kann  
-        # 2 bedingung mach ein maximum von 5 stinen pro Dreieck 
-        # 3 bedingung löst den fehler das bei 0 keine pos Posiition auf dem gleichen feld angezeigt wird   
+        
+        
         Ratios()
     
     # gleiche für die roten steine 
@@ -313,31 +304,17 @@ def Position2(event=NONE):
 def move():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3
     # prüfft ob das feld was man anklickt (Pos2) mit der Possible position (Pos21 nd Pos22)übereinstimmt. Wenn ja setzt es den jewiligen würfel auf 0.
-    if Pos2 == Pos21 and movecounter % 2 == 0 and ((spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5):
+    if Pos2 == Pos21 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or
+                          (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
         if Würfel1[1] == Würfel2[1]:
-            Würfel1[0] = Würfel1[1]
-            Würfel1[1] = 0
+            Würfel1[0], Würfel1[1] = Würfel1[1], 0
         else:
             Würfel1[0] = 0
 
-    elif Pos2 == Pos22 and movecounter % 2 == 0 and ((spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5):
+    elif Pos2 == Pos22 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or
+                            (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
         if Würfel1[0] == 0 and Würfel1[1] == 0:
-            Würfel2[0] = Würfel2[1]
-            Würfel2[1] = 0
-        else:
-            Würfel2[0] = 0
-
-    if Pos2 == Pos21 and movecounter % 2 != 0 and ((spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5):
-        if Würfel1[1] == Würfel2[1]:
-            Würfel1[0] = Würfel1[1]
-            Würfel1[1] = 0
-        else:
-            Würfel1[0] = 0
-
-    elif Pos2 == Pos22 and movecounter % 2 != 0 and ((spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5):
-        if Würfel1[0] == 0 and Würfel1[1] == 0:
-            Würfel2[0] = Würfel2[1]
-            Würfel2[1] = 0
+            Würfel2[0], Würfel2[1] = Würfel2[1], 0
         else:
             Würfel2[0] = 0
 
