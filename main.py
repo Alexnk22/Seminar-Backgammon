@@ -247,7 +247,7 @@ def set_possibel_pos():
             if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] <5 and int(Würfel2[0]) != 0:
                 spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
             if spielfeld1[Pos22-1] == 1  and spielfeld2[Pos22-1] == 0 and Würfel2[0] != 0:
-                spielfeld3[Pos21-1] = -1 
+                spielfeld3[Pos22-1] = -1 
         else:
             Pos22 = 0   
         print(spielfeld3)
@@ -352,7 +352,6 @@ def move():
             spielfeld2[Pos2-1] = 0
             Cap_Pieces()
         #setzt spielfeld3 zurück 
-        
 
     # gleiche nur schaut nun ob das angeklickte feld rot ist 
     elif (spielfeld3[Pos2-1] != 0 ) and spielfeld2[Pos1-1] != 0:
