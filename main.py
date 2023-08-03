@@ -352,8 +352,7 @@ def move():
             spielfeld2[Pos2-1] = 0
             Cap_Pieces()
         #setzt spielfeld3 zurück 
-        spielfeld3[int(Pos21)-1] = 0
-        spielfeld3[int(Pos22)-1] = 0
+        
 
     # gleiche nur schaut nun ob das angeklickte feld rot ist 
     elif (spielfeld3[Pos2-1] != 0 ) and spielfeld2[Pos1-1] != 0:
@@ -362,8 +361,7 @@ def move():
         if spielfeld3[Pos2-1] == -1:
             spielfeld1[Pos2-1] = 0
             Cap_Pieces()
-        spielfeld3[int(Pos21)-1] = 0
-        spielfeld3[int(Pos22)-1] = 0
+        
     # damit nach der Ratios() die markierung weg ist bei der angeklickten figur
     spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
     Pos21 = 0
