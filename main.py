@@ -26,8 +26,11 @@ canvas = Canvas(root,height=550, width=550)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
-spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
+#spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
+spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
+#spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
+spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
+
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
 # wird die ganze zeit gerufen wenn etwas neues erscheint 
@@ -249,7 +252,7 @@ def set_possibel_pos():
             if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] <5 and int(Würfel2[0]) != 0:
                 spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
             if spielfeld1[Pos22-1] == 1  and spielfeld2[Pos22-1] == 0 and Würfel2[0] != 0:
-                spielfeld3[Pos21-1] = -1 
+                spielfeld3[Pos22-1] = -1 
         else:
             Pos22 = 0
         
@@ -266,10 +269,9 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
             else:
                     r = 0
             #erstellt einen gelben kreis bei der pos von spielfeld3 (immer eine nkreis mehr wie die kreise die bisher das sind)
-            if spielfeld[u] != -1:
-                canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
-            else:
-                canvas.create_oval((673-(1*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(1*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=5)
+            
+            canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
+            
             
 
             
@@ -288,10 +290,9 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
                     r = 15
             else:
                     r = 0
-            if spielfeld[u+verschiebung] != -1:
-                canvas.create_oval((75+u*53+r)*Ratio, (75+(i)*50)*Ratio, (125+u*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=1)
-            else :
-                canvas.create_oval((75+1*53+r)*Ratio, (75+(i)*50)*Ratio, (125+1*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=5)
+            
+            canvas.create_oval((75+u*53+r)*Ratio, (75+(i)*50)*Ratio, (125+u*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=1)
+            
 
             Figuren(Ratio, spielfeld1, "white",12)
             Figuren(Ratio, spielfeld2, "maroon",12)
