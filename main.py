@@ -254,9 +254,7 @@ def set_possibel_pos():
             if spielfeld1[Pos22-1] == 1  and spielfeld2[Pos22-1] == 0 and Würfel2[0] != 0:
                 spielfeld3[Pos21-1] = -1 
         else:
-            Pos22 = 0
-        
-        
+            Pos22 = 0   
         print(spielfeld3)
         Ratios()
 
@@ -268,13 +266,8 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
                     r = 15
             else:
                     r = 0
-            #erstellt einen gelben kreis bei der pos von spielfeld3 (immer eine nkreis mehr wie die kreise die bisher das sind)
-            
+            #erstellt einen gelben kreis bei der pos von spielfeld3 (immer eine nkreis mehr wie die kreise die bisher das sind)          
             canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1)
-            
-            
-
-            
             #feld muss gerufen werden um die unnötigen gelben kreise zu verdecken 
             # dann muss auch die mouse markierung neu sein da es sonst schlecht aussieht 
             # lägt momentan ein bischen wenn der gelbe keits auf einen anderen kreis muss
@@ -289,11 +282,8 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
             if u >= 6:
                     r = 15
             else:
-                    r = 0
-            
+                    r = 0            
             canvas.create_oval((75+u*53+r)*Ratio, (75+(i)*50)*Ratio, (125+u*53+r)*Ratio, (125+(i)*50)*Ratio, fill=farbe, width=1)
-            
-
             Figuren(Ratio, spielfeld1, "white",12)
             Figuren(Ratio, spielfeld2, "maroon",12)
             mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
