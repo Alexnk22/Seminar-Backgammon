@@ -298,7 +298,6 @@ def Position2(event=NONE):
         TOPorBOT2 = 0
     if (int(TOPorBOT2) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 407.5 < event.x / Ratio < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
-
         move()
         
 def move():
@@ -339,11 +338,7 @@ def move():
             Cap_Pieces()
         
     # damit nach der Ratios() die markierung weg ist bei der angeklickten figur
-    spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
-    Pos21 = 0
-    Pos22 = 0
-    Pos2 = 0 
-    Pos1 = 0
+    spielfeld3, Pos21, Pos22, Pos2, Pos1 = [0] * 24, 0, 0, 0, 0
     Ratios()
 
 
@@ -362,20 +357,11 @@ def key(event):
 
 def File():
     global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22
-    spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
     spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
     spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-    movecounter = 1
-    TOPorBOT = 0 
-    TOPorBOT2 = 0
-    Dreieck = 0
-    Dreieck2 = 0
-    Pos1 = 0
-    Pos2 = 0
-    Würfel1 = [7]
-    Würfel2 = [7]
-    Pos21= 0
-    Pos22= 0
+    movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 1, 0, 0, 0, 0, [0]*24
+    Pos1, Pos2, Pos21, Pos22 = 0, 0, 0, 0
+    Würfel1, Würfel2 = [7], [7]
     Ratios()
 
 def AI():
@@ -383,15 +369,10 @@ def AI():
 def PvP():
     pass
 def Pass_turn():
-    global Pass, movecounter,Pos1, spielfeld3
-    movecounter = movecounter +1
-    Würfel1[0] = 0
-    Würfel2[0] = 0
-    Pos1 = 0
-    spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+    global Pass, movecounter, Pos1, spielfeld3, Würfel1, Würfel2
+    movecounter, Würfel1, Würfel2, Pos1, spielfeld3 = movecounter + 1, [0], [0], 0, [0]*24
     Ratios()
-    Pass=True
-
+    Pass = True
 
 
 mein_menu = Menu(root)
