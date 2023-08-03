@@ -52,7 +52,8 @@ def Ratios (event=NONE):
     show_Würfel(Ratio,Würfel1,0)
     show_Würfel(Ratio,Würfel2,1)
     mark_possible_pos(Ratio, spielfeld3,"yellow",12)
-    
+
+
 # erstellt das stielfeld ohne Figuren 
 def Feld(Ratio):
 
@@ -186,6 +187,7 @@ def show_Würfel(Ratio, würfel_list, ver):
                 if i == 6:
                     canvas.create_oval(((u*34)+503+ver*80) * Ratio, 355 * Ratio, ((u*34)+513+ver*80) * Ratio, 365 * Ratio, fill="black")
 
+#! FEHLER ENTDECKT WENN DIE POS21 ODER POS22 AU?ERHALB RANGE SIND KANN ICH NUR RECHTSKLICK MACHEN NICHT LINKSKLICK 
 
 # wird von Position gerufen also wird bei jedem richtigen klick getriggert                     
 def set_possibel_pos():
@@ -214,13 +216,13 @@ def set_possibel_pos():
         Pos21 = Pos1 - Würfel1[0]
         Pos22 = Pos1 - Würfel2[0]
 
-        if 0 < Pos21:
+        if 0 < Pos21 < 25:
             if spielfeld1[Pos21 - 1] == 0 and spielfeld2[Pos21 - 1] < 5 and Würfel1[0] != 0:
                 spielfeld3[Pos21 - 1] = spielfeld2[Pos21 - 1] + 1
             elif spielfeld1[Pos21 - 1] == 1 and spielfeld2[Pos21 - 1] == 0 and Würfel1[0] != 0:
                 spielfeld3[Pos21 - 1] = -1
 
-        if 0 < Pos22:
+        if 0 < Pos22 < 25:
             if spielfeld1[Pos22 - 1] == 0 and spielfeld2[Pos22 - 1] < 5 and Würfel2[0] != 0:
                 spielfeld3[Pos22 - 1] = spielfeld2[Pos22 - 1] + 1
             elif spielfeld1[Pos22 - 1] == 1 and spielfeld2[Pos22 - 1] == 0 and Würfel2[0] != 0:
