@@ -234,9 +234,7 @@ def set_possibel_pos():
         if spielfeld1[int(Pos22)-1] == 0 and spielfeld2[int(Pos22)-1] <5:
                 spielfeld3[int(Pos22)-1] = int((spielfeld2[int(Pos22)-1])+1)
         Ratios()
-        
-
-        
+                
     
 
 def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
