@@ -168,8 +168,7 @@ def Würfel_wurf():
         Ratios()
         Pass = False
 
-    
-        
+   
 
 #lässt den würfel erscheinen. Wird auch wieder 2 mal aufgerufen. Einmal mit dem ersten und dann mit dem zweiten Würfel. die Verschiebung (Ver) macht den unterschied 
 def show_Würfel(Ratio, würfel_list, ver):
@@ -228,29 +227,38 @@ def set_possibel_pos():
             elif spielfeld1[Pos22 - 1] == 1 and spielfeld2[Pos22 - 1] == 0 and Würfel2[0] != 0:
                 spielfeld3[Pos22 - 1] = -1
         Ratios()
-                
-    
+
 
 def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
         
     for u in range(12):
-        for i in range(spielfeld[u]):
-            r = 15 if u >= 6 else 0
-            canvas.create_oval((673 - (u * 53) - r) * Ratio, (600 - i * 50) * Ratio, (723 - (u * 53) - r) * Ratio, (650 - i * 50) * Ratio, fill=farbe, width=1)
-            Figuren(Ratio, spielfeld1, "white",12)
-            Figuren(Ratio, spielfeld2, "maroon",12)
-            mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
-            mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue") 
+        r = 15 if u >= 6 else 0
+        if spielfeld[u] != -1:
+            for i in range(spielfeld[u]):
+                canvas.create_oval((673 - (u * 53) - r) * Ratio, (600 - i * 50) * Ratio, (723 - (u * 53) - r) * Ratio, (650 - i * 50) * Ratio, fill=farbe, width=1)
+                
+                Figuren(Ratio, spielfeld1, "white",12)
+                Figuren(Ratio, spielfeld2, "maroon",12)
+                mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
+                mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue") 
+        elif spielfeld[u] == -1:
+            canvas.create_oval((673 - (u * 53) - r) * Ratio, (610) * Ratio, (723 - (u * 53) - r) * Ratio, (640) * Ratio, fill=farbe, width=1)
+        
 
     for u in range(12):
-        for i in range(spielfeld[u + verschiebung]):
-            r = 15 if u >= 6 else 0            
-            canvas.create_oval((75 + u * 53 + r) * Ratio, (75 + i * 50) * Ratio, (125 + u * 53 + r) * Ratio, (125 + i * 50) * Ratio, fill=farbe, width=1)
-            Figuren(Ratio, spielfeld1, "white",12)
-            Figuren(Ratio, spielfeld2, "maroon",12)
-            mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
-            mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
-
+        r = 15 if u >= 6 else 0 
+        if spielfeld[u + verschiebung] != -1:
+            for i in range(spielfeld[u + verschiebung]):        
+                canvas.create_oval((75 + u * 53 + r) * Ratio, (75 + i * 50) * Ratio, (125 + u * 53 + r) * Ratio, (125 + i * 50) * Ratio, fill=farbe, width=1)
+                
+                Figuren(Ratio, spielfeld1, "white",12)
+                Figuren(Ratio, spielfeld2, "maroon",12)
+                mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
+                mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
+        elif spielfeld[u + verschiebung] == -1:
+            canvas.create_oval((75 + u * 53 + r) * Ratio, (85) * Ratio, (125 + u * 53 + r) * Ratio, (115) * Ratio, fill=farbe, width=1)
+        
+        
 # bei einem rechtsklick getriggert 
 # verwendet den gleichen angloritmus zum finden von Pos2 wie aus Position mit Pos1 
 def Position2(event=NONE):
