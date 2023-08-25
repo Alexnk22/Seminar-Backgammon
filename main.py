@@ -12,13 +12,10 @@ Würfel1 = [7]
 Würfel2 = [7]
 Pos21= 0
 Pos22= 0
-CapPieceR = 0
-CapPieceW = 0
-Cap_counter_1 = 0
-Cap_counter_2 = 0
+
 Pass=False
-Red_Cap_Piece = False
-White_Cap_Piece = False
+Red_Cap_Piece = 0
+White_Cap_Piece = 0
 
 
 root = Tk()
@@ -39,6 +36,7 @@ spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
 # wird die ganze zeit gerufen wenn etwas neues erscheint 
 def Ratios (event=NONE):
+    global White_Cap_Piece,Red_Cap_Piece
     canvas.delete("all")
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/800
@@ -49,10 +47,10 @@ def Ratios (event=NONE):
     Figuren(Ratio, spielfeld2, "maroon",12)
 
     # das nur das fällt markiert wird von der person die am zug ist 
-    if movecounter % 2 == 0 and White_Cap_Piece == False:
+    if movecounter % 2 == 0 and White_Cap_Piece == 0:
         mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
 
-    elif movecounter % 2 != 0 and Red_Cap_Piece == False:
+    elif movecounter % 2 != 0 and Red_Cap_Piece == 0:
         mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
 
     show_Würfel(Ratio,Würfel1,0)
@@ -196,45 +194,74 @@ def show_Würfel(Ratio, würfel_list, ver):
 
 # wird von Position gerufen also wird bei jedem richtigen klick getriggert                     
 def set_possibel_pos():
-    global Pos21, Pos22
+    global Pos21, Pos22,White_Cap_Piece,Red_Cap_Piece
 
     spielfeld3[Pos21 - 1] = spielfeld3[Pos22 - 1] = 0
     
-    if spielfeld1[Pos1 - 1] != 0 and movecounter % 2 == 0:
-        if White_Cap_Piece == False:
-            Pos21 = Pos1 + Würfel1[0]
-            Pos22 = Pos1 + Würfel2[0]
+    if spielfeld1[Pos1 - 1] != 0 and movecounter % 2 == 0 and White_Cap_Piece == 0:
+        Pos21 = Pos1 + Würfel1[0]
+        Pos22 = Pos1 + Würfel2[0]
 
-            if 0 < Pos21 < 25:
-                if spielfeld2[Pos21 - 1] == 0 and spielfeld1[Pos21 - 1] < 5 and Würfel1[0] != 0:
-                    spielfeld3[Pos21 - 1] = spielfeld1[Pos21 - 1] + 1
-                elif spielfeld2[Pos21 - 1] == 1 and spielfeld1[Pos21 - 1] == 0 and Würfel1[0] != 0:
-                    spielfeld3[Pos21 - 1] = -1
+        if 0 < Pos21 < 25:
+            if spielfeld2[Pos21 - 1] == 0 and spielfeld1[Pos21 - 1] < 5 and Würfel1[0] != 0:
+                spielfeld3[Pos21 - 1] = spielfeld1[Pos21 - 1] + 1
+            elif spielfeld2[Pos21 - 1] == 1 and spielfeld1[Pos21 - 1] == 0 and Würfel1[0] != 0:
+                spielfeld3[Pos21 - 1] = -1
 
-            if 0 < Pos22 < 25:
-                if spielfeld2[Pos22 - 1] == 0 and spielfeld1[Pos22 - 1] < 5 and Würfel2[0] != 0:
-                    spielfeld3[Pos22 - 1] = spielfeld1[Pos22 - 1] + 1
-                elif spielfeld2[Pos22 - 1] == 1 and spielfeld1[Pos22 - 1] == 0 and Würfel2[0] != 0:
-                    spielfeld3[Pos22 - 1] = -1
-            Ratios()
+        if 0 < Pos22 < 25:
+            if spielfeld2[Pos22 - 1] == 0 and spielfeld1[Pos22 - 1] < 5 and Würfel2[0] != 0:
+                spielfeld3[Pos22 - 1] = spielfeld1[Pos22 - 1] + 1
+            elif spielfeld2[Pos22 - 1] == 1 and spielfeld1[Pos22 - 1] == 0 and Würfel2[0] != 0:
+                spielfeld3[Pos22 - 1] = -1
+        Ratios()
+    # 3te and weg und hinmachen das wenn dir neu erscheinende kreis angeklickt wird der vlaue True abgefragt wird abuch bei vorletzter el if 
+    elif White_Cap_Piece != 0 and movecounter % 2 == 0 and spielfeld1[Pos1 - 1] != 0:
+        Pos21 = Würfel1[0]
+        Pos22 = Würfel2[0]
+        if 0 < Pos21 < 25:
+            if spielfeld2[Pos21 - 1] == 0 and spielfeld1[Pos21 - 1] < 5 and Würfel1[0] != 0:
+                spielfeld3[Pos21 - 1] = spielfeld1[Pos21 - 1] + 1
+            elif spielfeld2[Pos21 - 1] == 1 and spielfeld1[Pos21 - 1] == 0 and Würfel1[0] != 0:
+                spielfeld3[Pos21 - 1] = -1
 
-    elif spielfeld2[Pos1 - 1] != 0 and movecounter % 2 != 0:
-        if Red_Cap_Piece == False:
-            Pos21 = Pos1 - Würfel1[0]
-            Pos22 = Pos1 - Würfel2[0]
+        if 0 < Pos22 < 25:
+            if spielfeld2[Pos22 - 1] == 0 and spielfeld1[Pos22 - 1] < 5 and Würfel2[0] != 0:
+                spielfeld3[Pos22 - 1] = spielfeld1[Pos22 - 1] + 1
+            elif spielfeld2[Pos22 - 1] == 1 and spielfeld1[Pos22 - 1] == 0 and Würfel2[0] != 0:
+                spielfeld3[Pos22 - 1] = -1
+        Ratios()
 
-            if 0 < Pos21 < 25:
-                if spielfeld1[Pos21 - 1] == 0 and spielfeld2[Pos21 - 1] < 5 and Würfel1[0] != 0:
-                    spielfeld3[Pos21 - 1] = spielfeld2[Pos21 - 1] + 1
-                elif spielfeld1[Pos21 - 1] == 1 and spielfeld2[Pos21 - 1] == 0 and Würfel1[0] != 0:
-                    spielfeld3[Pos21 - 1] = -1
+    elif spielfeld2[Pos1 - 1] != 0 and movecounter % 2 != 0 and Red_Cap_Piece == 0:
+        Pos21 = Pos1 - Würfel1[0]
+        Pos22 = Pos1 - Würfel2[0]
 
-            if 0 < Pos22 < 25:
-                if spielfeld1[Pos22 - 1] == 0 and spielfeld2[Pos22 - 1] < 5 and Würfel2[0] != 0:
-                    spielfeld3[Pos22 - 1] = spielfeld2[Pos22 - 1] + 1
-                elif spielfeld1[Pos22 - 1] == 1 and spielfeld2[Pos22 - 1] == 0 and Würfel2[0] != 0:
-                    spielfeld3[Pos22 - 1] = -1
-            Ratios()
+        if 0 < Pos21 < 25:
+            if spielfeld1[Pos21 - 1] == 0 and spielfeld2[Pos21 - 1] < 5 and Würfel1[0] != 0:
+                spielfeld3[Pos21 - 1] = spielfeld2[Pos21 - 1] + 1
+            elif spielfeld1[Pos21 - 1] == 1 and spielfeld2[Pos21 - 1] == 0 and Würfel1[0] != 0:
+                spielfeld3[Pos21 - 1] = -1
+
+        if 0 < Pos22 < 25:
+            if spielfeld1[Pos22 - 1] == 0 and spielfeld2[Pos22 - 1] < 5 and Würfel2[0] != 0:
+                spielfeld3[Pos22 - 1] = spielfeld2[Pos22 - 1] + 1
+            elif spielfeld1[Pos22 - 1] == 1 and spielfeld2[Pos22 - 1] == 0 and Würfel2[0] != 0:
+                spielfeld3[Pos22 - 1] = -1
+        Ratios()
+    elif Red_Cap_Piece != 0 and movecounter % 2 != 0 and spielfeld2[Pos1 - 1] != 0:
+        Pos21 = 25 - Würfel1[0]
+        Pos22 = 25 - Würfel2[0]
+        if 0 < Pos21 < 25:
+            if spielfeld1[Pos21 - 1] == 0 and spielfeld2[Pos21 - 1] < 5 and Würfel1[0] != 0:
+                spielfeld3[Pos21 - 1] = spielfeld2[Pos21 - 1] + 1
+            elif spielfeld1[Pos21 - 1] == 1 and spielfeld2[Pos21 - 1] == 0 and Würfel1[0] != 0:
+                spielfeld3[Pos21 - 1] = -1
+
+        if 0 < Pos22 < 25:
+            if spielfeld1[Pos22 - 1] == 0 and spielfeld2[Pos22 - 1] < 5 and Würfel2[0] != 0:
+                spielfeld3[Pos22 - 1] = spielfeld2[Pos22 - 1] + 1
+            elif spielfeld1[Pos22 - 1] == 1 and spielfeld2[Pos22 - 1] == 0 and Würfel2[0] != 0:
+                spielfeld3[Pos22 - 1] = -1
+        Ratios()
 
 
 def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
@@ -281,7 +308,7 @@ def Position2(event=NONE):
         move()
         
 def move():
-    global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3
+    global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece
     # prüfft ob das feld was man anklickt (Pos2) mit der Possible position (Pos21 nd Pos22)übereinstimmt. Wenn ja setzt es den jewiligen würfel auf 0.
     if Pos2 == Pos21 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or
                           (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
@@ -299,7 +326,7 @@ def move():
 
     # Prüft spielfeld3 ob die angeklickte position möglich ist 
     # zweite nedingung schaut ob die angeklickte figur eine weise figur ist und somit in spielfeld1 nicht 0 ist.
-    if (spielfeld3[Pos2-1] != 0 ) and spielfeld1[Pos1-1] != 0:
+    if (spielfeld3[Pos2-1] != 0 ) and spielfeld1[Pos1-1] != 0 and White_Cap_Piece == 0:
         # zieht eine figur von der Pos1 ab 
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
         # füght eine figur bei Pos2 hinzu 
@@ -308,13 +335,28 @@ def move():
             spielfeld2[Pos2-1] = 0
             Cap_Pieces(0)
         #setzt spielfeld3 zurück 
+    elif (spielfeld3[Pos2-1] != 0 ) and spielfeld1[Pos1-1] != 0 and White_Cap_Piece != 0:
+        spielfeld1[Pos2-1] = spielfeld1[Pos2-1]+1
+        White_Cap_Piece = White_Cap_Piece - 1
+        if spielfeld3[Pos2-1] == -1:
+            
+            spielfeld2[Pos2-1] = 0
+            Cap_Pieces(0)
+
 
     # gleiche nur schaut nun ob das angeklickte feld rot ist 
-    elif (spielfeld3[Pos2-1] != 0 ) and spielfeld2[Pos1-1] != 0:
+    elif (spielfeld3[Pos2-1] != 0 ) and spielfeld2[Pos1-1] != 0 and Red_Cap_Piece == 0:
         spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
         spielfeld2[Pos2-1] = spielfeld2[Pos2-1]+1
         if spielfeld3[Pos2-1] == -1:
             spielfeld1[Pos2-1] = 0
+            Cap_Pieces(1)
+    elif (spielfeld3[Pos2-1] != 0 )  and spielfeld2[Pos1-1] != 0 and Red_Cap_Piece != 0:
+        spielfeld2[Pos2-1] = spielfeld2[Pos2-1]+1
+        Red_Cap_Piece = Red_Cap_Piece - 1
+        if spielfeld3[Pos2-1] == -1:
+            spielfeld1[Pos2-1] = 0
+            
             Cap_Pieces(1)
         
     # damit nach der Ratios() die markierung weg ist bei der angeklickten figur
@@ -323,15 +365,14 @@ def move():
 
 
 def Cap_Pieces(x):
-    global Cap_counter_1, Cap_counter_2,White_Cap_Piece, Red_Cap_Piece
+    global White_Cap_Piece, Red_Cap_Piece
     if x == 0:
-        Cap_counter_2 = Cap_counter_2 + 1
-        Red_Cap_Piece = True
+        
+        Red_Cap_Piece = Red_Cap_Piece + 1 
     else:
-        Cap_counter_1 = Cap_counter_1 + 1
-        White_Cap_Piece = True
-    print(Cap_counter_1)
-    print(Cap_counter_2)
+        
+        White_Cap_Piece = White_Cap_Piece + 1 
+   
 
 
 
@@ -391,3 +432,6 @@ canvas.bind("<Button-3>", Position2)
 root.bind("<Key>", key)
 root.bind("<Configure>", Ratios)
 root.mainloop()
+#!!! wenn man nach dem schlagen nicht mehr raus kann stürtzt das game ab 
+#!!! einrichten von einem kreis der erscheind unten wenn eine figur geschlagen wird 
+#----------> wenn man diesen kreis drückt sollen die possible positions angezeigt werden (siehe kommentar Posspible_pos)
