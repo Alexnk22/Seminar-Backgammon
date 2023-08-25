@@ -230,31 +230,19 @@ def set_possibel_pos():
 
 
 def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
-        
     for u in range(12):
         r = 15 if u >= 6 else 0
-        if spielfeld[u] != -1:
-            for i in range(spielfeld[u]):
-                canvas.create_oval((673 - (u * 53) - r) * Ratio, (600 - i * 50) * Ratio, (723 - (u * 53) - r) * Ratio, (650 - i * 50) * Ratio, fill=farbe, width=1)
-                
-                Figuren(Ratio, spielfeld1, "white",12)
-                Figuren(Ratio, spielfeld2, "maroon",12)
-                mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
-                mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue") 
+        if spielfeld[u] != -1 and spielfeld[u] != 0:
+            canvas.create_oval((673 - (u * 53) - r) * Ratio, (600 - (spielfeld[u]-1) * 50) * Ratio, (723 - (u * 53) - r) * Ratio, (650 - (spielfeld[u]-1) * 50) * Ratio, fill=farbe, width=1)
+
         elif spielfeld[u] == -1:
             canvas.create_oval((673 - (u * 53) - r) * Ratio, (610) * Ratio, (723 - (u * 53) - r) * Ratio, (640) * Ratio, fill=farbe, width=1)
         
-
     for u in range(12):
         r = 15 if u >= 6 else 0 
-        if spielfeld[u + verschiebung] != -1:
-            for i in range(spielfeld[u + verschiebung]):        
-                canvas.create_oval((75 + u * 53 + r) * Ratio, (75 + i * 50) * Ratio, (125 + u * 53 + r) * Ratio, (125 + i * 50) * Ratio, fill=farbe, width=1)
-                
-                Figuren(Ratio, spielfeld1, "white",12)
-                Figuren(Ratio, spielfeld2, "maroon",12)
-                mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
-                mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
+        if spielfeld[u + verschiebung] != -1 and spielfeld[u+verschiebung] != 0:
+            canvas.create_oval((75 + u * 53 + r) * Ratio, (75 + (spielfeld[u+verschiebung]-1) * 50) * Ratio, (125 + u * 53 + r) * Ratio, (125 + (spielfeld[u+verschiebung]-1) * 50) * Ratio, fill=farbe, width=1)
+                  
         elif spielfeld[u + verschiebung] == -1:
             canvas.create_oval((75 + u * 53 + r) * Ratio, (85) * Ratio, (125 + u * 53 + r) * Ratio, (115) * Ratio, fill=farbe, width=1)
         
