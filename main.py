@@ -56,6 +56,7 @@ def Ratios (event=NONE):
     show_Würfel(Ratio,Würfel1,0)
     show_Würfel(Ratio,Würfel2,1)
     mark_possible_pos(Ratio, spielfeld3,"yellow",12)
+    show_Cap_Piece(Ratio)
 
 
 # erstellt das stielfeld ohne Figuren 
@@ -342,8 +343,6 @@ def move():
             
             spielfeld2[Pos2-1] = 0
             Cap_Pieces(0)
-
-
     # gleiche nur schaut nun ob das angeklickte feld rot ist 
     elif (spielfeld3[Pos2-1] != 0 ) and spielfeld2[Pos1-1] != 0 and Red_Cap_Piece == 0:
         spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
@@ -351,12 +350,12 @@ def move():
         if spielfeld3[Pos2-1] == -1:
             spielfeld1[Pos2-1] = 0
             Cap_Pieces(1)
+
     elif (spielfeld3[Pos2-1] != 0 )  and spielfeld2[Pos1-1] != 0 and Red_Cap_Piece != 0:
         spielfeld2[Pos2-1] = spielfeld2[Pos2-1]+1
         Red_Cap_Piece = Red_Cap_Piece - 1
         if spielfeld3[Pos2-1] == -1:
             spielfeld1[Pos2-1] = 0
-            
             Cap_Pieces(1)
         
     # damit nach der Ratios() die markierung weg ist bei der angeklickten figur
@@ -367,14 +366,16 @@ def move():
 def Cap_Pieces(x):
     global White_Cap_Piece, Red_Cap_Piece
     if x == 0:
-        
         Red_Cap_Piece = Red_Cap_Piece + 1 
     else:
-        
         White_Cap_Piece = White_Cap_Piece + 1 
-   
-
-
+    Ratios()
+    
+def show_Cap_Piece(Ratio):
+    if Red_Cap_Piece != 0:
+        canvas.create_oval(175*Ratio,332.5*Ratio,225*Ratio,382.5*Ratio,fill="maroon")
+    if White_Cap_Piece != 0:
+        canvas.create_oval(250*Ratio,332.5*Ratio,300*Ratio,382.5*Ratio,fill="white")
 
 #lässt einen mit "w" würfeln
 def key(event):
@@ -383,7 +384,6 @@ def key(event):
     elif event.char == "p":
         Pass_turn()
     
-
 
 def File():
     global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22
@@ -408,7 +408,6 @@ def Pass_turn():
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
 
-
 file_menu = Menu(mein_menu)
 mein_menu.add_cascade(label="File", menu=file_menu)
 file_menu.add_command(label="New...", command=File)
@@ -424,7 +423,6 @@ Game_mode_menu = Menu(mein_menu)
 mein_menu.add_cascade(label="Game mode", menu=Game_mode_menu)
 Game_mode_menu.add_command(label="Player vs. AI", command=AI)
 Game_mode_menu.add_command(label="Player  vs. Player",command=PvP)
-
 
 
 canvas.bind("<Button-1>", Position)
