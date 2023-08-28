@@ -18,7 +18,6 @@ Pass=False
 Red_Cap_Piece = 0
 White_Cap_Piece = 0
 
-
 root = Tk()
 
 root.minsize(width=550,height=550)
@@ -35,7 +34,7 @@ spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
-# wird die ganze zeit gerufen wenn etwas neues erscheint 
+
 def Ratios (event=NONE):
     global White_Cap_Piece,Red_Cap_Piece
     canvas.delete("all")
@@ -46,32 +45,24 @@ def Ratios (event=NONE):
     Feld(Ratio)
     Figuren(Ratio, spielfeld1, "white",12)
     Figuren(Ratio, spielfeld2, "maroon",12)
-
-    # das nur das fällt markiert wird von der person die am zug ist 
     if movecounter % 2 == 0 and White_Cap_Piece == 0:
         mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
-
     elif movecounter % 2 != 0 and Red_Cap_Piece == 0:
         mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
-
     show_Würfel(Ratio,Würfel1,0)
     show_Würfel(Ratio,Würfel2,1)
     mark_possible_pos(Ratio, spielfeld3,"yellow",12)
     show_Cap_Piece(Ratio)
 
 
-# erstellt das stielfeld ohne Figuren 
 def Feld(Ratio):
-
     if movecounter % 2 != 0 and movecounter != 1:
         canvas.create_rectangle(0,0,70*Ratio,70*Ratio,fill="red")
     elif movecounter % 2 == 0:
         canvas.create_rectangle(0,0,70*Ratio,70*Ratio,fill="white")
-
     for u in range (2):
         canvas.create_rectangle((75+u*332.5)*Ratio,75*Ratio,(392.5+u*332.5)*Ratio,650*Ratio,fill="goldenrod",width=2)
         canvas.create_rectangle(75*Ratio,75*Ratio,(725)*Ratio,650*Ratio,width=4)
-
     for u in range (2):
         for i in range (3):
             canvas.create_polygon((i*106+75+u*333)*Ratio, 75*Ratio, (i*106+100+u*333)*Ratio, 325*Ratio, (i*106+125+u*333)*Ratio, 75*Ratio,fill="red",outline="black",)
@@ -80,7 +71,7 @@ def Feld(Ratio):
             canvas.create_polygon((i*106+75+u*333)*Ratio, 650*Ratio, (i*106+100+u*333)*Ratio, 400*Ratio, (i*106+125+u*333)*Ratio, 650*Ratio)
             canvas.create_polygon((i*106+127.5+u*333)*Ratio, 650*Ratio, (i*106+152.5+u*333)*Ratio, 400*Ratio, (i*106+177.5+u*333)*Ratio, 650*Ratio,fill="red",outline="black")
 
-#erstellt die Figuren in zusammenarbeit mit der spielfeldliste 1 und 2 
+
 def Figuren(Ratio, spielfeld, farbe,verschiebung):
     for u in range(12):
         for i in range(int(spielfeld[u])):
@@ -88,8 +79,7 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
                 r = 15
             else:
                 r = 0
-            canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1.33)
-                        
+            canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1.33)        
     for u in range(12):
         for i in range(int(spielfeld[int(u)+verschiebung])):
             if u >= 6:
@@ -97,8 +87,8 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
             else:
                 r = 0
             canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1.33)
-                               
-# filtert die x und y koordinaten des mausklicks und findet Pos1 heraus 
+
+
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3
     Pos3 = 0
@@ -106,21 +96,17 @@ def Position(event):
         Pos21 = 0
     if Pos22 == 25:
         Pos22 == 0
-    
     spielfeld3[int(Pos21)-1] = 0
     spielfeld3[int(Pos22)-1] = 0
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/800         
     else:
         Ratio = root.winfo_height()/800
-
-    # wegen der verschiebung in der mitte des feldes 
     for i in range (1,13):
         if i > 6:
             r = 18
         else:
             r = 0
-
         if (event.x/Ratio-27-r)//52 == i:
             Dreieck = i
     if   0 < (event.y/Ratio-75) < 250:
@@ -147,7 +133,6 @@ def Position(event):
         Pos3 = 1
         Ratios()        
         set_possibel_pos()      
-        
     if (250 < event.x / Ratio < 300) and (332 < event.y /Ratio < 382) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0): 
         Pos1 = -1
         Pos3 = 2
@@ -155,13 +140,7 @@ def Position(event):
         set_possibel_pos()
     
 
-    
-    
-
-# markiert die position die angeklickt wurde 
-# würd 2 mal aufgerufen in Ratios. Ein mal wird die liste durchgegangen mit den weißen steine dan mit den roten 
 def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
-    
         if 6 < Pos1 < 13 or 18 < Pos1 < 25:
             r = 15
         else:
@@ -173,13 +152,12 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
             if spielfeld[Pos1-1] != 0:
                 canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
         
+
 def Würfel_wurf():
     global Pos21, Pos22, Pos1, movecounter, Pass
-
     if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True:
         if Pass == False:
             movecounter = movecounter + 1
-
         spielfeld3[int(Pos21) - 1] = 0
         spielfeld3[int(Pos22) - 1] = 0
         Würfel1.clear()
@@ -195,8 +173,6 @@ def Würfel_wurf():
         Pass = False
 
    
-
-#lässt den würfel erscheinen. Wird auch wieder 2 mal aufgerufen. Einmal mit dem ersten und dann mit dem zweiten Würfel. die Verschiebung (Ver) macht den unterschied 
 def show_Würfel(Ratio, würfel_list, ver):
     for i in range(1, 7):
         if int(würfel_list[0]) == i:
@@ -212,9 +188,8 @@ def show_Würfel(Ratio, würfel_list, ver):
                 if i == 6:
                     canvas.create_oval(((u*34)+503+ver*80) * Ratio, 355 * Ratio, ((u*34)+513+ver*80) * Ratio, 365 * Ratio, fill="black")
 
-#! FEHLER ENTDECKT WENN DIE POS21 ODER POS22 AU?ERHALB RANGE SIND KANN ICH NUR RECHTSKLICK MACHEN NICHT LINKSKLICK 
 
-# wird von Position gerufen also wird bei jedem richtigen klick getriggert                     
+#! FEHLER ENTDECKT WENN DIE POS21 ODER POS22 AU?ERHALB RANGE SIND KANN ICH NUR RECHTSKLICK MACHEN NICHT LINKSKLICK                   
 def set_possibel_pos():
     global Pos21, Pos22,White_Cap_Piece,Red_Cap_Piece, Pos3
 
@@ -302,10 +277,12 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
                   
         elif spielfeld[u + verschiebung] == -1:
             canvas.create_oval((75 + u * 53 + r) * Ratio, (85) * Ratio, (125 + u * 53 + r) * Ratio, (115) * Ratio, fill=farbe, width=1)
+    if Pos3 == 1:
+        canvas.create_oval(175*Ratio,332.5*Ratio,225*Ratio,382.5*Ratio,outline="Green")
+    if Pos3 == 2:
+        canvas.create_oval(250*Ratio,332.5*Ratio,300*Ratio,382.5*Ratio)
         
-        
-# bei einem rechtsklick getriggert 
-# verwendet den gleichen angloritmus zum finden von Pos2 wie aus Position mit Pos1 
+
 def Position2(event=NONE):
     global Dreieck2, TOPorBOT2, Pos2   
     if root.winfo_width() < root.winfo_height():
@@ -330,65 +307,49 @@ def Position2(event=NONE):
         pasch()
         move()
         
-        
+
 def pasch():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
-    if Pos2 == Pos21 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or
-                          (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
+    if Pos2 == Pos21 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
         if Würfel1[1] == Würfel2[1]:
             Würfel1[0], Würfel1[1] = Würfel1[1], 0
         else:
             Würfel1[0] = 0
 
-    elif Pos2 == Pos22 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or
-                            (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
+    elif Pos2 == Pos22 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or(movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
         if Würfel1[0] == 0 and Würfel1[1] == 0:
             Würfel2[0], Würfel2[1] = Würfel2[1], 0
         else:
             Würfel2[0] = 0
 
 
-
-
-
-
 def move():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
     
-    # Prüft spielfeld3 ob die angeklickte position möglich ist 
-    # zweite nedingung schaut ob die angeklickte figur eine weise figur ist und somit in spielfeld1 nicht 0 ist.
     if (spielfeld3[Pos2-1] != 0 ) and spielfeld1[Pos1-1] != 0 and White_Cap_Piece == 0:
-        # zieht eine figur von der Pos1 ab 
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
-        # füght eine figur bei Pos2 hinzu 
         spielfeld1[Pos2-1] = spielfeld1[Pos2-1]+1
         if spielfeld3[Pos2-1] == -1:
             spielfeld2[Pos2-1] = 0
             Cap_Pieces(0)
-        #setzt spielfeld3 zurück 
     elif (spielfeld3[Pos2-1] != 0 ) and Pos3 == 2 and White_Cap_Piece != 0:
         spielfeld1[Pos2-1] = spielfeld1[Pos2-1]+1
         White_Cap_Piece = White_Cap_Piece - 1
         if spielfeld3[Pos2-1] == -1:
-            
             spielfeld2[Pos2-1] = 0
             Cap_Pieces(0)
-    # gleiche nur schaut nun ob das angeklickte feld rot ist 
     elif (spielfeld3[Pos2-1] != 0 ) and spielfeld2[Pos1-1] != 0 and Red_Cap_Piece == 0:
         spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
         spielfeld2[Pos2-1] = spielfeld2[Pos2-1]+1
         if spielfeld3[Pos2-1] == -1:
             spielfeld1[Pos2-1] = 0
             Cap_Pieces(1)
-
     elif (spielfeld3[Pos2-1] != 0 )  and  Pos3 == 1 and Red_Cap_Piece != 0:
         spielfeld2[Pos2-1] = spielfeld2[Pos2-1]+1
         Red_Cap_Piece = Red_Cap_Piece - 1
         if spielfeld3[Pos2-1] == -1:
             spielfeld1[Pos2-1] = 0
             Cap_Pieces(1)
-        
-    # damit nach der Ratios() die markierung weg ist bei der angeklickten figur
     spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3 = [0] * 24, 0, 0, 0, 0, 0
     Ratios()
 
@@ -401,20 +362,20 @@ def Cap_Pieces(x):
         White_Cap_Piece = White_Cap_Piece + 1 
     Ratios()
     
+
 def show_Cap_Piece(Ratio):
     if Red_Cap_Piece != 0:
         canvas.create_oval(175*Ratio,332.5*Ratio,225*Ratio,382.5*Ratio,fill="maroon")
     if White_Cap_Piece != 0:
         canvas.create_oval(250*Ratio,332.5*Ratio,300*Ratio,382.5*Ratio,fill="white")
 
-#lässt einen mit "w" würfeln
+
 def key(event):
     if event.char == "w":
         Würfel_wurf()
     elif event.char == "p":
         Pass_turn()
     
-
 def File():
     global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22
     spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
@@ -428,12 +389,12 @@ def AI():
     pass
 def PvP():
     pass
+
 def Pass_turn():
     global Pass, movecounter, Pos1, spielfeld3, Würfel1, Würfel2
     movecounter, Würfel1, Würfel2, Pos1, spielfeld3 = movecounter + 1, [0], [0], 0, [0]*24
     Ratios()
     Pass = True
-
 
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
