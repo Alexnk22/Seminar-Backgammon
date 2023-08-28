@@ -101,6 +101,12 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
 # filtert die x und y koordinaten des mausklicks und findet Pos1 heraus 
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3
+    Pos3 = 0
+    if Pos21 == 25:
+        Pos21 = 0
+    if Pos22 == 25:
+        Pos22 == 0
+    
     spielfeld3[int(Pos21)-1] = 0
     spielfeld3[int(Pos22)-1] = 0
     if root.winfo_width() < root.winfo_height():
@@ -131,23 +137,25 @@ def Position(event):
     # ersten and und or bedinungen damit nichts passiert wenn man auserhalb des feldes drückt
     # zweite and und or bedingung damit am anfang man einmal würfel muss damit man etwas machen kann (Würfel = 7 am anfang)
     # drittens and und or damit das wenn beide würfel 0 sind das man nichts meht machen kann bis wieder gewürfeld wird 
-    if (int(TOPorBOT) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 407.5 < event.x / Ratio < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0):
+    if (int(TOPorBOT) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 407.5 < event.x / Ratio < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0) :
         Pos1 = 13 - int(Dreieck) if TOPorBOT == 1 else int(Dreieck) + 12
-
+        Pos3 = 0
         Ratios()        
         set_possibel_pos()
-    elif (175 < event.x / Ratio < 225) and (332,5 < event.y / Ratio < 382,5) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0):
-        print("hallo")
-        Pos1 = 13 - int(Dreieck) if TOPorBOT == 1 else int(Dreieck) + 12
+    if (175 < event.x / Ratio < 225) and (332,5 < event.y / Ratio < 382,5) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0):
+        Pos1 = -1
         Pos3 = 1
         Ratios()        
         set_possibel_pos()      
         
-    elif (250 < event.x / Ratio < 300) and (332,5 < event.y / Ratio < 382,5) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0): 
-        Pos1 = 13 - int(Dreieck) if TOPorBOT == 1 else int(Dreieck) + 12
+    if (250 < event.x / Ratio < 300) and (332,5 < event.y / Ratio < 382,5) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0): 
+        Pos1 = -1
         Pos3 = 2
         Ratios()        
-        set_possibel_pos()        
+        set_possibel_pos()
+    
+
+    
     
 
 # markiert die position die angeklickt wurde 
