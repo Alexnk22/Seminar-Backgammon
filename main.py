@@ -327,11 +327,12 @@ def Position2(event=NONE):
         TOPorBOT2 = 0
     if (int(TOPorBOT2) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 407.5 < event.x / Ratio < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
+        pasch()
         move()
         
-def move():
+        
+def pasch():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
-    # prüfft ob das feld was man anklickt (Pos2) mit der Possible position (Pos21 nd Pos22)übereinstimmt. Wenn ja setzt es den jewiligen würfel auf 0.
     if Pos2 == Pos21 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or
                           (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
         if Würfel1[1] == Würfel2[1]:
@@ -346,6 +347,14 @@ def move():
         else:
             Würfel2[0] = 0
 
+
+
+
+
+
+def move():
+    global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
+    
     # Prüft spielfeld3 ob die angeklickte position möglich ist 
     # zweite nedingung schaut ob die angeklickte figur eine weise figur ist und somit in spielfeld1 nicht 0 ist.
     if (spielfeld3[Pos2-1] != 0 ) and spielfeld1[Pos1-1] != 0 and White_Cap_Piece == 0:
