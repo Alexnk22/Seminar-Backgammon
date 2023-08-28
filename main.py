@@ -142,13 +142,13 @@ def Position(event):
         Pos3 = 0
         Ratios()        
         set_possibel_pos()
-    if (175 < event.x / Ratio < 225) and (332,5 < event.y / Ratio < 382,5) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0):
+    if (175 < event.x / Ratio < 225) and (332 < event.y/Ratio < 382) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0):
         Pos1 = -1
         Pos3 = 1
         Ratios()        
         set_possibel_pos()      
         
-    if (250 < event.x / Ratio < 300) and (332,5 < event.y / Ratio < 382,5) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0): 
+    if (250 < event.x / Ratio < 300) and (332 < event.y /Ratio < 382) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0): 
         Pos1 = -1
         Pos3 = 2
         Ratios()        
