@@ -95,7 +95,7 @@ def Position(event):
     if Pos21 == 25:
         Pos21 = 0
     if Pos22 == 25:
-        Pos22 == 0
+        Pos22 = 0
     spielfeld3[int(Pos21)-1] = 0
     spielfeld3[int(Pos22)-1] = 0
     if root.winfo_width() < root.winfo_height():
