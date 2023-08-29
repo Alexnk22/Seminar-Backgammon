@@ -132,15 +132,19 @@ def Position(event):
         Pos1 = -1
         Pos3 = 1
         Ratios()        
-        set_possibel_pos()      
+        set_possibel_pos()   
+        canvas.create_oval(175*Ratio,332*Ratio,225*Ratio,382*Ratio,outline="blue",width=4)
+           
     if (250 < event.x / Ratio < 300) and (332 < event.y /Ratio < 382) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0): 
         Pos1 = -1
         Pos3 = 2
         Ratios()        
         set_possibel_pos()
+        canvas.create_oval(250*Ratio,332*Ratio,300*Ratio,382*Ratio,outline="green",width=4)
     
 
 def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
+        global Pos3
         if 6 < Pos1 < 13 or 18 < Pos1 < 25:
             r = 15
         else:
@@ -152,6 +156,7 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
             if spielfeld[Pos1-1] != 0:
                 canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
         
+            
 
 def Würfel_wurf():
     global Pos21, Pos22, Pos1, movecounter, Pass
@@ -277,10 +282,7 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
                   
         elif spielfeld[u + verschiebung] == -1:
             canvas.create_oval((75 + u * 53 + r) * Ratio, (85) * Ratio, (125 + u * 53 + r) * Ratio, (115) * Ratio, fill=farbe, width=1)
-    if Pos3 == 1:
-        canvas.create_oval(175*Ratio,332.5*Ratio,225*Ratio,382.5*Ratio,outline="Green")
-    if Pos3 == 2:
-        canvas.create_oval(250*Ratio,332.5*Ratio,300*Ratio,382.5*Ratio)
+    
         
 
 def Position2(event=NONE):
