@@ -134,7 +134,6 @@ def Position(event):
         Ratios()        
         set_possibel_pos()   
         canvas.create_oval(175*Ratio,332*Ratio,225*Ratio,382*Ratio,outline="blue",width=4)
-           
     if (250 < event.x / Ratio < 300) and (332 < event.y /Ratio < 382) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0): 
         Pos1 = -1
         Pos3 = 2
@@ -157,7 +156,6 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
                 canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
         
             
-
 def Würfel_wurf():
     global Pos21, Pos22, Pos1, movecounter, Pass
     if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True:
