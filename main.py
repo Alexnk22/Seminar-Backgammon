@@ -92,9 +92,9 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3
     Pos3 = 0
-    if Pos21 == 25:
+    if Pos21 > 24:
         Pos21 = 0
-    if Pos22 == 25:
+    if Pos22 > 24:
         Pos22 = 0
     spielfeld3[int(Pos21)-1] = 0
     spielfeld3[int(Pos22)-1] = 0
