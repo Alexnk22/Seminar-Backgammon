@@ -14,6 +14,8 @@ Würfel2 = [7]
 Pos21= 0
 Pos22= 0
 
+White_winning_pos = False
+Red_winning_pos = False
 Pass=False
 Red_Cap_Piece = 0
 White_Cap_Piece = 0
@@ -404,6 +406,20 @@ def Pass_turn():
     movecounter, Würfel1, Würfel2, Pos1, spielfeld3 = movecounter + 1, [0], [0], 0, [0]*24
     Ratios()
     Pass = True
+
+def Check_winning_pos():
+    global White_winning_pos, Red_winning_pos
+
+    for i in range(0,17):
+        if spielfeld1[i] == 0 and White_Cap_Piece == 0:
+            White_winning_pos = False
+            print("hallo")
+    for u in range(6,24):
+        if spielfeld2[u] == 0 and Red_Cap_Piece == 0:
+            Red_winning_pos = False
+
+
+
 
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
