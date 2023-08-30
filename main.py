@@ -230,8 +230,7 @@ def set_Cap_possible_pos():
 
 
 
-
-#! FEHLER ENTDECKT WENN DIE POS21 ODER POS22 AU?ERHALB RANGE SIND KANN ICH NUR RECHTSKLICK MACHEN NICHT LINKSKLICK                   
+                  
 def set_possibel_pos():
     global Pos21, Pos22,White_Cap_Piece,Red_Cap_Piece, Pos3
 
@@ -253,7 +252,6 @@ def set_possibel_pos():
             elif spielfeld2[Pos22 - 1] == 1 and spielfeld1[Pos22 - 1] == 0 and Würfel2[0] != 0:
                 spielfeld3[Pos22 - 1] = -1
         Ratios()
-    # 3te and weg und hinmachen das wenn dir neu erscheinende kreis angeklickt wird der vlaue True abgefragt wird abuch bei vorletzter el if 
     
 
     elif spielfeld2[Pos1 - 1] != 0 and movecounter % 2 != 0 and Red_Cap_Piece == 0:
