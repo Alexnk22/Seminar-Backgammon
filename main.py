@@ -30,9 +30,13 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
+#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
+#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
+
+
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
+spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
@@ -163,6 +167,10 @@ def Würfel_wurf():
     if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True:
         if Pass == False:
             movecounter = movecounter + 1
+        if Pos21 > 24:
+            Pos21 = 0
+        if Pos22 > 24:
+            Pos22 = 0
         spielfeld3[int(Pos21) - 1] = 0
         spielfeld3[int(Pos22) - 1] = 0
         Würfel1.clear()
@@ -362,6 +370,7 @@ def move():
             spielfeld1[Pos2-1] = 0
             Cap_Pieces(1)
     spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3 = [0] * 24, 0, 0, 0, 0, 0
+    
     Ratios()
 
 
@@ -404,19 +413,15 @@ def PvP():
 def Pass_turn():
     global Pass, movecounter, Pos1, spielfeld3, Würfel1, Würfel2
     movecounter, Würfel1, Würfel2, Pos1, spielfeld3 = movecounter + 1, [0], [0], 0, [0]*24
+    
     Ratios()
     Pass = True
 
 def Check_winning_pos():
-    global White_winning_pos, Red_winning_pos
+    global White_winning_pos, Red_winning_pos, spielfeld1, spielfeld2
 
-    for i in range(0,17):
-        if spielfeld1[i] == 0 and White_Cap_Piece == 0:
-            White_winning_pos = False
-            print("hallo")
-    for u in range(6,24):
-        if spielfeld2[u] == 0 and Red_Cap_Piece == 0:
-            Red_winning_pos = False
+    if spielfeld1[0:17] == 0:
+        print("hallo")
 
 
 
