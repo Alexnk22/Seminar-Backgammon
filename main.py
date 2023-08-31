@@ -370,7 +370,7 @@ def move():
             spielfeld1[Pos2-1] = 0
             Cap_Pieces(1)
     spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3 = [0] * 24, 0, 0, 0, 0, 0
-    
+    Check_winning_pos()
     Ratios()
 
 
