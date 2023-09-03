@@ -30,13 +30,12 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
+spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
+spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
 
-
-spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
-spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
+#spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
@@ -282,7 +281,6 @@ def set_possibel_pos():
         Ratios()
     
 
-
 def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
     for u in range(12):
         r = 15 if u >= 6 else 0
@@ -419,9 +417,10 @@ def Pass_turn():
 
 def Check_winning_pos():
     global White_winning_pos, Red_winning_pos, spielfeld1, spielfeld2
-
-    if spielfeld1[0:17] == 0:
+    if all(x == 0 for x in spielfeld1[:18]) and White_Cap_Piece == 0:
         print("hallo")
+    if all(x == 0 for x in spielfeld2[6:25]) and Red_Cap_Piece == 0:
+        print("halo")
 
 
 
