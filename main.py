@@ -418,9 +418,14 @@ def Pass_turn():
 def Check_winning_pos():
     global White_winning_pos, Red_winning_pos, spielfeld1, spielfeld2
     if all(x == 0 for x in spielfeld1[:18]) and White_Cap_Piece == 0:
-        print("hallo")
+        White_winning_pos = True
+    else:
+        White_winning_pos = False
+        
     if all(x == 0 for x in spielfeld2[6:25]) and Red_Cap_Piece == 0:
-        print("halo")
+        Red_winning_pos = True 
+    else:
+        Red_winning_pos = False
 
 
 
