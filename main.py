@@ -9,6 +9,7 @@ Dreieck2 = 0
 Pos1 = 0
 Pos2 = 0
 Pos3 = 0
+Pos4 = 0
 Würfel1 = [7]
 Würfel2 = [7]
 Pos21= 0
@@ -30,12 +31,12 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
+#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
+#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
 
-#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
-#spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
+spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
@@ -75,7 +76,10 @@ def Feld(Ratio):
 
             canvas.create_polygon((i*106+75+u*333)*Ratio, 650*Ratio, (i*106+100+u*333)*Ratio, 400*Ratio, (i*106+125+u*333)*Ratio, 650*Ratio)
             canvas.create_polygon((i*106+127.5+u*333)*Ratio, 650*Ratio, (i*106+152.5+u*333)*Ratio, 400*Ratio, (i*106+177.5+u*333)*Ratio, 650*Ratio,fill="red",outline="black")
-
+    if White_winning_pos == True:
+        canvas.create_rectangle(735* Ratio,100 * Ratio,785 * Ratio,200 * Ratio, fill="black")
+    if Red_winning_pos == True:
+        canvas.create_rectangle(735* Ratio,400 * Ratio,785 * Ratio,500 * Ratio, fill="black")
 
 def Figuren(Ratio, spielfeld, farbe,verschiebung):
     for u in range(12):
@@ -238,7 +242,6 @@ def set_Cap_possible_pos():
         Ratios()       
 
 
-
                   
 def set_possibel_pos():
     global Pos21, Pos22,White_Cap_Piece,Red_Cap_Piece, Pos3
@@ -280,6 +283,7 @@ def set_possibel_pos():
                 spielfeld3[Pos22 - 1] = -1
         Ratios()
     
+    
 
 def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
     for u in range(12):
@@ -297,11 +301,15 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
                   
         elif spielfeld[u + verschiebung] == -1:
             canvas.create_oval((75 + u * 53 + r) * Ratio, (85) * Ratio, (125 + u * 53 + r) * Ratio, (115) * Ratio, fill=farbe, width=1)
-    
+
+    if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25) and movecounter % 2 == 0:
+        canvas.create_rectangle(735* Ratio,100 * Ratio,785 * Ratio,200 * Ratio, outline="yellow",width=5)
+    if Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
+        canvas.create_rectangle(735* Ratio,400 * Ratio,785 * Ratio,500 * Ratio, outline="yellow",width=5)
         
 
 def Position2(event=NONE):
-    global Dreieck2, TOPorBOT2, Pos2   
+    global Dreieck2, TOPorBOT2, Pos2, Pos1, Pos4    
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/800         
     else:
@@ -323,6 +331,18 @@ def Position2(event=NONE):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
         pasch()
         move()
+    if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0):
+        
+        Pos4 = 1
+        Ratios()        
+        print("hha")
+        
+    if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0): 
+        
+        Pos4 = 2
+        Ratios()        
+        print("hhah")
+        
         
 
 def pasch():
