@@ -332,13 +332,13 @@ def Position2(event=NONE):
         pasch()
         move()
     if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0):
-        
+        Pos2 = -1
         Pos4 = 1
         Ratios()        
         print("hha")
         
     if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0): 
-        
+        Pos2 = -1
         Pos4 = 2
         Ratios()        
         print("hhah")
@@ -359,7 +359,7 @@ def pasch():
         else:
             Würfel2[0] = 0
 
-
+#! wenn man weck klickt von der ausgewählten figur das kann man nicht refchtskliick macht 
 def move():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
     
