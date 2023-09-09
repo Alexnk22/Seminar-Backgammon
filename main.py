@@ -359,7 +359,7 @@ def pasch():
         else:
             Würfel2[0] = 0
 
-#! wenn man weck klickt von der ausgewählten figur das kann man nicht refchtskliick macht 
+
 def move():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
     
