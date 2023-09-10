@@ -10,6 +10,7 @@ Pos1 = 0
 Pos2 = 0
 Pos3 = 0
 Pos4 = 0
+Pos5 = 0
 Würfel1 = [7]
 Würfel2 = [7]
 Pos21= 0
@@ -99,8 +100,9 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
 
 
 def Position(event):
-    global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3
+    global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4
     Pos3 = 0
+    Pos4 = 0
     if Pos21 > 24:
         Pos21 = 0
     if Pos22 > 24:
@@ -286,6 +288,7 @@ def set_possibel_pos():
     
 
 def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
+    global Pos4
     for u in range(12):
         r = 15 if u >= 6 else 0
         if spielfeld[u] != -1 and spielfeld[u] != 0:
@@ -304,9 +307,10 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
 
     if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25) and movecounter % 2 == 0:
         canvas.create_rectangle(735* Ratio,100 * Ratio,785 * Ratio,200 * Ratio, outline="yellow",width=5)
+        Pos4 = 1
     if Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
         canvas.create_rectangle(735* Ratio,400 * Ratio,785 * Ratio,500 * Ratio, outline="yellow",width=5)
-        
+        Pos4 = 2
 
 def Position2(event=NONE):
     global Dreieck2, TOPorBOT2, Pos2, Pos1, Pos4    
@@ -331,15 +335,13 @@ def Position2(event=NONE):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
         pasch()
         move()
-    if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0):
+    if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1:
         Pos2 = -1
-        Pos4 = 1
         Ratios()        
         print("hha")
         
-    if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0): 
+    if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2: 
         Pos2 = -1
-        Pos4 = 2
         Ratios()        
         print("hhah")
         
@@ -361,7 +363,7 @@ def pasch():
 
 
 def move():
-    global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
+    global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3, Pos4
     
     if (spielfeld3[Pos2-1] != 0 ) and spielfeld1[Pos1-1] != 0 and White_Cap_Piece == 0:
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
@@ -387,7 +389,8 @@ def move():
         if spielfeld3[Pos2-1] == -1:
             spielfeld1[Pos2-1] = 0
             Cap_Pieces(1)
-    spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3 = [0] * 24, 0, 0, 0, 0, 0
+    
+    spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, 0, 0, 0, 0, 0, 0
     Check_winning_pos()
     Ratios()
 
@@ -429,8 +432,8 @@ def PvP():
     pass
 
 def Pass_turn():
-    global Pass, movecounter, Pos1, spielfeld3, Würfel1, Würfel2
-    movecounter, Würfel1, Würfel2, Pos1, spielfeld3 = movecounter + 1, [0], [0], 0, [0]*24
+    global Pass, movecounter, Pos1, spielfeld3, Würfel1, Würfel2, Pos4
+    movecounter, Würfel1, Würfel2, Pos1, spielfeld3, Pos4 = movecounter + 1, [0], [0], 0, [0]*24, 0
     
     Ratios()
     Pass = True
