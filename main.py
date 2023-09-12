@@ -441,7 +441,7 @@ def key(event):
         Würfel_wurf()
     elif event.char == "p":
         Pass_turn()
-    
+#yo
 def File():
     global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22
     spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
