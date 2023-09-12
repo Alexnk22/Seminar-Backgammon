@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import random
 
 movecounter = 1
@@ -335,16 +336,35 @@ def Position2(event=NONE):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
         pasch()
         move()
-    if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1:
+    if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos21 == 25:
         Pos2 = -1
-        Ratios()        
+        Ratios()    
+        spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
+        Würfel1[0] = 0
+        move()    
         print("hha")
-        
-    if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2: 
+    
+    if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos22 == 25:
         Pos2 = -1
-        Ratios()        
+        Ratios()    
+        spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
+        Würfel2[0] = 0
+        move()    
+        print("hha")
+    if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos21 == 0: 
+        Pos2 = -1
+        Ratios()   
+        spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
+        Würfel1[0] = 0     
         print("hhah")
-        
+        move()
+    if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos22 == 0: 
+        Pos2 = -1
+        Ratios()   
+        spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
+        Würfel2[0] = 0     
+        print("hhah")
+        move()   
         
 
 def pasch():
@@ -392,6 +412,7 @@ def move():
     
     spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, 0, 0, 0, 0, 0, 0
     Check_winning_pos()
+    winner()
     Ratios()
 
 
@@ -410,7 +431,11 @@ def show_Cap_Piece(Ratio):
     if White_Cap_Piece != 0:
         canvas.create_oval(250*Ratio,332.5*Ratio,300*Ratio,382.5*Ratio,fill="white")
 
-
+def winner():
+    if all(x == 0 for x in spielfeld1[18:25]) and White_winning_pos == True:
+        messagebox.showinfo("", "Weiß Gewinnt")
+    if all(x == 0 for x in spielfeld2[:7]) and Red_winning_pos == True:
+        messagebox.showinfo("", "Rot Gewinnt")
 def key(event):
     if event.char == "w":
         Würfel_wurf()
