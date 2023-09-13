@@ -423,7 +423,7 @@ def Cap_Pieces(x):
     else:
         White_Cap_Piece = White_Cap_Piece + 1 
     Ratios()
-    
+#sasd
 
 def show_Cap_Piece(Ratio):
     if Red_Cap_Piece != 0:
