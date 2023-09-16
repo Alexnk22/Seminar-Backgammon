@@ -127,14 +127,6 @@ def Position(event):
         TOPorBOT = 1    #unten
     else:
         TOPorBOT = 0
-    #if   0 < ((spielfeld2[Dreieck+11]*50)-50) < (event.y/Ratio-75) < (spielfeld2[Dreieck+11])*50 or 0 < ((spielfeld1[Dreieck+11]*50)-50) < (event.y/Ratio-75) < (spielfeld1[Dreieck+11])*50:
-    #    TOPorBOT = 2    #oben
-    
-    #elif (575 - ((spielfeld2[13-Dreieck])*50)) < (event.y/Ratio-75) < (525 - ((spielfeld2[13-Dreieck])*50)) < 575 or (575 - ((spielfeld1[13-Dreieck])*50)) < (event.y/Ratio-75) < (525 - ((spielfeld1[13-Dreieck])*50)) < 575:
-    #    TOPorBOT = 1    #unten
-    # ersten and und or bedinungen damit nichts passiert wenn man auserhalb des feldes drückt
-    # zweite and und or bedingung damit am anfang man einmal würfel muss damit man etwas machen kann (Würfel = 7 am anfang)
-    # drittens and und or damit das wenn beide würfel 0 sind das man nichts meht machen kann bis wieder gewürfeld wird 
     if (int(TOPorBOT) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 407.5 < event.x / Ratio < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0) :
         Pos1 = 13 - int(Dreieck) if TOPorBOT == 1 else int(Dreieck) + 12
         Pos3 = 0
@@ -336,37 +328,29 @@ def Position2(event=NONE):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
         pasch()
         move()
-    if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos21 == 25:
-        Pos2 = -1
-        Ratios()    
-        spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
-        Würfel1[0] = 0
-        move()    
-        print("hha")
-    
-    if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos22 == 25:
-        Pos2 = -1
-        Ratios()    
-        spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
-        Würfel2[0] = 0
-        move()    
-        print("hha")
-    if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos21 == 0: 
-        Pos2 = -1
-        Ratios()   
-        spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
-        Würfel1[0] = 0     
-        print("hhah")
-        move()
-    if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos22 == 0: 
-        Pos2 = -1
-        Ratios()   
-        spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
-        Würfel2[0] = 0     
-        print("hhah")
-        move()   
         
+    if ((735 < event.x / Ratio < 785) and (100 < event.y / Ratio < 200) and White_winning_pos and Pos4 == 1 and ((Pos21 == 25 and Würfel1[0]) or (Pos22 == 25 and Würfel2[0]))) or ((735 < event.x / Ratio < 785) and (400 < event.y / Ratio < 500) and Red_winning_pos and Pos4 == 2 and ((Pos21 == 0 and Würfel1[0]) or (Pos22 == 0 and Würfel2[0]))):
+        Pos2 = -1
+        Ratios()
+        if Pos21 == 25:
+            spielfeld = spielfeld1 if White_winning_pos else spielfeld2
+            if Würfel1[1] == Würfel2[1]:
+                Würfel1[0], Würfel1[1] = Würfel1[1], 0
+            else:
+                Würfel1[0] = 0
+        else:
+            spielfeld = spielfeld2 if White_winning_pos else spielfeld1
+            if Würfel2[1] == Würfel1[1]:
+                Würfel2[0], Würfel2[1] = Würfel2[1], 0
+            else:
+                Würfel2[0] = 0
+        spielfeld[Pos1 - 1] -= 1
+        pasch()
+        move()
 
+
+
+       
 def pasch():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
     if Pos2 == Pos21 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
