@@ -33,12 +33,12 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
+#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
+#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
 
-#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,1,1,1,   0,0,0,0,0,0]
-#spielfeld2 = [0,0,0,0,0,0   ,1,1,1,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,1,1,1,   0,0,0,0,0,0]
+spielfeld2 = [0,0,0,0,0,0   ,1,1,1,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
@@ -329,24 +329,49 @@ def Position2(event=NONE):
         pasch()
         move()
     
-    # rausgehmove
-    if ((735 < event.x / Ratio < 785) and (100 < event.y / Ratio < 200) and White_winning_pos and Pos4 == 1 and ((Pos21 == 25 and Würfel1[0]) or (Pos22 == 25 and Würfel2[0]))) or ((735 < event.x / Ratio < 785) and (400 < event.y / Ratio < 500) and Red_winning_pos and Pos4 == 2 and ((Pos21 == 0 and Würfel1[0]) or (Pos22 == 0 and Würfel2[0]))):
+    if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos21 == 25:
         Pos2 = -1
-        Ratios()
-        if Pos21 == 25:
-            spielfeld = spielfeld1 if White_winning_pos else spielfeld2
-            if Würfel1[1] == Würfel2[1]:
-                Würfel1[0], Würfel1[1] = Würfel1[1], 0
-            else:
-                Würfel1[0] = 0
+           
+        spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
+        if Würfel1[1] == Würfel2[1]:
+            Würfel1[0], Würfel1[1] = Würfel1[1], 0
         else:
-            spielfeld = spielfeld2 if White_winning_pos else spielfeld1
-            if Würfel2[1] == Würfel1[1]:
-                Würfel2[0], Würfel2[1] = Würfel2[1], 0
-            else:
-                Würfel2[0] = 0
-        spielfeld[Pos1 - 1] -= 1
+            Würfel1[0] = 0
+        Ratios() 
         move()
+
+    if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos22 == 25:
+        Pos2 = -1
+           
+        spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
+        if Würfel1[0] == 0 and Würfel1[1] == 0:
+            Würfel2[0], Würfel2[1] = Würfel2[1], 0
+        else:
+            Würfel2[0] = 0
+        Ratios() 
+        move()
+
+    if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos21 == 0: 
+           
+        spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
+        if Würfel1[1] == Würfel2[1]:
+            Würfel1[0], Würfel1[1] = Würfel1[1], 0
+        else:
+            Würfel1[0] = 0    
+        Ratios() 
+        move()
+
+    if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos22 == 0: 
+        Pos2 = -1
+          
+        spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
+        if Würfel1[0] == 0 and Würfel1[1] == 0:
+            Würfel2[0], Würfel2[1] = Würfel2[1], 0
+        else:
+            Würfel2[0] = 0     
+        Ratios() 
+        move()
+     
 
 def pasch():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
