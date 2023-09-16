@@ -33,12 +33,12 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
+spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
+spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
 
-spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
-spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,1,1,1,   0,0,0,0,0,0]
+#spielfeld2 = [0,0,0,0,0,0   ,1,1,1,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
@@ -328,7 +328,8 @@ def Position2(event=NONE):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
         pasch()
         move()
-        
+    
+    # rausgehmove
     if ((735 < event.x / Ratio < 785) and (100 < event.y / Ratio < 200) and White_winning_pos and Pos4 == 1 and ((Pos21 == 25 and Würfel1[0]) or (Pos22 == 25 and Würfel2[0]))) or ((735 < event.x / Ratio < 785) and (400 < event.y / Ratio < 500) and Red_winning_pos and Pos4 == 2 and ((Pos21 == 0 and Würfel1[0]) or (Pos22 == 0 and Würfel2[0]))):
         Pos2 = -1
         Ratios()
@@ -345,12 +346,8 @@ def Position2(event=NONE):
             else:
                 Würfel2[0] = 0
         spielfeld[Pos1 - 1] -= 1
-        pasch()
         move()
 
-
-
-       
 def pasch():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
     if Pos2 == Pos21 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
@@ -368,7 +365,7 @@ def pasch():
 
 def move():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3, Pos4
-    
+    # move bei geschlagen
     if spielfeld3[Pos2-1] != 0 and ((Pos3 == 2 and White_Cap_Piece != 0) or (Pos3 == 1 and Red_Cap_Piece != 0)):
         spielfeld = spielfeld1 if Pos3 == 2 else spielfeld2
         spielfeldx = spielfeld2 if Pos3 == 2 else spielfeld1
@@ -383,7 +380,7 @@ def move():
                 Cap_Pieces(0)
             else:
                 Cap_Pieces(1)
-
+    # allgemien move 
     elif spielfeld3[Pos2 - 1] != 0 and ((spielfeld1[Pos1 - 1] != 0 and White_Cap_Piece == 0) or (spielfeld2[Pos1 - 1] != 0 and Red_Cap_Piece == 0)):
         spielfeld = spielfeld1 if spielfeld1[Pos1 - 1] != 0 else spielfeld2
         spielfeldx = spielfeld2 if spielfeld1[Pos1 - 1] != 0 else spielfeld1
@@ -409,7 +406,7 @@ def Cap_Pieces(x):
     else:
         White_Cap_Piece = White_Cap_Piece + 1 
     Ratios()
-#sasd
+
 
 def show_Cap_Piece(Ratio):
     if Red_Cap_Piece != 0:
