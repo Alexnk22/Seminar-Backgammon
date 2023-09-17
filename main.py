@@ -132,6 +132,7 @@ def Position(event):
         Pos3 = 0
         Ratios()        
         set_possibel_pos()
+    # marks Cap_Pos 
     if ((175 < event.x / Ratio < 225) and (332 < event.y / Ratio < 382) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)) or ((250 < event.x / Ratio < 300) and (332 < event.y / Ratio < 382) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)):
         Pos1 = -1 
         if movecounter % 2 != 0:
@@ -145,7 +146,6 @@ def Position(event):
             set_Cap_possible_pos()
             canvas.create_oval(250*Ratio,332*Ratio,300*Ratio,382*Ratio,outline="green",width=4)
         
-    
 
 def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
         global Pos3
@@ -170,8 +170,7 @@ def Würfel_wurf():
             Pos21 = 0
         if Pos22 > 24:
             Pos22 = 0
-        spielfeld3[int(Pos21) - 1] = 0
-        spielfeld3[int(Pos22) - 1] = 0
+        spielfeld3[Pos21 - 1] = spielfeld3[Pos22 - 1] = 0
         Würfel1.clear()
         Würfel2.clear()
         a, b = random.randint(1, 6), random.randint(1, 6)
@@ -206,36 +205,30 @@ def set_Cap_possible_pos():
 
     spielfeld3[Pos21 - 1] = spielfeld3[Pos22 - 1] = 0
 
-    if White_Cap_Piece != 0 and Pos3 == 2 and movecounter % 2 == 0:
-        Pos21 = Würfel1[0]
-        Pos22 = Würfel2[0]
+    if (White_Cap_Piece != 0 and Pos3 == 2 and movecounter % 2 == 0) or (Red_Cap_Piece != 0 and Pos3 == 1 and movecounter % 2 != 0):
+        if Pos3 == 2:
+            Pos21 = Würfel1[0]
+            Pos22 = Würfel2[0]
+            spielfeld = spielfeld1 
+            spielfeldx = spielfeld2 
+        else:
+            Pos21 = 25 - Würfel1[0]
+            Pos22 = 25 - Würfel2[0]
+            spielfeld = spielfeld2 
+            spielfeldx = spielfeld1
+
         if 0 < Pos21 < 25:
-            if spielfeld2[Pos21 - 1] == 0 and spielfeld1[Pos21 - 1] < 5 and Würfel1[0] != 0:
-                spielfeld3[Pos21 - 1] = spielfeld1[Pos21 - 1] + 1
-            elif spielfeld2[Pos21 - 1] == 1 and spielfeld1[Pos21 - 1] == 0 and Würfel1[0] != 0:
-                spielfeld3[Pos21 - 1] = -1
+                if spielfeldx[Pos21 - 1] == 0 and spielfeld[Pos21 - 1] < 5 and Würfel1[0] != 0:
+                    spielfeld3[Pos21 - 1] = spielfeld[Pos21 - 1] + 1
+                elif spielfeldx[Pos21 - 1] == 1 and spielfeld[Pos21 - 1] == 0 and Würfel1[0] != 0:
+                    spielfeld3[Pos21 - 1] = -1
 
         if 0 < Pos22 < 25:
-            if spielfeld2[Pos22 - 1] == 0 and spielfeld1[Pos22 - 1] < 5 and Würfel2[0] != 0:
-                spielfeld3[Pos22 - 1] = spielfeld1[Pos22 - 1] + 1
-            elif spielfeld2[Pos22 - 1] == 1 and spielfeld1[Pos22 - 1] == 0 and Würfel2[0] != 0:
+            if spielfeldx[Pos22 - 1] == 0 and spielfeld[Pos22 - 1] < 5 and Würfel2[0] != 0:
+                spielfeld3[Pos22 - 1] = spielfeld[Pos22 - 1] + 1
+            elif spielfeldx[Pos22 - 1] == 1 and spielfeld[Pos22 - 1] == 0 and Würfel2[0] != 0:
                 spielfeld3[Pos22 - 1] = -1
-        Ratios()
-    elif Red_Cap_Piece != 0 and Pos3 == 1 and movecounter % 2 != 0:
-        Pos21 = 25 - Würfel1[0]
-        Pos22 = 25 - Würfel2[0]
-        if 0 < Pos21 < 25:
-            if spielfeld1[Pos21 - 1] == 0 and spielfeld2[Pos21 - 1] < 5 and Würfel1[0] != 0:
-                spielfeld3[Pos21 - 1] = spielfeld2[Pos21 - 1] + 1
-            elif spielfeld1[Pos21 - 1] == 1 and spielfeld2[Pos21 - 1] == 0 and Würfel1[0] != 0:
-                spielfeld3[Pos21 - 1] = -1
-
-        if 0 < Pos22 < 25:
-            if spielfeld1[Pos22 - 1] == 0 and spielfeld2[Pos22 - 1] < 5 and Würfel2[0] != 0:
-                spielfeld3[Pos22 - 1] = spielfeld2[Pos22 - 1] + 1
-            elif spielfeld1[Pos22 - 1] == 1 and spielfeld2[Pos22 - 1] == 0 and Würfel2[0] != 0:
-                spielfeld3[Pos22 - 1] = -1
-        Ratios()       
+            Ratios()       
 
 
                   
@@ -373,7 +366,6 @@ def Position2(event=NONE):
         Ratios() 
         move()
      
-
 def pasch():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
     if Pos2 == Pos21 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
@@ -387,7 +379,6 @@ def pasch():
             Würfel2[0], Würfel2[1] = Würfel2[1], 0
         else:
             Würfel2[0] = 0
-
 
 def move():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3, Pos4
@@ -418,7 +409,6 @@ def move():
                 Cap_Pieces(0)
             else:
                 Cap_Pieces(1)
-
     spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, 0, 0, 0, 0, 0, 0
     Check_winning_pos()
     winner()
@@ -432,7 +422,6 @@ def Cap_Pieces(x):
     else:
         White_Cap_Piece = White_Cap_Piece + 1 
     Ratios()
-
 
 def show_Cap_Piece(Ratio):
     if Red_Cap_Piece != 0:
@@ -483,9 +472,6 @@ def Check_winning_pos():
         Red_winning_pos = True 
     else:
         Red_winning_pos = False
-
-
-
 
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
