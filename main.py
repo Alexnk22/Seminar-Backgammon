@@ -33,12 +33,12 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
+#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
+#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
 
-#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,1,1,1,   0,0,0,0,0,0]
-#spielfeld2 = [0,0,0,0,0,0   ,1,1,1,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,1,1,1,   0,0,0,0,0,0]
+spielfeld2 = [0,0,0,0,0,0   ,1,1,1,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
@@ -134,7 +134,7 @@ def Position(event):
         set_possibel_pos()
     # marks Cap_Pos 
     if ((175 < event.x / Ratio < 225) and (332 < event.y / Ratio < 382) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)) or ((250 < event.x / Ratio < 300) and (332 < event.y / Ratio < 382) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)):
-        Pos1 = -1 
+        Pos1 = -2
         if movecounter % 2 != 0:
             Pos3 = 1
             Ratios()
@@ -292,7 +292,7 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
         elif spielfeld[u + verschiebung] == -1:
             canvas.create_oval((75 + u * 53 + r) * Ratio, (85) * Ratio, (125 + u * 53 + r) * Ratio, (115) * Ratio, fill=farbe, width=1)
 
-    if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25) and movecounter % 2 == 0:
+    if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25)and Pos1 != 0 and movecounter % 2 == 0:
         canvas.create_rectangle(735* Ratio,100 * Ratio,785 * Ratio,200 * Ratio, outline="yellow",width=5)
         Pos4 = 1
     if Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
@@ -441,11 +441,11 @@ def key(event):
         Pass_turn()
 #yo
 def File():
-    global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22
+    global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22, Pos3, Pos4
     spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
     spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-    movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 1, 0, 0, 0, 0, [0]*24
-    Pos1, Pos2, Pos21, Pos22 = 0, 0, 0, 0
+    movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 1, 0, 0, 0, 0, [0]*24, 0, 0
+    Pos1, Pos2, Pos21, Pos22, Pos3, Pos4 = 0, 0, 0, 0
     Würfel1, Würfel2 = [7], [7]
     Ratios()
 
