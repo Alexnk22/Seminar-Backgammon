@@ -33,12 +33,12 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
+spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
+spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
 
-spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,1,1,1,   0,0,0,0,0,0]
-spielfeld2 = [0,0,0,0,0,0   ,1,1,1,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,1,1,1,   0,0,0,0,0,0]
+#spielfeld2 = [0,0,0,0,0,0   ,1,1,1,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
@@ -132,18 +132,19 @@ def Position(event):
         Pos3 = 0
         Ratios()        
         set_possibel_pos()
-    if (175 < event.x / Ratio < 225) and (332 < event.y/Ratio < 382) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0):
-        Pos1 = -1
-        Pos3 = 1
-        Ratios()        
-        set_Cap_possible_pos()   
-        canvas.create_oval(175*Ratio,332*Ratio,225*Ratio,382*Ratio,outline="blue",width=4)
-    if (250 < event.x / Ratio < 300) and (332 < event.y /Ratio < 382) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0): 
-        Pos1 = -1
-        Pos3 = 2
-        Ratios()        
-        set_Cap_possible_pos()
-        canvas.create_oval(250*Ratio,332*Ratio,300*Ratio,382*Ratio,outline="green",width=4)
+    if ((175 < event.x / Ratio < 225) and (332 < event.y / Ratio < 382) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)) or ((250 < event.x / Ratio < 300) and (332 < event.y / Ratio < 382) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)):
+        Pos1 = -1 
+        if movecounter % 2 != 0:
+            Pos3 = 1
+            Ratios()
+            set_Cap_possible_pos()
+            canvas.create_oval(175*Ratio,332*Ratio,225*Ratio,382*Ratio,outline="blue",width=4)
+        else:
+            Pos3 = 2
+            Ratios()
+            set_Cap_possible_pos()
+            canvas.create_oval(250*Ratio,332*Ratio,300*Ratio,382*Ratio,outline="green",width=4)
+        
     
 
 def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
