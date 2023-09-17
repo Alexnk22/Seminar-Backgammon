@@ -211,7 +211,7 @@ def set_Cap_possible_pos():
             Pos22 = Würfel2[0]
             spielfeld = spielfeld1 
             spielfeldx = spielfeld2 
-        else:
+        elif Pos3 == 1:
             Pos21 = 25 - Würfel1[0]
             Pos22 = 25 - Würfel2[0]
             spielfeld = spielfeld2 
@@ -225,10 +225,10 @@ def set_Cap_possible_pos():
 
         if 0 < Pos22 < 25:
             if spielfeldx[Pos22 - 1] == 0 and spielfeld[Pos22 - 1] < 5 and Würfel2[0] != 0:
-                spielfeld3[Pos22 - 1] = spielfeld[Pos22 - 1] + 1
+                    spielfeld3[Pos22 - 1] = spielfeld[Pos22 - 1] + 1
             elif spielfeldx[Pos22 - 1] == 1 and spielfeld[Pos22 - 1] == 0 and Würfel2[0] != 0:
-                spielfeld3[Pos22 - 1] = -1
-            Ratios()       
+                    spielfeld3[Pos22 - 1] = -1
+        Ratios()       
 
 
                   
