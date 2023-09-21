@@ -102,6 +102,7 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
 
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4
+    
     Pos3 = 0
     Pos4 = 0
     if Pos21 > 24:
@@ -114,6 +115,7 @@ def Position(event):
         Ratio = root.winfo_width()/800         
     else:
         Ratio = root.winfo_height()/800
+    print(event.x/Ratio)
     for i in range (1,13):
         if i > 6:
             r = 18
