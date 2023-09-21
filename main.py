@@ -32,9 +32,9 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-spielfeld2 = [0,0,0,0,0,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   0,0,0,0,0,0]    #black
+spielfeld2 = [5,0,1,0,1,0   ,1,0,5,0,1,0       ,1,0,5,0,1,0,   1,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-spielfeld1 = [0,0,0,0,0,0   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,0,0,0,0,0]    #white
+spielfeld1 = [0,5,0,1,0,1   ,0,1,0,5,0,1       ,0,1,0,5,0,1,   0,1,0,1,0,1]    #white
 
 #spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
 #spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
@@ -68,15 +68,16 @@ def Feld(Ratio):
     elif movecounter % 2 == 0:
         canvas.create_rectangle(0,0,70*Ratio,70*Ratio,fill="white")
     for u in range (2):
-        canvas.create_rectangle((75+u*332.5)*Ratio,75*Ratio,(392.5+u*332.5)*Ratio,650*Ratio,fill="goldenrod",width=2)
-        canvas.create_rectangle(75*Ratio,75*Ratio,(725)*Ratio,650*Ratio,width=4)
+        canvas.create_rectangle((75+u*367.5)*Ratio,75*Ratio,(392.5+u*367.5)*Ratio,650*Ratio,fill="goldenrod",width=2) # done 
+        canvas.create_rectangle(75*Ratio,75*Ratio,(760)*Ratio,650*Ratio,width=4) # done 
     for u in range (2):
         for i in range (3):
-            canvas.create_polygon((i*106+75+u*333)*Ratio, 75*Ratio, (i*106+100+u*333)*Ratio, 325*Ratio, (i*106+125+u*333)*Ratio, 75*Ratio,fill="red",outline="black",)
-            canvas.create_polygon((i*106+127.5+u*333)*Ratio, 75*Ratio, (i*106+152.5+u*333)*Ratio, 325*Ratio, (i*106+177.5+u*333)*Ratio, 75*Ratio)
-
-            canvas.create_polygon((i*106+75+u*333)*Ratio, 650*Ratio, (i*106+100+u*333)*Ratio, 400*Ratio, (i*106+125+u*333)*Ratio, 650*Ratio)
-            canvas.create_polygon((i*106+127.5+u*333)*Ratio, 650*Ratio, (i*106+152.5+u*333)*Ratio, 400*Ratio, (i*106+177.5+u*333)*Ratio, 650*Ratio,fill="red",outline="black")
+            # done 
+            canvas.create_polygon((i*106+75+u*369)*Ratio, 75*Ratio, (i*106+100+u*369)*Ratio, 325*Ratio, (i*106+125+u*369)*Ratio, 75*Ratio,fill="red",outline="black",)
+            canvas.create_polygon((i*106+127.5+u*369)*Ratio, 75*Ratio, (i*106+152.5+u*369)*Ratio, 325*Ratio, (i*106+177.5+u*369)*Ratio, 75*Ratio)
+            # done 
+            canvas.create_polygon((i*106+75+u*369)*Ratio, 650*Ratio, (i*106+100+u*369)*Ratio, 400*Ratio, (i*106+125+u*369)*Ratio, 650*Ratio)
+            canvas.create_polygon((i*106+127.5+u*369)*Ratio, 650*Ratio, (i*106+152.5+u*369)*Ratio, 400*Ratio, (i*106+177.5+u*369)*Ratio, 650*Ratio,fill="red",outline="black")
     # zeigt durch einen block die gewinnpos an (soll schöner werden)
     if White_winning_pos == True:
         canvas.create_rectangle(735* Ratio,100 * Ratio,785 * Ratio,200 * Ratio, fill="black")
@@ -87,19 +88,19 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
     for u in range(12):
         for i in range(int(spielfeld[u])):
             if u >= 6:
-                r = 15
+                r = 65
             else:
-                r = 0
-            canvas.create_oval((673-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (723-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1.33)        
+                r = 15
+            canvas.create_oval((723-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (773-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1.33)        
     for u in range(12):
         for i in range(int(spielfeld[int(u)+verschiebung])):
             if u >= 6:
-                r = 15
+                r = 50
             else:
                 r = 0
             canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1.33)
 
-
+#! hier muss ich weiter machen 
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4
     
@@ -116,6 +117,7 @@ def Position(event):
     else:
         Ratio = root.winfo_height()/800
     print(event.x/Ratio)
+    print(event.x/Ratio)
     for i in range (1,13):
         if i > 6:
             r = 18
@@ -131,7 +133,7 @@ def Position(event):
         TOPorBOT = 0
     
     # erstellt Pos1 für alle normalen züge 
-    if (int(TOPorBOT) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 407.5 < event.x / Ratio < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0) :
+    if (int(TOPorBOT) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 442.5 < event.x / Ratio < 760) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0) :
         Pos1 = 13 - int(Dreieck) if TOPorBOT == 1 else int(Dreieck) + 12
         Pos3 = 0
         Ratios()        
@@ -202,7 +204,7 @@ def show_Würfel(Ratio, würfel_list, ver):
                 if 1 < i < 7:
                     canvas.create_oval(((u*34)+503+ver*80) * Ratio, ((u*35)+338) * Ratio, ((u*34)+513+ver*80) * Ratio, ((u*35)+348) * Ratio, fill="black")
                 if 3 < i < 7:
-                    canvas.create_oval(((u*34)+503+ver*80) * Ratio, (373-(35*u)) * Ratio, ((u*34)+513+ver*80) * Ratio, (382-(34*u)) * Ratio, fill="black")
+                    canvas.create_oval(((u*34)+503+ver*80) * Ratio, (369-(35*u)) * Ratio, ((u*34)+513+ver*80) * Ratio, (382-(34*u)) * Ratio, fill="black")
                 if i == 6:
                     canvas.create_oval(((u*34)+503+ver*80) * Ratio, 355 * Ratio, ((u*34)+513+ver*80) * Ratio, 365 * Ratio, fill="black")
 
@@ -334,7 +336,7 @@ def Position2(event=NONE):
         TOPorBOT2 = 0
     
     # setzt  Pos2 zum mit der rechten maustaste angeklickten wert (unabhängig von ob der zug funktioniert oder nicht)
-    if (int(TOPorBOT2) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 407.5 < event.x / Ratio < 725) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0):
+    if (int(TOPorBOT2) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 442.5 < event.x / Ratio < 760) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
         pasch()
         move()
