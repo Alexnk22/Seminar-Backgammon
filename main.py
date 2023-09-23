@@ -173,7 +173,7 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
             if spielfeld[Pos1-1] != 0:
                 canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
         
-#! hier muss ich weiter machen 
+
   
 def Würfel_wurf():
     global Pos21, Pos22, Pos1, movecounter, Pass
@@ -213,6 +213,7 @@ def show_Würfel(Ratio, würfel_list, ver):
                     canvas.create_oval(((u*34)+553+ver*80) * Ratio, (373-(35*u)) * Ratio, ((u*34)+563+ver*80) * Ratio, (383-(35*u)) * Ratio, fill="black")
                 if i == 6:
                     canvas.create_oval(((u*34)+553+ver*80) * Ratio, 355 * Ratio, ((u*34)+563+ver*80) * Ratio, 365 * Ratio, fill="black")
+
 
 
 def set_Cap_possible_pos():
@@ -296,7 +297,7 @@ def set_possibel_pos():
 def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
     global Pos4
     for u in range(12):
-        r = 15 if u >= 6 else 0
+        r = 15 if u >= 6 else -35
         # markiert die normalen möglichkeiten 
         if spielfeld[u] != -1 and spielfeld[u] != 0:
             canvas.create_oval((673 - (u * 53) - r) * Ratio, (600 - (spielfeld[u]-1) * 50) * Ratio, (723 - (u * 53) - r) * Ratio, (650 - (spielfeld[u]-1) * 50) * Ratio, fill=farbe, width=1)
@@ -305,7 +306,7 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
             canvas.create_oval((673 - (u * 53) - r) * Ratio, (610) * Ratio, (723 - (u * 53) - r) * Ratio, (640) * Ratio, fill=farbe, width=1)
         
     for u in range(12):
-        r = 15 if u >= 6 else 0 
+        r = 50 if u >= 6 else 0 
         if spielfeld[u + verschiebung] != -1 and spielfeld[u+verschiebung] != 0:
             canvas.create_oval((75 + u * 53 + r) * Ratio, (75 + (spielfeld[u+verschiebung]-1) * 50) * Ratio, (125 + u * 53 + r) * Ratio, (125 + (spielfeld[u+verschiebung]-1) * 50) * Ratio, fill=farbe, width=1)
                   
@@ -320,7 +321,7 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
     if Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
         canvas.create_rectangle(735* Ratio,400 * Ratio,785 * Ratio,500 * Ratio, outline="yellow",width=5)
         Pos4 = 2
-
+#! hier muss ich weiter machen 
 def Position2(event=NONE):
     global Dreieck2, TOPorBOT2, Pos2, Pos1, Pos4    
     if root.winfo_width() < root.winfo_height():
