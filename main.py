@@ -24,10 +24,10 @@ White_Cap_Piece = 0
 
 root = Tk()
 
-root.minsize(width=550,height=550)
+root.minsize(width=575,height=550)
 root.maxsize(width=900,height=900)
 
-canvas = Canvas(root,height=550, width=550)
+canvas = Canvas(root,height=550, width=575)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
@@ -100,7 +100,6 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
                 r = 0
             canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1.33)
 
-#! hier muss ich weiter machen 
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4
     
@@ -120,7 +119,7 @@ def Position(event):
     print(event.x/Ratio)
     for i in range (1,13):
         if i > 6:
-            r = 18
+            r = 50
         else:
             r = 0
         if (event.x/Ratio-27-r)//52 == i:
@@ -135,6 +134,7 @@ def Position(event):
     # erstellt Pos1 für alle normalen züge 
     if (int(TOPorBOT) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 442.5 < event.x / Ratio < 760) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0) :
         Pos1 = 13 - int(Dreieck) if TOPorBOT == 1 else int(Dreieck) + 12
+        print(Pos1)
         Pos3 = 0
         Ratios()        
         set_possibel_pos()
@@ -157,18 +157,24 @@ def Position(event):
 
 def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
         global Pos3
-        if 6 < Pos1 < 13 or 18 < Pos1 < 25:
-            r = 15
-        else:
-            r = 0
+        
         if 0 < Pos1 < 13 :
+            if 6 < Pos1 < 13:
+                r = 15
+            else:
+                r = -35
             if spielfeld[Pos1-1] != 0:   
                 canvas.create_oval((725-(Pos1*53)-r)*Ratio, (650-(int(spielfeld[Pos1-1]))*50)*Ratio, (775-(Pos1*53)-r)*Ratio, (700-(int(spielfeld[Pos1-1]))*50)*Ratio, width=4,outline=farbe)
-        if 12 < Pos1 < 25 : 
+        elif 12 < Pos1 < 25 : 
+            if 12 < Pos1 < 19:
+                r = 0
+            else:
+                r = 50
             if spielfeld[Pos1-1] != 0:
                 canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
         
-            
+#! hier muss ich weiter machen 
+  
 def Würfel_wurf():
     global Pos21, Pos22, Pos1, movecounter, Pass
     if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True:
@@ -196,17 +202,17 @@ def Würfel_wurf():
 def show_Würfel(Ratio, würfel_list, ver):
     for i in range(1, 7):
         if int(würfel_list[0]) == i:
-            canvas.create_rectangle(500*Ratio, 335*Ratio, 550*Ratio, 385*Ratio, width=1.2)
-            canvas.create_rectangle(580*Ratio, 335*Ratio, 630*Ratio, 385*Ratio, width=1.2)
+            canvas.create_rectangle(550*Ratio, 335*Ratio, 600*Ratio, 385*Ratio, width=1.2)
+            canvas.create_rectangle(630*Ratio, 335*Ratio, 680*Ratio, 385*Ratio, width=1.2)
             if i == 1 or i == 3 or i == 5:
-                canvas.create_oval((520+ver*80) * Ratio, 355 * Ratio, (530+ver*80) * Ratio, 365 * Ratio, fill="black")
+                canvas.create_oval((570+ver*80) * Ratio, 355 * Ratio, (580+ver*80) * Ratio, 365 * Ratio, fill="black")
             for u in range(2):
                 if 1 < i < 7:
-                    canvas.create_oval(((u*34)+503+ver*80) * Ratio, ((u*35)+338) * Ratio, ((u*34)+513+ver*80) * Ratio, ((u*35)+348) * Ratio, fill="black")
+                    canvas.create_oval(((u*34)+553+ver*80) * Ratio, ((u*35)+338) * Ratio, ((u*34)+563+ver*80) * Ratio, ((u*35)+348) * Ratio, fill="black")
                 if 3 < i < 7:
-                    canvas.create_oval(((u*34)+503+ver*80) * Ratio, (369-(35*u)) * Ratio, ((u*34)+513+ver*80) * Ratio, (382-(34*u)) * Ratio, fill="black")
+                    canvas.create_oval(((u*34)+553+ver*80) * Ratio, (373-(35*u)) * Ratio, ((u*34)+563+ver*80) * Ratio, (383-(35*u)) * Ratio, fill="black")
                 if i == 6:
-                    canvas.create_oval(((u*34)+503+ver*80) * Ratio, 355 * Ratio, ((u*34)+513+ver*80) * Ratio, 365 * Ratio, fill="black")
+                    canvas.create_oval(((u*34)+553+ver*80) * Ratio, 355 * Ratio, ((u*34)+563+ver*80) * Ratio, 365 * Ratio, fill="black")
 
 
 def set_Cap_possible_pos():
