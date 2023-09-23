@@ -87,9 +87,9 @@ def Feld(Ratio):
             canvas.create_polygon((i*106+127.5+u*369)*Ratio, 650*Ratio, (i*106+152.5+u*369)*Ratio, 400*Ratio, (i*106+177.5+u*369)*Ratio, 650*Ratio,fill="red",outline="black")
     # zeigt durch einen block die gewinnpos an (soll schöner werden)
     if White_winning_pos == True:
-        canvas.create_rectangle(800* Ratio,100 * Ratio,850 * Ratio,200 * Ratio, fill="black")
+        canvas.create_rectangle(800* Ratio,150 * Ratio,850 * Ratio,250 * Ratio, fill="black")
     if Red_winning_pos == True:
-        canvas.create_rectangle(770* Ratio,400 * Ratio,820 * Ratio,500 * Ratio, fill="black")
+        canvas.create_rectangle(800* Ratio,455 * Ratio,850 * Ratio,555 * Ratio, fill="black")
 
 def Figuren(Ratio, spielfeld, farbe,verschiebung):
     for u in range(12):
