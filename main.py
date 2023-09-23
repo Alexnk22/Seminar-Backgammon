@@ -32,9 +32,9 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-spielfeld2 = [5,0,1,0,1,0   ,1,0,5,0,1,0       ,1,0,5,0,1,0,   1,0,1,0,1,0]    #black
+spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-spielfeld1 = [0,5,0,1,0,1   ,0,1,0,5,0,1       ,0,1,0,5,0,1,   0,1,0,1,0,1]    #white
+spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
 
 #spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
 #spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
@@ -321,7 +321,7 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
     if Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
         canvas.create_rectangle(735* Ratio,400 * Ratio,785 * Ratio,500 * Ratio, outline="yellow",width=5)
         Pos4 = 2
-#! hier muss ich weiter machen 
+
 def Position2(event=NONE):
     global Dreieck2, TOPorBOT2, Pos2, Pos1, Pos4    
     if root.winfo_width() < root.winfo_height():
@@ -330,7 +330,7 @@ def Position2(event=NONE):
         Ratio = root.winfo_height()/800
     for i in range (1,13):
         if i > 6:
-            r = 18
+            r = 50
         else:
             r = 0
         if (event.x/Ratio-27-r)//52 == i:
@@ -345,6 +345,7 @@ def Position2(event=NONE):
     # setzt  Pos2 zum mit der rechten maustaste angeklickten wert (unabhängig von ob der zug funktioniert oder nicht)
     if (int(TOPorBOT2) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 442.5 < event.x / Ratio < 760) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
+        print(Pos2)
         pasch()
         move()
     # wenn das markierte schwarze feld an der seite bei einer gewinnposition angeklickt wwird die entsprächende if schleife ausgelöst 
@@ -390,7 +391,7 @@ def Position2(event=NONE):
             Würfel2[0] = 0     
         Ratios() 
         move()
-
+#! hier muss ich weiter machen 
 def pasch():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
     if Pos2 == Pos21 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
