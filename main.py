@@ -24,23 +24,27 @@ White_Cap_Piece = 0
 
 root = Tk()
 
-root.minsize(width=575,height=550)
-root.maxsize(width=900,height=900)
+root.minsize(width=600,height=550)
+#root.maxsize(width=900,height=900)
 
-canvas = Canvas(root,height=550, width=575)
+canvas = Canvas(root,height=550, width=600)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
+#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
+#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
 
-#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
-#spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
+spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
-#                                  0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
+#            
+#                       0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
+
+    
+
 
 def Ratios (event=NONE):
     global White_Cap_Piece,Red_Cap_Piece
@@ -63,13 +67,16 @@ def Ratios (event=NONE):
 
 
 def Feld(Ratio):
+    canvas.create_rectangle(55*Ratio,55*Ratio,(780)*Ratio,670*Ratio,width=2, fill="darkorange4")
+    canvas.create_line(417*Ratio,55*Ratio,417*Ratio,670*Ratio,width=2)
     if movecounter % 2 != 0 and movecounter != 1:
-        canvas.create_rectangle(0,0,70*Ratio,70*Ratio,fill="red")
+        canvas.create_rectangle(0,0,55*Ratio,55*Ratio,fill="red")
     elif movecounter % 2 == 0:
-        canvas.create_rectangle(0,0,70*Ratio,70*Ratio,fill="white")
+        canvas.create_rectangle(0,0,55*Ratio,55*Ratio,fill="white")
     for u in range (2):
+        
         canvas.create_rectangle((75+u*367.5)*Ratio,75*Ratio,(392.5+u*367.5)*Ratio,650*Ratio,fill="goldenrod",width=2) # done 
-        canvas.create_rectangle(75*Ratio,75*Ratio,(760)*Ratio,650*Ratio,width=4) # done 
+         
     for u in range (2):
         for i in range (3):
             # done 
@@ -80,9 +87,9 @@ def Feld(Ratio):
             canvas.create_polygon((i*106+127.5+u*369)*Ratio, 650*Ratio, (i*106+152.5+u*369)*Ratio, 400*Ratio, (i*106+177.5+u*369)*Ratio, 650*Ratio,fill="red",outline="black")
     # zeigt durch einen block die gewinnpos an (soll schöner werden)
     if White_winning_pos == True:
-        canvas.create_rectangle(735* Ratio,100 * Ratio,785 * Ratio,200 * Ratio, fill="black")
+        canvas.create_rectangle(800* Ratio,100 * Ratio,850 * Ratio,200 * Ratio, fill="black")
     if Red_winning_pos == True:
-        canvas.create_rectangle(735* Ratio,400 * Ratio,785 * Ratio,500 * Ratio, fill="black")
+        canvas.create_rectangle(770* Ratio,400 * Ratio,820 * Ratio,500 * Ratio, fill="black")
 
 def Figuren(Ratio, spielfeld, farbe,verschiebung):
     for u in range(12):
@@ -101,22 +108,18 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
             canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1.33)
 
 def Position(event):
-    global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4
+    global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3
     
+    Pos21 = 0
+    Pos22 = 0
     Pos3 = 0
     Pos4 = 0
-    if Pos21 > 24:
-        Pos21 = 0
-    if Pos22 > 24:
-        Pos22 = 0
-    spielfeld3[int(Pos21)-1] = 0
-    spielfeld3[int(Pos22)-1] = 0
+
+    spielfeld3 = [0] * 24
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/800         
     else:
         Ratio = root.winfo_height()/800
-    print(event.x/Ratio)
-    print(event.x/Ratio)
     for i in range (1,13):
         if i > 6:
             r = 50
@@ -134,12 +137,12 @@ def Position(event):
     # erstellt Pos1 für alle normalen züge 
     if (int(TOPorBOT) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 442.5 < event.x / Ratio < 760) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0) :
         Pos1 = 13 - int(Dreieck) if TOPorBOT == 1 else int(Dreieck) + 12
-        print(Pos1)
+
         Pos3 = 0
         Ratios()        
         set_possibel_pos()
     # erstellt Pos1 wenn figuren geschlagen sind(entsprechend bei 0 anfangen müssen)
-    if ((175 < event.x / Ratio < 225) and (332 < event.y / Ratio < 382) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)) or ((250 < event.x / Ratio < 300) and (332 < event.y / Ratio < 382) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)):
+    if ((392.5< event.x / Ratio < 442.5) and (290 < event.y / Ratio < 340) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)) or ((392.5 < event.x / Ratio < 442.5) and (350 < event.y / Ratio < 400) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)):
         Pos1 = -2
         if movecounter % 2 != 0:
             #  Rote geschlagene figur wurde angeklickt
@@ -147,12 +150,12 @@ def Position(event):
             Ratios()
             set_Cap_possible_pos()
             # gleiche wie mark_possible_pos  
-            canvas.create_oval(175*Ratio,332*Ratio,225*Ratio,382*Ratio,outline="blue",width=4)
+            canvas.create_oval(392.5*Ratio,290*Ratio,442.5*Ratio,340*Ratio,outline="blue",width=4)
         else:
             Pos3 = 2
             Ratios()
             set_Cap_possible_pos()
-            canvas.create_oval(250*Ratio,332*Ratio,300*Ratio,382*Ratio,outline="green",width=4)
+            canvas.create_oval(392.5*Ratio,350*Ratio,442.5*Ratio,400*Ratio,outline="green",width=4)
         
 
 def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
@@ -345,7 +348,7 @@ def Position2(event=NONE):
     # setzt  Pos2 zum mit der rechten maustaste angeklickten wert (unabhängig von ob der zug funktioniert oder nicht)
     if (int(TOPorBOT2) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 442.5 < event.x / Ratio < 760) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
-        print(Pos2)
+        
         pasch()
         move()
     # wenn das markierte schwarze feld an der seite bei einer gewinnposition angeklickt wwird die entsprächende if schleife ausgelöst 
@@ -452,10 +455,37 @@ def Cap_Pieces(x):
 
 # lässt die geschlagenen figuren in der mitte erscheinen 
 def show_Cap_Piece(Ratio):
-    if Red_Cap_Piece != 0:
-        canvas.create_oval(175*Ratio,332.5*Ratio,225*Ratio,382.5*Ratio,fill="maroon")
-    if White_Cap_Piece != 0:
-        canvas.create_oval(250*Ratio,332.5*Ratio,300*Ratio,382.5*Ratio,fill="white")
+    if Red_Cap_Piece == 1:
+        canvas.create_oval(392.5*Ratio,290*Ratio,442.5*Ratio,340*Ratio,fill="maroon")
+    if Red_Cap_Piece == 2:
+        canvas.create_oval(392.5*Ratio,290*Ratio,442.5*Ratio,340*Ratio,fill="maroon")
+        canvas.create_oval(392.5*Ratio,240*Ratio,442.5*Ratio,290*Ratio,fill="maroon")
+    if Red_Cap_Piece == 3:
+        canvas.create_oval(392.5*Ratio,290*Ratio,442.5*Ratio,340*Ratio,fill="maroon")
+        canvas.create_oval(392.5*Ratio,240*Ratio,442.5*Ratio,290*Ratio,fill="maroon")
+        canvas.create_oval(392.5*Ratio,190*Ratio,442.5*Ratio,240*Ratio,fill="maroon")
+    if Red_Cap_Piece == 4:
+        canvas.create_oval(392.5*Ratio,290*Ratio,442.5*Ratio,340*Ratio,fill="maroon")
+        canvas.create_oval(392.5*Ratio,240*Ratio,442.5*Ratio,290*Ratio,fill="maroon")
+        canvas.create_oval(392.5*Ratio,190*Ratio,442.5*Ratio,240*Ratio,fill="maroon")
+        canvas.create_oval(392.5*Ratio,140*Ratio,442.5*Ratio,190*Ratio,fill="maroon")
+
+
+    if White_Cap_Piece == 1:
+        canvas.create_oval(392.5*Ratio,350*Ratio,442.5*Ratio,400*Ratio,fill="white")
+    if White_Cap_Piece == 2:
+        canvas.create_oval(392.5*Ratio,350*Ratio,442.5*Ratio,400*Ratio,fill="white")
+        canvas.create_oval(392.5*Ratio,400*Ratio,442.5*Ratio,450*Ratio,fill="white")
+    if White_Cap_Piece == 3:
+        canvas.create_oval(392.5*Ratio,350*Ratio,442.5*Ratio,400*Ratio,fill="white")
+        canvas.create_oval(392.5*Ratio,400*Ratio,442.5*Ratio,450*Ratio,fill="white")
+        canvas.create_oval(392.5*Ratio,450*Ratio,442.5*Ratio,500*Ratio,fill="white")
+    if White_Cap_Piece == 3:
+        canvas.create_oval(392.5*Ratio,350*Ratio,442.5*Ratio,400*Ratio,fill="white")
+        canvas.create_oval(392.5*Ratio,400*Ratio,442.5*Ratio,450*Ratio,fill="white")
+        canvas.create_oval(392.5*Ratio,450*Ratio,442.5*Ratio,500*Ratio,fill="white")
+        canvas.create_oval(392.5*Ratio,500*Ratio,442.5*Ratio,550*Ratio,fill="white")
+
 
 # überprüft ob keine steine mehr auf dem feld sind 
 def winner():
