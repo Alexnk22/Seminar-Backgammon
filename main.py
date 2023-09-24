@@ -25,10 +25,10 @@ White_Cap_Piece = 0
 root = Tk()
 
 
-root.minsize(width=600,height=550)
+root.minsize(width=600,height=600)
 #root.maxsize(width=900,height=900)
 
-canvas = Canvas(root,height=550, width=600)
+canvas = Canvas(root,height=600, width=600)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
@@ -45,8 +45,6 @@ spielfeld1 = [0,1,0,1,0,0   ,0,1,0,1,0,5       ,0,1,0,1,0,1,   5,1,0,1,0,1]    #
 #                       0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
 
     
-
-
 def Ratios (event=NONE):
     global White_Cap_Piece,Red_Cap_Piece
     canvas.delete("all")
@@ -109,12 +107,13 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
             canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1.33)
 
 def Position(event):
-    global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3
+    global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2
     
     Pos21 = 0
     Pos22 = 0
     Pos3 = 0
     Pos4 = 0
+    
 
     spielfeld3 = [0] * 24
     if root.winfo_width() < root.winfo_height():
@@ -142,8 +141,11 @@ def Position(event):
         Pos3 = 0
         Ratios()        
         set_possibel_pos()
+    
+    
+        
     # erstellt Pos1 wenn figuren geschlagen sind(entsprechend bei 0 anfangen müssen)
-    if ((392.5< event.x / Ratio < 442.5) and (290 < event.y / Ratio < 340) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)) or ((392.5 < event.x / Ratio < 442.5) and (350 < event.y / Ratio < 400) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)):
+    elif ((392.5< event.x / Ratio < 442.5) and (290 < event.y / Ratio < 340) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)) or ((392.5 < event.x / Ratio < 442.5) and (350 < event.y / Ratio < 400) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)):
         Pos1 = -2
         if movecounter % 2 != 0:
             #  Rote geschlagene figur wurde angeklickt
@@ -157,6 +159,12 @@ def Position(event):
             Ratios()
             set_Cap_possible_pos()
             canvas.create_oval(392.5*Ratio,350*Ratio,442.5*Ratio,400*Ratio,outline="green",width=4)
+    else:
+        Pos1 = 0
+        Pos2 = 0
+        Ratios() 
+      
+
         
 
 def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
