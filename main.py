@@ -24,6 +24,7 @@ White_Cap_Piece = 0
 
 root = Tk()
 
+
 root.minsize(width=600,height=550)
 #root.maxsize(width=900,height=900)
 
