@@ -33,12 +33,12 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-spielfeld2 = [1,0,1,0,1,5   ,1,0,1,0,1,0       ,5,0,1,0,1,0,   0,0,1,0,1,0]    #black
+#spielfeld2 = [1,0,1,0,1,5   ,1,0,1,0,1,0       ,5,0,1,0,1,0,   0,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-spielfeld1 = [0,1,0,1,0,0   ,0,1,0,1,0,5       ,0,1,0,1,0,1,   5,1,0,1,0,1]    #white
+#spielfeld1 = [0,1,0,1,0,0   ,0,1,0,1,0,5       ,0,1,0,1,0,1,   5,1,0,1,0,1]    #white
 
-#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
-#spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
+spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -326,11 +326,11 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
 
     # markiert den schwarzen block wenn man mit einer figur rausfahren kann 
     if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25)and Pos1 != 0 and movecounter % 2 == 0:
-        canvas.create_rectangle(735* Ratio,100 * Ratio,785 * Ratio,200 * Ratio, outline="yellow",width=5)
+        canvas.create_rectangle(800* Ratio,150 * Ratio,850 * Ratio,250 * Ratio, fill="black",outline="yellow",width=5)
         # zeigt das eine weiße figur rausfahren kann 
         Pos4 = 1
     if Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
-        canvas.create_rectangle(735* Ratio,400 * Ratio,785 * Ratio,500 * Ratio, outline="yellow",width=5)
+        canvas.create_rectangle(800* Ratio,455 * Ratio,850 * Ratio,555 * Ratio, outline="yellow",width=5)
         Pos4 = 2
 
 def Position2(event=NONE):
@@ -360,7 +360,7 @@ def Position2(event=NONE):
         pasch()
         move()
     # wenn das markierte schwarze feld an der seite bei einer gewinnposition angeklickt wwird die entsprächende if schleife ausgelöst 
-    if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos21 == 25:
+    if (800 < event.x / Ratio < 850) and (150 < event.y/Ratio < 250) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos21 == 25:
         Pos2 = -1
            
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
@@ -371,7 +371,7 @@ def Position2(event=NONE):
         Ratios() 
         move()
 
-    if (735 < event.x / Ratio < 785) and (100 < event.y/Ratio < 200) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos22 == 25:
+    if (800 < event.x / Ratio < 850) and (150 < event.y/Ratio < 250) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos22 == 25:
         Pos2 = -1
            
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
@@ -382,7 +382,7 @@ def Position2(event=NONE):
         Ratios() 
         move()
 
-    if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos21 == 0: 
+    if (800 < event.x / Ratio < 850) and (455 < event.y /Ratio < 555) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos21 == 0: 
            
         spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
         if Würfel1[1] == Würfel2[1]:
@@ -392,7 +392,7 @@ def Position2(event=NONE):
         Ratios() 
         move()
 
-    if (735 < event.x / Ratio < 785) and (400 < event.y /Ratio < 500) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos22 == 0: 
+    if (800 < event.x / Ratio < 850) and (455 < event.y /Ratio < 555) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos22 == 0: 
         Pos2 = -1
           
         spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
