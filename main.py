@@ -49,9 +49,9 @@ def Ratios (event=NONE):
     global White_Cap_Piece,Red_Cap_Piece
     canvas.delete("all")
     if root.winfo_width() < root.winfo_height():
-        Ratio = root.winfo_width()/800
+        Ratio = root.winfo_width()/900
     else:
-        Ratio = root.winfo_height()/800
+        Ratio = root.winfo_height()/900
     Feld(Ratio)
     Figuren(Ratio, spielfeld1, "white",12)
     Figuren(Ratio, spielfeld2, "maroon",12)
@@ -113,13 +113,12 @@ def Position(event):
     Pos22 = 0
     Pos3 = 0
     Pos4 = 0
-    
 
     spielfeld3 = [0] * 24
     if root.winfo_width() < root.winfo_height():
-        Ratio = root.winfo_width()/800         
+        Ratio = root.winfo_width()/900         
     else:
-        Ratio = root.winfo_height()/800
+        Ratio = root.winfo_height()/900
     for i in range (1,13):
         if i > 6:
             r = 50
@@ -337,9 +336,9 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
 def Position2(event=NONE):
     global Dreieck2, TOPorBOT2, Pos2, Pos1, Pos4    
     if root.winfo_width() < root.winfo_height():
-        Ratio = root.winfo_width()/800         
+        Ratio = root.winfo_width()/900         
     else:
-        Ratio = root.winfo_height()/800
+        Ratio = root.winfo_height()/900
     for i in range (1,13):
         if i > 6:
             r = 50
