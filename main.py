@@ -33,12 +33,12 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-#spielfeld2 = [1,0,1,0,1,5   ,1,0,1,0,1,0       ,5,0,1,0,1,0,   0,0,1,0,1,0]    #black
+spielfeld2 = [1,0,1,0,1,5   ,1,0,1,0,1,0       ,5,0,1,0,1,0,   0,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-#spielfeld1 = [0,1,0,1,0,0   ,0,1,0,1,0,5       ,0,1,0,1,0,1,   5,1,0,1,0,1]    #white
+spielfeld1 = [0,1,0,1,0,0   ,0,1,0,1,0,5       ,0,1,0,1,0,1,   5,1,0,1,0,1]    #white
 
-spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
-spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
+#spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -463,36 +463,10 @@ def Cap_Pieces(x):
 
 # lässt die geschlagenen figuren in der mitte erscheinen 
 def show_Cap_Piece(Ratio):
-    if Red_Cap_Piece == 1:
-        canvas.create_oval(392.5*Ratio,290*Ratio,442.5*Ratio,340*Ratio,fill="maroon")
-    if Red_Cap_Piece == 2:
-        canvas.create_oval(392.5*Ratio,290*Ratio,442.5*Ratio,340*Ratio,fill="maroon")
-        canvas.create_oval(392.5*Ratio,240*Ratio,442.5*Ratio,290*Ratio,fill="maroon")
-    if Red_Cap_Piece == 3:
-        canvas.create_oval(392.5*Ratio,290*Ratio,442.5*Ratio,340*Ratio,fill="maroon")
-        canvas.create_oval(392.5*Ratio,240*Ratio,442.5*Ratio,290*Ratio,fill="maroon")
-        canvas.create_oval(392.5*Ratio,190*Ratio,442.5*Ratio,240*Ratio,fill="maroon")
-    if Red_Cap_Piece == 4:
-        canvas.create_oval(392.5*Ratio,290*Ratio,442.5*Ratio,340*Ratio,fill="maroon")
-        canvas.create_oval(392.5*Ratio,240*Ratio,442.5*Ratio,290*Ratio,fill="maroon")
-        canvas.create_oval(392.5*Ratio,190*Ratio,442.5*Ratio,240*Ratio,fill="maroon")
-        canvas.create_oval(392.5*Ratio,140*Ratio,442.5*Ratio,190*Ratio,fill="maroon")
-
-
-    if White_Cap_Piece == 1:
-        canvas.create_oval(392.5*Ratio,350*Ratio,442.5*Ratio,400*Ratio,fill="white")
-    if White_Cap_Piece == 2:
-        canvas.create_oval(392.5*Ratio,350*Ratio,442.5*Ratio,400*Ratio,fill="white")
-        canvas.create_oval(392.5*Ratio,400*Ratio,442.5*Ratio,450*Ratio,fill="white")
-    if White_Cap_Piece == 3:
-        canvas.create_oval(392.5*Ratio,350*Ratio,442.5*Ratio,400*Ratio,fill="white")
-        canvas.create_oval(392.5*Ratio,400*Ratio,442.5*Ratio,450*Ratio,fill="white")
-        canvas.create_oval(392.5*Ratio,450*Ratio,442.5*Ratio,500*Ratio,fill="white")
-    if White_Cap_Piece == 3:
-        canvas.create_oval(392.5*Ratio,350*Ratio,442.5*Ratio,400*Ratio,fill="white")
-        canvas.create_oval(392.5*Ratio,400*Ratio,442.5*Ratio,450*Ratio,fill="white")
-        canvas.create_oval(392.5*Ratio,450*Ratio,442.5*Ratio,500*Ratio,fill="white")
-        canvas.create_oval(392.5*Ratio,500*Ratio,442.5*Ratio,550*Ratio,fill="white")
+    for i in range(Red_Cap_Piece):
+        canvas.create_oval(392.5 * Ratio, (290 - 50 * i) * Ratio, 442.5 * Ratio, (340 - 50 * i) * Ratio, fill="maroon")
+    for i in range(White_Cap_Piece):
+        canvas.create_oval(392.5 * Ratio, (350 + 50 * i) * Ratio, 442.5 * Ratio, (400 + 50 * i) * Ratio, fill="white")
 
 
 # überprüft ob keine steine mehr auf dem feld sind 
