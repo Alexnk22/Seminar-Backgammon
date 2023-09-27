@@ -33,9 +33,9 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-spielfeld2 = [1,0,1,0,1,5   ,1,0,1,0,1,0       ,5,0,1,0,1,0,   0,0,1,0,1,0]    #black
+spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-spielfeld1 = [0,1,0,1,0,0   ,0,1,0,1,0,5       ,0,1,0,1,0,1,   5,1,0,1,0,1]    #white
+spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
 
 #spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
 #spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
@@ -464,9 +464,16 @@ def Cap_Pieces(x):
 # lässt die geschlagenen figuren in der mitte erscheinen 
 def show_Cap_Piece(Ratio):
     for i in range(Red_Cap_Piece):
-        canvas.create_oval(392.5 * Ratio, (290 - 50 * i) * Ratio, 442.5 * Ratio, (340 - 50 * i) * Ratio, fill="maroon")
+        if i < 6:
+            canvas.create_oval(392.5 * Ratio, (290 - 50 * i) * Ratio, 442.5 * Ratio, (340 - 50 * i) * Ratio, fill="maroon")
+        else:
+            canvas.create_oval(392.5 * Ratio, (290 - 50 * 5) * Ratio, 442.5 * Ratio, (340 - 50 * 5) * Ratio, fill="maroon")
     for i in range(White_Cap_Piece):
-        canvas.create_oval(392.5 * Ratio, (350 + 50 * i) * Ratio, 442.5 * Ratio, (400 + 50 * i) * Ratio, fill="white")
+        if i < 6:
+            canvas.create_oval(392.5 * Ratio, (350 + 50 * i) * Ratio, 442.5 * Ratio, (400 + 50 * i) * Ratio, fill="white")
+        else:
+            canvas.create_oval(392.5 * Ratio, (350 + 50 * 5) * Ratio, 442.5 * Ratio, (400 + 50 * 5) * Ratio, fill="white")
+
 
 
 # überprüft ob keine steine mehr auf dem feld sind 
