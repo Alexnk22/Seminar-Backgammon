@@ -33,12 +33,12 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #marker
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
+#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    #black
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
+#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
 
-#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
-#spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
+spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -86,9 +86,12 @@ def Feld(Ratio):
             canvas.create_polygon((i*106+127.5+u*369)*Ratio, 650*Ratio, (i*106+152.5+u*369)*Ratio, 400*Ratio, (i*106+177.5+u*369)*Ratio, 650*Ratio,fill="red",outline="black")
     # zeigt durch einen block die gewinnpos an (soll schöner werden)
     if White_winning_pos == True:
-        canvas.create_rectangle(800* Ratio,150 * Ratio,850 * Ratio,250 * Ratio, fill="black")
+        canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio, fill="darkorange4",width=2)
+        canvas.create_rectangle(810* Ratio,90 * Ratio,865 * Ratio,265 * Ratio, fill="goldenrod",width=2)
+
     if Red_winning_pos == True:
-        canvas.create_rectangle(800* Ratio,455 * Ratio,850 * Ratio,555 * Ratio, fill="black")
+        canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, fill="darkorange4",width=2)
+        canvas.create_rectangle(810* Ratio,460 * Ratio,865 * Ratio,635 * Ratio, fill="goldenrod",width=2)
 
 def Figuren(Ratio, spielfeld, farbe,verschiebung):
     for u in range(12):
@@ -326,11 +329,11 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
 
     # markiert den schwarzen block wenn man mit einer figur rausfahren kann 
     if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25)and Pos1 != 0 and movecounter % 2 == 0:
-        canvas.create_rectangle(800* Ratio,150 * Ratio,850 * Ratio,250 * Ratio, fill="black",outline="yellow",width=5)
+        canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio,outline="yellow",width=4)
         # zeigt das eine weiße figur rausfahren kann 
         Pos4 = 1
     if Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
-        canvas.create_rectangle(800* Ratio,455 * Ratio,850 * Ratio,555 * Ratio, outline="yellow",width=5)
+        canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
         Pos4 = 2
 
 def Position2(event=NONE):
@@ -360,7 +363,7 @@ def Position2(event=NONE):
         pasch()
         move()
     # wenn das markierte schwarze feld an der seite bei einer gewinnposition angeklickt wwird die entsprächende if schleife ausgelöst 
-    if (800 < event.x / Ratio < 850) and (150 < event.y/Ratio < 250) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos21 == 25:
+    if (800 < event.x / Ratio < 875) and (80 < event.y/Ratio < 275) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos21 == 25:
         Pos2 = -1
            
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
@@ -371,7 +374,7 @@ def Position2(event=NONE):
         Ratios() 
         move()
 
-    if (800 < event.x / Ratio < 850) and (150 < event.y/Ratio < 250) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos22 == 25:
+    if (800 < event.x / Ratio < 875) and (80 < event.y/Ratio < 275) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos22 == 25:
         Pos2 = -1
            
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
@@ -382,7 +385,7 @@ def Position2(event=NONE):
         Ratios() 
         move()
 
-    if (800 < event.x / Ratio < 850) and (455 < event.y /Ratio < 555) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos21 == 0: 
+    if (800 < event.x / Ratio < 875) and (450 < event.y /Ratio < 645) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos21 == 0: 
            
         spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
         if Würfel1[1] == Würfel2[1]:
@@ -392,7 +395,7 @@ def Position2(event=NONE):
         Ratios() 
         move()
 
-    if (800 < event.x / Ratio < 850) and (455 < event.y /Ratio < 555) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos22 == 0: 
+    if (800 < event.x / Ratio < 875) and (450 < event.y /Ratio < 645) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos22 == 0: 
         Pos2 = -1
           
         spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
