@@ -37,7 +37,7 @@ spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
 #spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    #white
 
-spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,0,0,0,0]
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   5,5,1,0,0,0]
 spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
@@ -88,10 +88,61 @@ def Feld(Ratio):
     if White_winning_pos == True:
         canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio, fill="darkorange4",width=2)
         canvas.create_rectangle(810* Ratio,90 * Ratio,865 * Ratio,265 * Ratio, fill="goldenrod",width=2)
-
+        
+        if sum(spielfeld1) in [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]:
+            canvas.create_oval(810*Ratio,90*Ratio,837.5*Ratio,117.5*Ratio, fill="white")
+        if sum(spielfeld1) in [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]:
+            canvas.create_oval(810*Ratio,(90+27.5)*Ratio,837.5*Ratio,(117.5+27.5)*Ratio, fill="white")
+        if sum(spielfeld1) in [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]:
+            canvas.create_oval(810*Ratio,(90+27.5+27.5)*Ratio,837.5*Ratio,(117.5+27.5+27.5)*Ratio, fill="white")
+        if sum(spielfeld1) in [8, 7, 6, 5, 4, 3, 2, 1, 0]:
+            canvas.create_oval(810*Ratio,(90+27.5+27.5+27.5)*Ratio,837.5*Ratio,(117.5+27.5+27.5+27.5)*Ratio, fill="white")
+        if sum(spielfeld1) in [7, 6, 5, 4, 3, 2, 1, 0]:
+            canvas.create_oval(810*Ratio,(90+27.5+27.5+27.5+27.5)*Ratio,837.5*Ratio,(117.5+27.5+27.5+27.5+27.5)*Ratio, fill="white")
+        if sum(spielfeld1) in [6, 5, 4, 3, 2, 1, 0]:
+            canvas.create_oval(810*Ratio,(90+27.5+27.5+27.5+27.5+27.5)*Ratio,837.5*Ratio,(117.5+27.5+27.5+27.5+27.5+27.5)*Ratio, fill="white")
+        if sum(spielfeld1) in [5, 4, 3, 2, 1, 0]:
+            canvas.create_oval((810+27.5)*Ratio,(90)*Ratio,(837.5+27.5)*Ratio,(117.5)*Ratio, fill="white")
+        if sum(spielfeld1) in [4, 3, 2, 1, 0]:
+            canvas.create_oval((810+27.5)*Ratio,(90+27.5)*Ratio,(837.5+27.5)*Ratio,(117.5+27.5)*Ratio, fill="white")
+        if sum(spielfeld1) in [3, 2, 1, 0]:
+            canvas.create_oval((810+27.5)*Ratio,(90+27.5+27.5)*Ratio,(837.5+27.5)*Ratio,(117.5+27.5+27.5)*Ratio, fill="white")
+        if sum(spielfeld1) in [2, 1, 0]:
+            canvas.create_oval((810+27.5)*Ratio,(90+27.5+27.5+27.5)*Ratio,(837.5+27.5)*Ratio,(117.5+27.5+27.5+27.5)*Ratio, fill="white")
+        if sum(spielfeld1) in [1, 0]:
+            canvas.create_oval((810+27.5)*Ratio,(90+27.5+27.5+27.5+27.5)*Ratio,(837.5+27.5)*Ratio,(117.5+27.5+27.5+27.5+27.5)*Ratio, fill="white")
+        if sum(spielfeld1) in [0]:
+            canvas.create_oval((810+27.5)*Ratio,(90+27.5+27.5+27.5+27.5+27.5)*Ratio,(837.5+27.5)*Ratio,(117.5+27.5+27.5+27.5+27.5+27.5)*Ratio, fill="white")
+    
     if Red_winning_pos == True:
         canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, fill="darkorange4",width=2)
         canvas.create_rectangle(810* Ratio,460 * Ratio,865 * Ratio,635 * Ratio, fill="goldenrod",width=2)
+        if sum(spielfeld2) in [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]:
+            canvas.create_oval(810*Ratio,607.5*Ratio,837.5*Ratio,635*Ratio, fill="maroon")
+        if sum(spielfeld2) in [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]:
+            canvas.create_oval(810*Ratio,(607.5-27.5)*Ratio,837.5*Ratio,(635-27.5)*Ratio, fill="maroon")
+        if sum(spielfeld2) in [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]:
+            canvas.create_oval(810*Ratio,(607.5-27.5-27.5)*Ratio,837.5*Ratio,(635-27.5-27.5)*Ratio, fill="maroon")
+        if sum(spielfeld2) in [8, 7, 6, 5, 4, 3, 2, 1, 0]:
+            canvas.create_oval(810*Ratio,(607.5-27.5-27.5-27.5)*Ratio,837.5*Ratio,(635-27.5-27.5-27.5)*Ratio, fill="maroon")
+        if sum(spielfeld2) in [7, 6, 5, 4, 3, 2, 1, 0]:
+            canvas.create_oval(810*Ratio,(607.5-27.5-27.5-27.5-27.5)*Ratio,837.5*Ratio,(635-27.5-27.5-27.5-27.5)*Ratio, fill="maroon")
+        if sum(spielfeld2) in [6, 5, 4, 3, 2, 1, 0]:
+            canvas.create_oval(810*Ratio,(607.5-27.5-27.5-27.5-27.5-27.5)*Ratio,837.5*Ratio,(635-27.5-27.5-27.5-27.5-27.5)*Ratio, fill="maroon")
+        if sum(spielfeld2) in [5, 4, 3, 2, 1, 0]:
+            canvas.create_oval((810+27.5)*Ratio,(607.5)*Ratio,(837.5+27.5)*Ratio,(635)*Ratio, fill="maroon")
+        if sum(spielfeld2) in [4, 3, 2, 1, 0]:
+            canvas.create_oval((810+27.5)*Ratio,(607.5-27.5)*Ratio,(837.5+27.5)*Ratio,(635-27.5)*Ratio, fill="maroon")
+        if sum(spielfeld2) in [3, 2, 1, 0]:
+            canvas.create_oval((810+27.5)*Ratio,(607.5-27.5-27.5)*Ratio,(837.5+27.5)*Ratio,(635-27.5-27.5)*Ratio, fill="maroon")
+        if sum(spielfeld2) in [2, 1, 0]:
+            canvas.create_oval((810+27.5)*Ratio,(607.5-27.5-27.5-27.5)*Ratio,(837.5+27.5)*Ratio,(635-27.5-27.5-27.5)*Ratio, fill="maroon")
+        if sum(spielfeld2) in [1, 0]:
+            canvas.create_oval((810+27.5)*Ratio,(607.5-27.5-27.5-27.5-27.5)*Ratio,(837.5+27.5)*Ratio,(635-27.5-27.5-27.5-27.5)*Ratio, fill="maroon")
+        if sum(spielfeld2) in [0]:
+            canvas.create_oval((810+27.5)*Ratio,(607.5-27.5-27.5-27.5-27.5-27.5)*Ratio,(837.5+27.5)*Ratio,(635-27.5-27.5-27.5-27.5-27.5)*Ratio, fill="maroon")
+        
+    
 
 def Figuren(Ratio, spielfeld, farbe,verschiebung):
     for u in range(12):
