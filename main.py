@@ -91,16 +91,18 @@ def win_progress(Ratio):
     if White_winning_pos == True:
         canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio, fill="darkorange4",width=2)
         canvas.create_rectangle(810* Ratio,90 * Ratio,865 * Ratio,265 * Ratio, fill="goldenrod",width=2)
+
         for i in range (12-sum(spielfeld1)):
             if i > 5:
                 u = 1
             else:
                 u = 0
             canvas.create_oval((810+u*27.5)*Ratio,((90+i*27.5)- u*27.5*6)*Ratio,(837.5+u*27.5)*Ratio,((117.5+i*27.5)- u*27.5*6)*Ratio, fill="white")
-
+            
     if Red_winning_pos == True:
         canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, fill="darkorange4",width=2)
         canvas.create_rectangle(810* Ratio,460 * Ratio,865 * Ratio,635 * Ratio, fill="goldenrod",width=2)
+
         for i in range (12-sum(spielfeld2)):
             if i > 5:
                 u = 1
