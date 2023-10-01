@@ -53,6 +53,7 @@ def Ratios (event=NONE):
     else:
         Ratio = root.winfo_height()/900
     Feld(Ratio)
+    win_progress(Ratio)
     Figuren(Ratio, spielfeld1, "white",12)
     Figuren(Ratio, spielfeld2, "maroon",12)
     if movecounter % 2 == 0 and White_Cap_Piece == 0:
@@ -84,65 +85,29 @@ def Feld(Ratio):
             # done 
             canvas.create_polygon((i*106+75+u*369)*Ratio, 650*Ratio, (i*106+100+u*369)*Ratio, 400*Ratio, (i*106+125+u*369)*Ratio, 650*Ratio)
             canvas.create_polygon((i*106+127.5+u*369)*Ratio, 650*Ratio, (i*106+152.5+u*369)*Ratio, 400*Ratio, (i*106+177.5+u*369)*Ratio, 650*Ratio,fill="red",outline="black")
+    
+def win_progress(Ratio):
     # zeigt durch einen block die gewinnpos an (soll schöner werden)
     if White_winning_pos == True:
         canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio, fill="darkorange4",width=2)
         canvas.create_rectangle(810* Ratio,90 * Ratio,865 * Ratio,265 * Ratio, fill="goldenrod",width=2)
-        
-        if sum(spielfeld1) in [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]:
-            canvas.create_oval(810*Ratio,90*Ratio,837.5*Ratio,117.5*Ratio, fill="white")
-        if sum(spielfeld1) in [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]:
-            canvas.create_oval(810*Ratio,(90+27.5)*Ratio,837.5*Ratio,(117.5+27.5)*Ratio, fill="white")
-        if sum(spielfeld1) in [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]:
-            canvas.create_oval(810*Ratio,(90+27.5+27.5)*Ratio,837.5*Ratio,(117.5+27.5+27.5)*Ratio, fill="white")
-        if sum(spielfeld1) in [8, 7, 6, 5, 4, 3, 2, 1, 0]:
-            canvas.create_oval(810*Ratio,(90+27.5+27.5+27.5)*Ratio,837.5*Ratio,(117.5+27.5+27.5+27.5)*Ratio, fill="white")
-        if sum(spielfeld1) in [7, 6, 5, 4, 3, 2, 1, 0]:
-            canvas.create_oval(810*Ratio,(90+27.5+27.5+27.5+27.5)*Ratio,837.5*Ratio,(117.5+27.5+27.5+27.5+27.5)*Ratio, fill="white")
-        if sum(spielfeld1) in [6, 5, 4, 3, 2, 1, 0]:
-            canvas.create_oval(810*Ratio,(90+27.5+27.5+27.5+27.5+27.5)*Ratio,837.5*Ratio,(117.5+27.5+27.5+27.5+27.5+27.5)*Ratio, fill="white")
-        if sum(spielfeld1) in [5, 4, 3, 2, 1, 0]:
-            canvas.create_oval((810+27.5)*Ratio,(90)*Ratio,(837.5+27.5)*Ratio,(117.5)*Ratio, fill="white")
-        if sum(spielfeld1) in [4, 3, 2, 1, 0]:
-            canvas.create_oval((810+27.5)*Ratio,(90+27.5)*Ratio,(837.5+27.5)*Ratio,(117.5+27.5)*Ratio, fill="white")
-        if sum(spielfeld1) in [3, 2, 1, 0]:
-            canvas.create_oval((810+27.5)*Ratio,(90+27.5+27.5)*Ratio,(837.5+27.5)*Ratio,(117.5+27.5+27.5)*Ratio, fill="white")
-        if sum(spielfeld1) in [2, 1, 0]:
-            canvas.create_oval((810+27.5)*Ratio,(90+27.5+27.5+27.5)*Ratio,(837.5+27.5)*Ratio,(117.5+27.5+27.5+27.5)*Ratio, fill="white")
-        if sum(spielfeld1) in [1, 0]:
-            canvas.create_oval((810+27.5)*Ratio,(90+27.5+27.5+27.5+27.5)*Ratio,(837.5+27.5)*Ratio,(117.5+27.5+27.5+27.5+27.5)*Ratio, fill="white")
-        if sum(spielfeld1) in [0]:
-            canvas.create_oval((810+27.5)*Ratio,(90+27.5+27.5+27.5+27.5+27.5)*Ratio,(837.5+27.5)*Ratio,(117.5+27.5+27.5+27.5+27.5+27.5)*Ratio, fill="white")
-    
+        for i in range (12-sum(spielfeld1)):
+            if i > 5:
+                u = 1
+            else:
+                u = 0
+            canvas.create_oval((810+u*27.5)*Ratio,((90+i*27.5)- u*27.5*6)*Ratio,(837.5+u*27.5)*Ratio,((117.5+i*27.5)- u*27.5*6)*Ratio, fill="white")
+
     if Red_winning_pos == True:
         canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, fill="darkorange4",width=2)
         canvas.create_rectangle(810* Ratio,460 * Ratio,865 * Ratio,635 * Ratio, fill="goldenrod",width=2)
-        if sum(spielfeld2) in [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]:
-            canvas.create_oval(810*Ratio,607.5*Ratio,837.5*Ratio,635*Ratio, fill="maroon")
-        if sum(spielfeld2) in [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]:
-            canvas.create_oval(810*Ratio,(607.5-27.5)*Ratio,837.5*Ratio,(635-27.5)*Ratio, fill="maroon")
-        if sum(spielfeld2) in [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]:
-            canvas.create_oval(810*Ratio,(607.5-27.5-27.5)*Ratio,837.5*Ratio,(635-27.5-27.5)*Ratio, fill="maroon")
-        if sum(spielfeld2) in [8, 7, 6, 5, 4, 3, 2, 1, 0]:
-            canvas.create_oval(810*Ratio,(607.5-27.5-27.5-27.5)*Ratio,837.5*Ratio,(635-27.5-27.5-27.5)*Ratio, fill="maroon")
-        if sum(spielfeld2) in [7, 6, 5, 4, 3, 2, 1, 0]:
-            canvas.create_oval(810*Ratio,(607.5-27.5-27.5-27.5-27.5)*Ratio,837.5*Ratio,(635-27.5-27.5-27.5-27.5)*Ratio, fill="maroon")
-        if sum(spielfeld2) in [6, 5, 4, 3, 2, 1, 0]:
-            canvas.create_oval(810*Ratio,(607.5-27.5-27.5-27.5-27.5-27.5)*Ratio,837.5*Ratio,(635-27.5-27.5-27.5-27.5-27.5)*Ratio, fill="maroon")
-        if sum(spielfeld2) in [5, 4, 3, 2, 1, 0]:
-            canvas.create_oval((810+27.5)*Ratio,(607.5)*Ratio,(837.5+27.5)*Ratio,(635)*Ratio, fill="maroon")
-        if sum(spielfeld2) in [4, 3, 2, 1, 0]:
-            canvas.create_oval((810+27.5)*Ratio,(607.5-27.5)*Ratio,(837.5+27.5)*Ratio,(635-27.5)*Ratio, fill="maroon")
-        if sum(spielfeld2) in [3, 2, 1, 0]:
-            canvas.create_oval((810+27.5)*Ratio,(607.5-27.5-27.5)*Ratio,(837.5+27.5)*Ratio,(635-27.5-27.5)*Ratio, fill="maroon")
-        if sum(spielfeld2) in [2, 1, 0]:
-            canvas.create_oval((810+27.5)*Ratio,(607.5-27.5-27.5-27.5)*Ratio,(837.5+27.5)*Ratio,(635-27.5-27.5-27.5)*Ratio, fill="maroon")
-        if sum(spielfeld2) in [1, 0]:
-            canvas.create_oval((810+27.5)*Ratio,(607.5-27.5-27.5-27.5-27.5)*Ratio,(837.5+27.5)*Ratio,(635-27.5-27.5-27.5-27.5)*Ratio, fill="maroon")
-        if sum(spielfeld2) in [0]:
-            canvas.create_oval((810+27.5)*Ratio,(607.5-27.5-27.5-27.5-27.5-27.5)*Ratio,(837.5+27.5)*Ratio,(635-27.5-27.5-27.5-27.5-27.5)*Ratio, fill="maroon")
-        
-    
+        for i in range (12-sum(spielfeld2)):
+            if i > 5:
+                u = 1
+            else:
+                u = 0
+            canvas.create_oval((810+u*27.5)*Ratio,((607.5-i*27.5)+ u*27.5*6)*Ratio,(837.5+u*27.5)*Ratio,((635-i*27.5)+ u*27.5*6)*Ratio, fill="maroon")
+
 
 def Figuren(Ratio, spielfeld, farbe,verschiebung):
     for u in range(12):
