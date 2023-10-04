@@ -11,8 +11,8 @@ Pos1 = 0    # linke maus
 Pos2 = 0    # rechte maus 
 Pos3 = 0    # geschlagene Figur 
 Pos4 = 0    # gewinn Position 
-Würfel1 = [7]
-Würfel2 = [7]
+Würfel1 = [7,7]
+Würfel2 = [7,8]
 Pos21= 0
 Pos22= 0
 
@@ -209,6 +209,7 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
   
 def Würfel_wurf():
     global Pos21, Pos22, Pos1, movecounter, Pass
+    
     if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True:
         if Pass == False:
             movecounter = movecounter + 1
@@ -225,17 +226,18 @@ def Würfel_wurf():
             Würfel1.extend([a, a])
             Würfel2.extend([b, b])
         else:
-            Würfel1.extend([a, 1])
-            Würfel2.extend([b, 2])
+            Würfel1.extend([a, 7])
+            Würfel2.extend([b, 8])
         Ratios()
         Pass = False
 
    
 def show_Würfel(Ratio, würfel_list, ver):
-    for i in range(1, 7):
-        if int(würfel_list[0]) == i:
-            canvas.create_rectangle(550*Ratio, 335*Ratio, 600*Ratio, 385*Ratio, width=1.2)
-            canvas.create_rectangle(630*Ratio, 335*Ratio, 680*Ratio, 385*Ratio, width=1.2)
+    
+    for i in range(9):
+        if int(würfel_list[0]) == i and 0 < i < 7:
+            canvas.create_rectangle((550+ver*80)*Ratio, 335*Ratio, (600+ver*80)*Ratio, 385*Ratio, width=1.2)
+            
             if i == 1 or i == 3 or i == 5:
                 canvas.create_oval((570+ver*80) * Ratio, 355 * Ratio, (580+ver*80) * Ratio, 365 * Ratio, fill="black")
             for u in range(2):
@@ -245,7 +247,20 @@ def show_Würfel(Ratio, würfel_list, ver):
                     canvas.create_oval(((u*34)+553+ver*80) * Ratio, (373-(35*u)) * Ratio, ((u*34)+563+ver*80) * Ratio, (383-(35*u)) * Ratio, fill="black")
                 if i == 6:
                     canvas.create_oval(((u*34)+553+ver*80) * Ratio, 355 * Ratio, ((u*34)+563+ver*80) * Ratio, 365 * Ratio, fill="black")
-
+        
+        if  würfel_list[1] == i and 0 < i < 7:
+            canvas.create_rectangle((480+ver*220)*Ratio, 335*Ratio, (530+ver*220)*Ratio,385*Ratio, width=1.2)
+            
+            if i == 1 or i == 3 or i == 5:
+                canvas.create_oval((500+ver*220) * Ratio, 355 * Ratio, (510+ver*220) * Ratio, 365 * Ratio, fill="black")
+            for u in range(2):
+                if 1 < i < 7:
+                    canvas.create_oval(((u*34)+483+ver*220) * Ratio, ((u*35)+338) * Ratio, ((u*34)+493+ver*220) * Ratio, ((u*35)+348) * Ratio, fill="black")
+                if 3 < i < 7:
+                    canvas.create_oval(((u*34)+483+ver*220) * Ratio, (373-(35*u)) * Ratio, ((u*34)+493+ver*220) * Ratio, (383-(35*u)) * Ratio, fill="black")
+                if i == 6:
+                    canvas.create_oval(((u*34)+483+ver*220) * Ratio, 355 * Ratio, ((u*34)+493+ver*220) * Ratio, 365 * Ratio, fill="black")
+       
 
 
 def set_Cap_possible_pos():
@@ -525,7 +540,7 @@ def PvP():
 
 def Pass_turn():
     global Pass, movecounter, Pos1, spielfeld3, Würfel1, Würfel2, Pos4
-    movecounter, Würfel1, Würfel2, Pos1, spielfeld3, Pos4 = movecounter + 1, [0], [0], 0, [0]*24, 0
+    movecounter, Würfel1, Würfel2, Pos1, spielfeld3, Pos4 = movecounter + 1, [0,7], [0,8], 0, [0]*24, 0
     
     Ratios()
     Pass = True
