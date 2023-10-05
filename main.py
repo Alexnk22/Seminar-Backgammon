@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 
-movecounter = 1
+movecounter = 0
 TOPorBOT = 0 
 TOPorBOT2 = 0
 Dreieck = 0
@@ -53,24 +53,32 @@ def Ratios (event=NONE):
         Ratio = root.winfo_width()/900
     else:
         Ratio = root.winfo_height()/900
-    Feld(Ratio)
-    win_progress(Ratio)
-    Figuren(Ratio, spielfeld1, "white",12)
-    Figuren(Ratio, spielfeld2, "maroon",12)
-    if movecounter % 2 == 0 and White_Cap_Piece == 0:
-        mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
-    elif movecounter % 2 != 0 and Red_Cap_Piece == 0:
-        mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
-    show_Würfel(Ratio,Würfel1,0)
-    show_Würfel(Ratio,Würfel2,1)
-    mark_possible_pos(Ratio, spielfeld3,"yellow",12)
-    show_Cap_Piece(Ratio)
+    if movecounter == 0:
+        start(Ratio)
+    else:
+
+        Feld(Ratio)
+        win_progress(Ratio)
+        Figuren(Ratio, spielfeld1, "white",12)
+        Figuren(Ratio, spielfeld2, "maroon",12)
+        if movecounter % 2 == 0 and White_Cap_Piece == 0:
+            mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
+        elif movecounter % 2 != 0 and Red_Cap_Piece == 0:
+            mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
+        show_Würfel(Ratio,Würfel1,0)
+        show_Würfel(Ratio,Würfel2,1)
+        mark_possible_pos(Ratio, spielfeld3,"yellow",12)
+        show_Cap_Piece(Ratio)
+
+def start(Ratio):
+    canvas.create_rectangle(0*Ratio,0*Ratio,450*Ratio,896*Ratio, fill="red")
+    canvas.create_rectangle(450*Ratio,0*Ratio,896*Ratio,896*Ratio, fill="white",outline="black")
 
 
 def Feld(Ratio):
     canvas.create_rectangle(55*Ratio,55*Ratio,(780)*Ratio,670*Ratio,width=2, fill="darkorange4")
     canvas.create_line(417*Ratio,55*Ratio,417*Ratio,670*Ratio,width=2)
-    if movecounter % 2 != 0 and movecounter != 1:
+    if movecounter % 2 != 0 :
         canvas.create_rectangle(0,0,55*Ratio,55*Ratio,fill="red")
     elif movecounter % 2 == 0:
         canvas.create_rectangle(0,0,55*Ratio,55*Ratio,fill="white")
@@ -129,7 +137,7 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
             canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1.33)
 
 def Position(event):
-    global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2
+    global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass
     
     Pos21 = 0
     Pos22 = 0
@@ -183,8 +191,16 @@ def Position(event):
     else:
         Pos1 = 0
         Pos2 = 0
-        Ratios() 
-      
+        Ratios()
+
+    if movecounter == 0 and event.x < 450*Ratio:
+        movecounter = 3
+        Ratios()
+        Pass = True
+    elif movecounter == 0 and event.x > 450*Ratio:
+        movecounter = 2
+        Ratios()
+        Pass = True
 
         
 
@@ -211,7 +227,7 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
 def Würfel_wurf():
     global Pos21, Pos22, Pos1, movecounter, Pass
     
-    if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True:
+    if ((Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True) and movecounter != 0:
         if Pass == False:
             movecounter = movecounter + 1
         if Pos21 > 24:
@@ -527,12 +543,15 @@ def key(event):
 
 def File():
     global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22, Pos3, Pos4
-    spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
-    spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-    movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 1, 0, 0, 0, 0, [0]*24, 0, 0
-    Pos1, Pos2, Pos21, Pos22, Pos3, Pos4 = 0, 0, 0, 0
-    Würfel1, Würfel2 = [7], [7]
-    Ratios()
+    if movecounter != 0:
+        spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
+        spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
+        movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 0, 0, 0, 0, 0, [0]*24,
+        Pos1, Pos2, Pos21, Pos22, Pos3, Pos4 = 0, 0, 0, 0, 0, 0
+        Würfel1, Würfel2 = [7,7], [7,8]
+        Ratios()
+    else:
+        pass
 
 def AI():
     pass
@@ -541,11 +560,13 @@ def PvP():
 
 def Pass_turn():
     global Pass, movecounter, Pos1, spielfeld3, Würfel1, Würfel2, Pos4
-    movecounter, Würfel1, Würfel2, Pos1, spielfeld3, Pos4 = movecounter + 1, [0,7], [0,8], 0, [0]*24, 0
-    
-    Ratios()
-    Pass = True
-
+    if movecounter != 0:
+        movecounter, Würfel1, Würfel2, Pos1, spielfeld3, Pos4 = movecounter + 1, [0,7], [0,8], 0, [0]*24, 0
+        
+        Ratios()
+        Pass = True
+    else:
+        pass
 def Check_winning_pos():
     global White_winning_pos, Red_winning_pos, spielfeld1, spielfeld2
     if all(x == 0 for x in spielfeld1[:18]) and White_Cap_Piece == 0:
