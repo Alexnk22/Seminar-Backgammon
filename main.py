@@ -533,13 +533,14 @@ def show_Cap_Piece(Ratio):
 
 def Back_move():
     global spielfeld1, spielfeld2, move_list1, move_list2
-    spielfeld1 = move_list1[-48:-24]
-    spielfeld2 = move_list2[-48:-24]
-    
-    move_list1 = move_list1[:-24]
-    move_list2 = move_list2[:-24]
-    print(move_list1)
-    Ratios()
+    if len(move_list1) > 24 and len(move_list2) > 24:
+        spielfeld1 = move_list1[-48:-24]
+        spielfeld2 = move_list2[-48:-24]
+        
+        move_list1 = move_list1[:-24]
+        move_list2 = move_list2[:-24]
+        print(move_list1)
+        Ratios()
 
 # überprüft ob keine steine mehr auf dem feld sind 
 def winner():
