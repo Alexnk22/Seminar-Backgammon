@@ -15,6 +15,8 @@ Würfel1 = [7,7]
 Würfel2 = [7,8]
 Pos21= 0
 Pos22= 0
+move_list1 = []
+move_list2 = []
 
 White_winning_pos = False
 Red_winning_pos = False
@@ -501,6 +503,8 @@ def move():
                 Cap_Pieces(1)
     # nach jedem zug soll alles zurück gesetzt werden 
     spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, 0, 0, 0, 0, 0, 0
+    move_list1.extend(spielfeld1)
+    move_list2.extend(spielfeld2)
     Check_winning_pos()
     winner()
     Ratios()
@@ -527,7 +531,15 @@ def show_Cap_Piece(Ratio):
         else:
             canvas.create_oval(392.5 * Ratio, (350 + 50 * 5) * Ratio, 442.5 * Ratio, (400 + 50 * 5) * Ratio, fill="white")
 
-
+def Back_move():
+    global spielfeld1, spielfeld2, move_list1, move_list2
+    spielfeld1 = move_list1[-48:-24]
+    spielfeld2 = move_list2[-48:-24]
+    
+    move_list1 = move_list1[:-24]
+    move_list2 = move_list2[:-24]
+    print(move_list1)
+    Ratios()
 
 # überprüft ob keine steine mehr auf dem feld sind 
 def winner():
@@ -540,6 +552,8 @@ def key(event):
         Würfel_wurf()
     elif event.char == "p":
         Pass_turn()
+    elif event.char == "z":
+        Back_move()
 
 def File():
     global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22, Pos3, Pos4
