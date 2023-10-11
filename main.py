@@ -402,7 +402,7 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
             h = 1
             canvas.create_oval((673-(u*53)-r)*Ratio, (650-(i)*50+(h*25))*Ratio, (723-(u*53)-r)*Ratio, (700-(i)*50+(h*25))*Ratio, fill=farbe, width=1)
         elif spielfeld[u] == -1:
-            canvas.create_oval((673 - (u * 53) - r) * Ratio, (610) * Ratio, (723 - (u * 53) - r) * Ratio, (640) * Ratio, fill=farbe, width=1)
+            canvas.create_oval((683 - (u * 53) - r) * Ratio, (610) * Ratio, (713 - (u * 53) - r) * Ratio, (640) * Ratio, fill=farbe, width=1)
         
     for u in range(12):
         r = 50 if u >= 6 else 0 
@@ -413,7 +413,7 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
             h = 1
             canvas.create_oval((75+u*53+r)*Ratio, (25+i*50-(h*25))*Ratio, (125+u*53+r)*Ratio, (75+i*50-(h*25))*Ratio, fill=farbe, width=1)
         elif spielfeld[u + verschiebung] == -1:
-            canvas.create_oval((75 + u * 53 + r) * Ratio, (85) * Ratio, (125 + u * 53 + r) * Ratio, (115) * Ratio, fill=farbe, width=1)
+            canvas.create_oval((85 + u * 53 + r) * Ratio, (85) * Ratio, (115 + u * 53 + r) * Ratio, (115) * Ratio, fill=farbe, width=1)
 
     # markiert den schwarzen block wenn man mit einer figur rausfahren kann 
     if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25)and Pos1 != 0 and movecounter % 2 == 0:
