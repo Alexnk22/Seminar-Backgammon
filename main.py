@@ -35,13 +35,13 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]   
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    
-#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
+spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    
-#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
+spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
 
 
-spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   5,5,1,0,0,0]
-spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+#spielfeld1 = [0,0,1,5,7,0   ,1,0,0,0,0,0       ,0,0,0,0,0,1,   7,5,1,0,0,0]
+#spielfeld2 = [0,0,0,0,0,0   ,0,1,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -123,20 +123,32 @@ def win_progress(Ratio):
 
 
 def Figuren(Ratio, spielfeld, farbe,verschiebung):
+    
     for u in range(12):
+        
         for i in range(int(spielfeld[u])):
+            if i > 4:
+                i = i - 4 
+                h = 1
+            else: 
+                h = 0
             if u >= 6:
                 r = 65
             else:
                 r = 15
-            canvas.create_oval((723-(u*53)-r)*Ratio, (600-(i)*50)*Ratio, (773-(u*53)-r)*Ratio, (650-(i)*50)*Ratio, fill=farbe, width=1.33)        
+            canvas.create_oval((723-(u*53)-r)*Ratio, (600-(i)*50+(h*25))*Ratio, (773-(u*53)-r)*Ratio, (650-(i)*50+(h*25))*Ratio, fill=farbe, width=1.33)        
     for u in range(12):
         for i in range(int(spielfeld[int(u)+verschiebung])):
+            if i > 4:
+                i = i - 4 
+                h = 1
+            else: 
+                h = 0
             if u >= 6:
                 r = 50
             else:
                 r = 0
-            canvas.create_oval((75+u*53+r)*Ratio, (75+i*50)*Ratio, (125+u*53+r)*Ratio, (125+i*50)*Ratio, fill=farbe, width=1.33)
+            canvas.create_oval((75+u*53+r)*Ratio, (75+i*50-(h*25))*Ratio, (125+u*53+r)*Ratio, (125+i*50-(h*25))*Ratio, fill=farbe, width=1.33)
 
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass
@@ -210,19 +222,37 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
         global Pos3
         
         if 0 < Pos1 < 13 :
+            if spielfeld[Pos1-1] > 4:
+                i = spielfeld[Pos1-1] - 4
+                h = 1
+            else:
+                i = 0
+                h = 0
             if 6 < Pos1 < 13:
                 r = 15
             else:
                 r = -35
-            if spielfeld[Pos1-1] != 0:   
+            if spielfeld[Pos1-1] != 0 and spielfeld[Pos1-1] <= 5:   
                 canvas.create_oval((725-(Pos1*53)-r)*Ratio, (650-(int(spielfeld[Pos1-1]))*50)*Ratio, (775-(Pos1*53)-r)*Ratio, (700-(int(spielfeld[Pos1-1]))*50)*Ratio, width=4,outline=farbe)
+            elif spielfeld[Pos1-1] != 0 and spielfeld[Pos1-1] > 5:
+                canvas.create_oval((725-(Pos1*53)-r)*Ratio, (650-(i)*50+(h*25))*Ratio, (775-(Pos1*53)-r)*Ratio, (700-(i)*50+(h*25))*Ratio, width=4,outline=farbe)
+
         elif 12 < Pos1 < 25 : 
+            if spielfeld[Pos1-1] > 4:
+                i = spielfeld[Pos1-1] - 4
+                h = 1
+            else:
+                h = 0
+                i = 0
+
             if 12 < Pos1 < 19:
                 r = 0
             else:
                 r = 50
-            if spielfeld[Pos1-1] != 0:
+            if spielfeld[Pos1-1] != 0 and spielfeld[Pos1-1] <= 5:
                 canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
+            elif spielfeld[Pos1-1] != 0 and spielfeld[Pos1-1] > 5:
+                canvas.create_oval((75+(Pos1-13)*53+r)*Ratio, (25+int(i)*50-(h*25))*Ratio, (125+(Pos1-13)*53+r)*Ratio, (75+int(i)*50-(h*25))*Ratio, width=4,outline=farbe)
         
 
   
@@ -304,13 +334,13 @@ def set_Cap_possible_pos():
             spielfeldx = spielfeld1
 
         if 0 < Pos21 < 25:
-                if spielfeldx[Pos21 - 1] == 0 and spielfeld[Pos21 - 1] < 5 and Würfel1[0] != 0:
+                if spielfeldx[Pos21 - 1] == 0  and Würfel1[0] != 0:
                     spielfeld3[Pos21 - 1] = spielfeld[Pos21 - 1] + 1
                 elif spielfeldx[Pos21 - 1] == 1 and spielfeld[Pos21 - 1] == 0 and Würfel1[0] != 0:
                     spielfeld3[Pos21 - 1] = -1
 
         if 0 < Pos22 < 25:
-            if spielfeldx[Pos22 - 1] == 0 and spielfeld[Pos22 - 1] < 5 and Würfel2[0] != 0:
+            if spielfeldx[Pos22 - 1] == 0  and Würfel2[0] != 0:
                     spielfeld3[Pos22 - 1] = spielfeld[Pos22 - 1] + 1
             elif spielfeldx[Pos22 - 1] == 1 and spielfeld[Pos22 - 1] == 0 and Würfel2[0] != 0:
                     spielfeld3[Pos22 - 1] = -1
@@ -328,13 +358,13 @@ def set_possibel_pos():
         Pos22 = Pos1 + Würfel2[0]
 
         if 0 < Pos21 < 25:
-            if spielfeld2[Pos21 - 1] == 0 and spielfeld1[Pos21 - 1] < 5 and Würfel1[0] != 0:
+            if spielfeld2[Pos21 - 1] == 0  and Würfel1[0] != 0:
                 spielfeld3[Pos21 - 1] = spielfeld1[Pos21 - 1] + 1
             elif spielfeld2[Pos21 - 1] == 1 and spielfeld1[Pos21 - 1] == 0 and Würfel1[0] != 0:
                 spielfeld3[Pos21 - 1] = -1
 
         if 0 < Pos22 < 25:
-            if spielfeld2[Pos22 - 1] == 0 and spielfeld1[Pos22 - 1] < 5 and Würfel2[0] != 0:
+            if spielfeld2[Pos22 - 1] == 0  and Würfel2[0] != 0:
                 spielfeld3[Pos22 - 1] = spielfeld1[Pos22 - 1] + 1
             elif spielfeld2[Pos22 - 1] == 1 and spielfeld1[Pos22 - 1] == 0 and Würfel2[0] != 0:
                 spielfeld3[Pos22 - 1] = -1
@@ -346,13 +376,13 @@ def set_possibel_pos():
         Pos22 = Pos1 - Würfel2[0]
 
         if 0 < Pos21 < 25:
-            if spielfeld1[Pos21 - 1] == 0 and spielfeld2[Pos21 - 1] < 5 and Würfel1[0] != 0:
+            if spielfeld1[Pos21 - 1] == 0  and Würfel1[0] != 0:
                 spielfeld3[Pos21 - 1] = spielfeld2[Pos21 - 1] + 1
             elif spielfeld1[Pos21 - 1] == 1 and spielfeld2[Pos21 - 1] == 0 and Würfel1[0] != 0:
                 spielfeld3[Pos21 - 1] = -1
 
         if 0 < Pos22 < 25:
-            if spielfeld1[Pos22 - 1] == 0 and spielfeld2[Pos22 - 1] < 5 and Würfel2[0] != 0:
+            if spielfeld1[Pos22 - 1] == 0  and Würfel2[0] != 0:
                 spielfeld3[Pos22 - 1] = spielfeld2[Pos22 - 1] + 1
             elif spielfeld1[Pos22 - 1] == 1 and spielfeld2[Pos22 - 1] == 0 and Würfel2[0] != 0:
                 spielfeld3[Pos22 - 1] = -1
@@ -365,17 +395,23 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
     for u in range(12):
         r = 15 if u >= 6 else -35
         # markiert die normalen möglichkeiten 
-        if spielfeld[u] != -1 and spielfeld[u] != 0:
+        if spielfeld[u] != -1 and spielfeld[u] != 0 and spielfeld[u] <= 5:
             canvas.create_oval((673 - (u * 53) - r) * Ratio, (600 - (spielfeld[u]-1) * 50) * Ratio, (723 - (u * 53) - r) * Ratio, (650 - (spielfeld[u]-1) * 50) * Ratio, fill=farbe, width=1)
-        # markiert die schlagmöglichkeiten 
+        elif spielfeld[u] != -1 and spielfeld[u] != 0 and spielfeld[u] > 5:
+            i = spielfeld[u] - 4 
+            h = 1
+            canvas.create_oval((673-(u*53)-r)*Ratio, (650-(i)*50+(h*25))*Ratio, (723-(u*53)-r)*Ratio, (700-(i)*50+(h*25))*Ratio, fill=farbe, width=1)
         elif spielfeld[u] == -1:
             canvas.create_oval((673 - (u * 53) - r) * Ratio, (610) * Ratio, (723 - (u * 53) - r) * Ratio, (640) * Ratio, fill=farbe, width=1)
         
     for u in range(12):
         r = 50 if u >= 6 else 0 
-        if spielfeld[u + verschiebung] != -1 and spielfeld[u+verschiebung] != 0:
+        if spielfeld[u + verschiebung] != -1 and spielfeld[u+verschiebung] != 0 and spielfeld[u+verschiebung] <= 5:
             canvas.create_oval((75 + u * 53 + r) * Ratio, (75 + (spielfeld[u+verschiebung]-1) * 50) * Ratio, (125 + u * 53 + r) * Ratio, (125 + (spielfeld[u+verschiebung]-1) * 50) * Ratio, fill=farbe, width=1)
-                  
+        elif spielfeld[u+ verschiebung] != -1 and spielfeld[u+ verschiebung] != 0 and spielfeld[u+ verschiebung] > 5:          
+            i = spielfeld[u+verschiebung] - 4 
+            h = 1
+            canvas.create_oval((75+u*53+r)*Ratio, (25+i*50-(h*25))*Ratio, (125+u*53+r)*Ratio, (75+i*50-(h*25))*Ratio, fill=farbe, width=1)
         elif spielfeld[u + verschiebung] == -1:
             canvas.create_oval((75 + u * 53 + r) * Ratio, (85) * Ratio, (125 + u * 53 + r) * Ratio, (115) * Ratio, fill=farbe, width=1)
 
@@ -460,13 +496,13 @@ def Position2(event=NONE):
 #! hier muss ich weiter machen 
 def pasch():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
-    if Pos2 == Pos21 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
+    if Pos2 == Pos21 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) ) or (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) )):
         if Würfel1[1] == Würfel2[1]:
             Würfel1[0], Würfel1[1] = Würfel1[1], 0
         else:
             Würfel1[0] = 0
 
-    elif Pos2 == Pos22 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) and spielfeld1[Pos2-1] < 5) or(movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) and spielfeld2[Pos2-1] < 5)):
+    elif Pos2 == Pos22 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) ) or(movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) )):
         if Würfel1[0] == 0 and Würfel1[1] == 0:
             Würfel2[0], Würfel2[1] = Würfel2[1], 0
         else:
