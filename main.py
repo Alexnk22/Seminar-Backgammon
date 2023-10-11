@@ -34,14 +34,18 @@ canvas = Canvas(root,height=600, width=600)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]   
-#spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    
-spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
-#spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    
-spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
 
 
-#spielfeld1 = [0,0,1,5,7,0   ,1,0,0,0,0,0       ,0,0,0,0,0,1,   7,5,1,0,0,0]
-#spielfeld2 = [0,0,0,0,0,0   ,0,1,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+#spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]  
+#spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0] 
+
+
+#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
+#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
+
+
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   1,5,5,0,0,0]
+spielfeld2 = [0,0,0,0,0,0   ,0,1,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -58,7 +62,6 @@ def Ratios (event=NONE):
     if movecounter == 0:
         start(Ratio)
     else:
-
         Feld(Ratio)
         win_progress(Ratio)
         Figuren(Ratio, spielfeld1, "white",12)
@@ -104,10 +107,7 @@ def win_progress(Ratio):
         canvas.create_rectangle(810* Ratio,90 * Ratio,865 * Ratio,265 * Ratio, fill="goldenrod",width=2)
 
         for i in range (12-sum(spielfeld1)):
-            if i > 5:
-                u = 1
-            else:
-                u = 0
+            u = 1 if i > 5 else 0
             canvas.create_oval((810+u*27.5)*Ratio,((90+i*27.5)- u*27.5*6)*Ratio,(837.5+u*27.5)*Ratio,((117.5+i*27.5)- u*27.5*6)*Ratio, fill="white")
             
     if Red_winning_pos == True:
@@ -115,59 +115,41 @@ def win_progress(Ratio):
         canvas.create_rectangle(810* Ratio,460 * Ratio,865 * Ratio,635 * Ratio, fill="goldenrod",width=2)
 
         for i in range (12-sum(spielfeld2)):
-            if i > 5:
-                u = 1
-            else:
-                u = 0
+            u = 1 if i > 5 else 0
             canvas.create_oval((810+u*27.5)*Ratio,((607.5-i*27.5)+ u*27.5*6)*Ratio,(837.5+u*27.5)*Ratio,((635-i*27.5)+ u*27.5*6)*Ratio, fill="maroon")
 
 
 def Figuren(Ratio, spielfeld, farbe,verschiebung):
     
     for u in range(12):
-        
         for i in range(int(spielfeld[u])):
             if i > 4:
-                i = i - 4 
+                i -= 4
                 h = 1
-            else: 
-                h = 0
-            if u >= 6:
-                r = 65
             else:
-                r = 15
+                h = 0
+            r = 65 if u >= 6 else 15
             canvas.create_oval((723-(u*53)-r)*Ratio, (600-(i)*50+(h*25))*Ratio, (773-(u*53)-r)*Ratio, (650-(i)*50+(h*25))*Ratio, fill=farbe, width=1.33)        
     for u in range(12):
         for i in range(int(spielfeld[int(u)+verschiebung])):
             if i > 4:
-                i = i - 4 
+                i -= 4
                 h = 1
-            else: 
-                h = 0
-            if u >= 6:
-                r = 50
             else:
-                r = 0
+                h = 0
+            r = 50 if u >= 6 else 0
             canvas.create_oval((75+u*53+r)*Ratio, (75+i*50-(h*25))*Ratio, (125+u*53+r)*Ratio, (125+i*50-(h*25))*Ratio, fill=farbe, width=1.33)
 
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass
-    
-    Pos21 = 0
-    Pos22 = 0
-    Pos3 = 0
-    Pos4 = 0
-
+    Pos21, Pos22, Pos3, Pos4 = 0, 0, 0, 0
     spielfeld3 = [0] * 24
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/900         
     else:
         Ratio = root.winfo_height()/900
     for i in range (1,13):
-        if i > 6:
-            r = 50
-        else:
-            r = 0
+        r = 50 if i > 6 else 0
         if (event.x/Ratio-27-r)//52 == i:
             Dreieck = i
     if   0 < (event.y/Ratio-75) < 250:
@@ -176,79 +158,49 @@ def Position(event):
         TOPorBOT = 1    #unten
     else:
         TOPorBOT = 0
-    
     # erstellt Pos1 für alle normalen züge 
     if (int(TOPorBOT) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 442.5 < event.x / Ratio < 760) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0) :
         Pos1 = 13 - int(Dreieck) if TOPorBOT == 1 else int(Dreieck) + 12
-
         Pos3 = 0
         Ratios()        
         set_possibel_pos()
-    
-    
-        
     # erstellt Pos1 wenn figuren geschlagen sind(entsprechend bei 0 anfangen müssen)
     elif ((392.5< event.x / Ratio < 442.5) and (290 < event.y / Ratio < 340) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)) or ((392.5 < event.x / Ratio < 442.5) and (350 < event.y / Ratio < 400) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)):
         Pos1 = -2
-        if movecounter % 2 != 0:
-            #  Rote geschlagene figur wurde angeklickt
-            Pos3 = 1
-            Ratios()
-            set_Cap_possible_pos()
-            # gleiche wie mark_possible_pos  
-            canvas.create_oval(392.5*Ratio,290*Ratio,442.5*Ratio,340*Ratio,outline="blue",width=4)
+        Pos3 = 1 if movecounter % 2 != 0 else 2
+        Ratios()
+        set_Cap_possible_pos()
+        if Pos3 == 1:
+            canvas.create_oval(392.5 * Ratio, 290 * Ratio, 442.5 * Ratio, 340 * Ratio, outline="blue", width=4)
         else:
-            Pos3 = 2
-            Ratios()
-            set_Cap_possible_pos()
-            canvas.create_oval(392.5*Ratio,350*Ratio,442.5*Ratio,400*Ratio,outline="green",width=4)
+            canvas.create_oval(392.5 * Ratio, 350 * Ratio, 442.5 * Ratio, 400 * Ratio, outline="green", width=4)
     else:
-        Pos1 = 0
-        Pos2 = 0
+        Pos1,Pos2 = 0, 0
         Ratios()
-
-    if movecounter == 0 and event.x < 450*Ratio:
-        movecounter = 3
-        Ratios()
-        Pass = True
-    elif movecounter == 0 and event.x > 450*Ratio:
-        movecounter = 2
+    if movecounter == 0:
+        if event.x < 450 * Ratio:
+            movecounter = 3
+        elif event.x > 450 * Ratio:
+            movecounter = 2
         Ratios()
         Pass = True
 
-        
 
 def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
         global Pos3
-        
         if 0 < Pos1 < 13 :
-            if spielfeld[Pos1-1] > 4:
-                i = spielfeld[Pos1-1] - 4
-                h = 1
-            else:
-                i = 0
-                h = 0
-            if 6 < Pos1 < 13:
-                r = 15
-            else:
-                r = -35
+            i = spielfeld[Pos1 - 1] - 4 if spielfeld[Pos1 - 1] > 4 else 0
+            h = 1 if spielfeld[Pos1 - 1] > 4 else 0
+            r = 15 if 6 < Pos1 < 13 else -35
             if spielfeld[Pos1-1] != 0 and spielfeld[Pos1-1] <= 5:   
                 canvas.create_oval((725-(Pos1*53)-r)*Ratio, (650-(int(spielfeld[Pos1-1]))*50)*Ratio, (775-(Pos1*53)-r)*Ratio, (700-(int(spielfeld[Pos1-1]))*50)*Ratio, width=4,outline=farbe)
             elif spielfeld[Pos1-1] != 0 and spielfeld[Pos1-1] > 5:
                 canvas.create_oval((725-(Pos1*53)-r)*Ratio, (650-(i)*50+(h*25))*Ratio, (775-(Pos1*53)-r)*Ratio, (700-(i)*50+(h*25))*Ratio, width=4,outline=farbe)
 
         elif 12 < Pos1 < 25 : 
-            if spielfeld[Pos1-1] > 4:
-                i = spielfeld[Pos1-1] - 4
-                h = 1
-            else:
-                h = 0
-                i = 0
-
-            if 12 < Pos1 < 19:
-                r = 0
-            else:
-                r = 50
+            i = spielfeld[Pos1 - 1] - 4 if spielfeld[Pos1 - 1] > 4 else 0
+            h = 1 if spielfeld[Pos1 - 1] > 4 else 0
+            r = 0 if 12 < Pos1 < 19 else 50
             if spielfeld[Pos1-1] != 0 and spielfeld[Pos1-1] <= 5:
                 canvas.create_oval((75+((Pos1-13)*53)+r)*Ratio, (25+int(spielfeld[Pos1-1])*50)*Ratio, (125+((Pos1-13)*53)+r)*Ratio, (75+int(spielfeld[Pos1-1])*50)*Ratio, width=4,outline=farbe)
             elif spielfeld[Pos1-1] != 0 and spielfeld[Pos1-1] > 5:
@@ -282,11 +234,9 @@ def Würfel_wurf():
 
    
 def show_Würfel(Ratio, würfel_list, ver):
-    
     for i in range(9):
-        if int(würfel_list[0]) == i and 0 < i < 7:
+        if würfel_list[0] == i and 0 < i < 7:
             canvas.create_rectangle((550+ver*80)*Ratio, 336*Ratio, (600+ver*80)*Ratio, 386*Ratio, width=1.4)
-            
             if i == 1 or i == 3 or i == 5:
                 canvas.create_oval((570+ver*80) * Ratio, 355 * Ratio, (580+ver*80) * Ratio, 365 * Ratio, fill="black")
             for u in range(2):
@@ -296,10 +246,8 @@ def show_Würfel(Ratio, würfel_list, ver):
                     canvas.create_oval(((u*34)+553+ver*80) * Ratio, (373-(35*u)) * Ratio, ((u*34)+563+ver*80) * Ratio, (383-(35*u)) * Ratio, fill="black")
                 if i == 6:
                     canvas.create_oval(((u*34)+553+ver*80) * Ratio, 355 * Ratio, ((u*34)+563+ver*80) * Ratio, 365 * Ratio, fill="black")
-        
         if  würfel_list[1] == i and 0 < i < 7:
             canvas.create_rectangle((480+ver*220)*Ratio, 336*Ratio, (530+ver*220)*Ratio,386*Ratio, width=1.4)
-            
             if i == 1 or i == 3 or i == 5:
                 canvas.create_oval((500+ver*220) * Ratio, 355 * Ratio, (510+ver*220) * Ratio, 365 * Ratio, fill="black")
             for u in range(2):
@@ -313,18 +261,12 @@ def show_Würfel(Ratio, würfel_list, ver):
 
 
 def set_Cap_possible_pos():
-    global Pos21, Pos22,White_Cap_Piece,Red_Cap_Piece, Pos3
-    # kann warscheinlich raus 
+    global Pos21, Pos22,White_Cap_Piece,Red_Cap_Piece, Pos3 
     spielfeld3[Pos21 - 1] = spielfeld3[Pos22 - 1] = 0
-
     if (White_Cap_Piece != 0 and Pos3 == 2 and movecounter % 2 == 0) or (Red_Cap_Piece != 0 and Pos3 == 1 and movecounter % 2 != 0):
-        # wenn die Weiße figur vorher angeklickt wurde ... 
         if Pos3 == 2:
-            # da weiß bei 0 beginnt ist Pos21/22 gleich der würfelzahl 
             Pos21 = Würfel1[0]
             Pos22 = Würfel2[0]
-
-            # nur für die vergürzung des codes 
             spielfeld = spielfeld1 
             spielfeldx = spielfeld2 
         elif Pos3 == 1:
@@ -332,13 +274,11 @@ def set_Cap_possible_pos():
             Pos22 = 25 - Würfel2[0]
             spielfeld = spielfeld2 
             spielfeldx = spielfeld1
-
         if 0 < Pos21 < 25:
                 if spielfeldx[Pos21 - 1] == 0  and Würfel1[0] != 0:
                     spielfeld3[Pos21 - 1] = spielfeld[Pos21 - 1] + 1
                 elif spielfeldx[Pos21 - 1] == 1 and spielfeld[Pos21 - 1] == 0 and Würfel1[0] != 0:
                     spielfeld3[Pos21 - 1] = -1
-
         if 0 < Pos22 < 25:
             if spielfeldx[Pos22 - 1] == 0  and Würfel2[0] != 0:
                     spielfeld3[Pos22 - 1] = spielfeld[Pos22 - 1] + 1
@@ -346,31 +286,24 @@ def set_Cap_possible_pos():
                     spielfeld3[Pos22 - 1] = -1
         Ratios()       
 
-
                   
 def set_possibel_pos():
     global Pos21, Pos22,White_Cap_Piece,Red_Cap_Piece, Pos3
-    # kann warscheibkich auch weck 
     spielfeld3[Pos21 - 1] = spielfeld3[Pos22 - 1] = 0
-    
     if spielfeld1[Pos1 - 1] != 0 and movecounter % 2 == 0 and White_Cap_Piece == 0:
         Pos21 = Pos1 + Würfel1[0]
         Pos22 = Pos1 + Würfel2[0]
-
         if 0 < Pos21 < 25:
             if spielfeld2[Pos21 - 1] == 0  and Würfel1[0] != 0:
                 spielfeld3[Pos21 - 1] = spielfeld1[Pos21 - 1] + 1
             elif spielfeld2[Pos21 - 1] == 1 and spielfeld1[Pos21 - 1] == 0 and Würfel1[0] != 0:
                 spielfeld3[Pos21 - 1] = -1
-
         if 0 < Pos22 < 25:
             if spielfeld2[Pos22 - 1] == 0  and Würfel2[0] != 0:
                 spielfeld3[Pos22 - 1] = spielfeld1[Pos22 - 1] + 1
             elif spielfeld2[Pos22 - 1] == 1 and spielfeld1[Pos22 - 1] == 0 and Würfel2[0] != 0:
                 spielfeld3[Pos22 - 1] = -1
         Ratios()
-    
-
     elif spielfeld2[Pos1 - 1] != 0 and movecounter % 2 != 0 and Red_Cap_Piece == 0:
         Pos21 = Pos1 - Würfel1[0]
         Pos22 = Pos1 - Würfel2[0]
@@ -388,13 +321,11 @@ def set_possibel_pos():
                 spielfeld3[Pos22 - 1] = -1
         Ratios()
     
-    
-# wird nur mit spielfeld3 gerufen (solte ich ändern das es da steht)
+
 def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
     global Pos4
     for u in range(12):
         r = 15 if u >= 6 else -35
-        # markiert die normalen möglichkeiten 
         if spielfeld[u] != -1 and spielfeld[u] != 0 and spielfeld[u] <= 5:
             canvas.create_oval((673 - (u * 53) - r) * Ratio, (600 - (spielfeld[u]-1) * 50) * Ratio, (723 - (u * 53) - r) * Ratio, (650 - (spielfeld[u]-1) * 50) * Ratio, fill=farbe, width=1)
         elif spielfeld[u] != -1 and spielfeld[u] != 0 and spielfeld[u] > 5:
@@ -403,7 +334,6 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
             canvas.create_oval((673-(u*53)-r)*Ratio, (650-(i)*50+(h*25))*Ratio, (723-(u*53)-r)*Ratio, (700-(i)*50+(h*25))*Ratio, fill=farbe, width=1)
         elif spielfeld[u] == -1:
             canvas.create_oval((683 - (u * 53) - r) * Ratio, (610) * Ratio, (713 - (u * 53) - r) * Ratio, (640) * Ratio, fill=farbe, width=1)
-        
     for u in range(12):
         r = 50 if u >= 6 else 0 
         if spielfeld[u + verschiebung] != -1 and spielfeld[u+verschiebung] != 0 and spielfeld[u+verschiebung] <= 5:
@@ -415,7 +345,6 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
         elif spielfeld[u + verschiebung] == -1:
             canvas.create_oval((85 + u * 53 + r) * Ratio, (85) * Ratio, (115 + u * 53 + r) * Ratio, (115) * Ratio, fill=farbe, width=1)
 
-    # markiert den schwarzen block wenn man mit einer figur rausfahren kann 
     if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25)and Pos1 != 0 and movecounter % 2 == 0:
         canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio,outline="yellow",width=4)
         # zeigt das eine weiße figur rausfahren kann 
@@ -424,6 +353,7 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
         canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
         Pos4 = 2
 
+
 def Position2(event=NONE):
     global Dreieck2, TOPorBOT2, Pos2, Pos1, Pos4    
     if root.winfo_width() < root.winfo_height():
@@ -431,10 +361,7 @@ def Position2(event=NONE):
     else:
         Ratio = root.winfo_height()/900
     for i in range (1,13):
-        if i > 6:
-            r = 50
-        else:
-            r = 0
+        r = 50 if i > 6 else 0
         if (event.x/Ratio-27-r)//52 == i:
             Dreieck2 = i
     if   0 < (event.y/Ratio-75) < 250:
@@ -443,57 +370,43 @@ def Position2(event=NONE):
         TOPorBOT2 = 1    #unten
     else:
         TOPorBOT2 = 0
-    
     # setzt  Pos2 zum mit der rechten maustaste angeklickten wert (unabhängig von ob der zug funktioniert oder nicht)
     if (int(TOPorBOT2) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 442.5 < event.x / Ratio < 760) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
-        
         pasch()
         move()
     # wenn das markierte schwarze feld an der seite bei einer gewinnposition angeklickt wwird die entsprächende if schleife ausgelöst 
-    if (800 < event.x / Ratio < 875) and (80 < event.y/Ratio < 275) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos21 == 25:
+    if (800 < event.x / Ratio < 875) and (80 < event.y/Ratio < 275) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and (Pos21 == 25 or Pos22 == 25):
         Pos2 = -1
-           
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
-        if Würfel1[1] == Würfel2[1]:
-            Würfel1[0], Würfel1[1] = Würfel1[1], 0
+        if Pos21 == 25:
+            if Würfel1[1] == Würfel2[1]:
+                Würfel1[0], Würfel1[1] = Würfel1[1], 0
+            else:
+                Würfel1[0] = 0
         else:
-            Würfel1[0] = 0
+            if Würfel1[0] == 0 and Würfel1[1] == 0:
+                Würfel2[0], Würfel2[1] = Würfel2[1], 0
+            else:
+                Würfel2[0] = 0
         Ratios() 
         move()
-
-    if (800 < event.x / Ratio < 875) and (80 < event.y/Ratio < 275) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and Pos22 == 25:
+    if (800 < event.x / Ratio < 875) and (450 < event.y /Ratio < 645) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and (Pos21 == 0 or Pos22 == 0): 
         Pos2 = -1
-           
-        spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
-        if Würfel1[0] == 0 and Würfel1[1] == 0:
-            Würfel2[0], Würfel2[1] = Würfel2[1], 0
+        spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
+        if Pos21 == 0:     
+            if Würfel1[1] == Würfel2[1]:
+                Würfel1[0], Würfel1[1] = Würfel1[1], 0
+            else:
+                Würfel1[0] = 0    
         else:
-            Würfel2[0] = 0
+            if Würfel1[0] == 0 and Würfel1[1] == 0:
+                Würfel2[0], Würfel2[1] = Würfel2[1], 0
+            else:
+                Würfel2[0] = 0     
         Ratios() 
         move()
 
-    if (800 < event.x / Ratio < 875) and (450 < event.y /Ratio < 645) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos21 == 0: 
-           
-        spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
-        if Würfel1[1] == Würfel2[1]:
-            Würfel1[0], Würfel1[1] = Würfel1[1], 0
-        else:
-            Würfel1[0] = 0    
-        Ratios() 
-        move()
-
-    if (800 < event.x / Ratio < 875) and (450 < event.y /Ratio < 645) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and Pos22 == 0: 
-        Pos2 = -1
-          
-        spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
-        if Würfel1[0] == 0 and Würfel1[1] == 0:
-            Würfel2[0], Würfel2[1] = Würfel2[1], 0
-        else:
-            Würfel2[0] = 0     
-        Ratios() 
-        move()
-#! hier muss ich weiter machen 
 def pasch():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3
     if Pos2 == Pos21 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) ) or (movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) )):
@@ -501,7 +414,6 @@ def pasch():
             Würfel1[0], Würfel1[1] = Würfel1[1], 0
         else:
             Würfel1[0] = 0
-
     elif Pos2 == Pos22 and ((movecounter % 2 == 0 and (spielfeld2[Pos2-1] == 0 or spielfeld2[Pos2-1] == 1) ) or(movecounter % 2 != 0 and (spielfeld1[Pos2-1] == 0 or spielfeld1[Pos2-1] == 1) )):
         if Würfel1[0] == 0 and Würfel1[1] == 0:
             Würfel2[0], Würfel2[1] = Würfel2[1], 0
@@ -537,7 +449,6 @@ def move():
                 Cap_Pieces(0)
             else:
                 Cap_Pieces(1)
-    # nach jedem zug soll alles zurück gesetzt werden 
     spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, 0, 0, 0, 0, 0, 0
     move_list1.extend(spielfeld1)
     move_list2.extend(spielfeld2)
@@ -584,6 +495,7 @@ def winner():
         messagebox.showinfo("", "Weiß Gewinnt")
     if all(x == 0 for x in spielfeld2[:7]) and Red_winning_pos == True:
         messagebox.showinfo("", "Rot Gewinnt")
+
 def key(event):
     if event.char == "w":
         Würfel_wurf()
@@ -618,6 +530,7 @@ def Pass_turn():
         Pass = True
     else:
         pass
+
 def Check_winning_pos():
     global White_winning_pos, Red_winning_pos, spielfeld1, spielfeld2
     if all(x == 0 for x in spielfeld1[:18]) and White_Cap_Piece == 0:
