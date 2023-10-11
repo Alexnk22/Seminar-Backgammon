@@ -285,7 +285,7 @@ def show_Würfel(Ratio, würfel_list, ver):
     
     for i in range(9):
         if int(würfel_list[0]) == i and 0 < i < 7:
-            canvas.create_rectangle((550+ver*80)*Ratio, 335*Ratio, (600+ver*80)*Ratio, 385*Ratio, width=1.2)
+            canvas.create_rectangle((550+ver*80)*Ratio, 336*Ratio, (600+ver*80)*Ratio, 386*Ratio, width=1.4)
             
             if i == 1 or i == 3 or i == 5:
                 canvas.create_oval((570+ver*80) * Ratio, 355 * Ratio, (580+ver*80) * Ratio, 365 * Ratio, fill="black")
@@ -298,7 +298,7 @@ def show_Würfel(Ratio, würfel_list, ver):
                     canvas.create_oval(((u*34)+553+ver*80) * Ratio, 355 * Ratio, ((u*34)+563+ver*80) * Ratio, 365 * Ratio, fill="black")
         
         if  würfel_list[1] == i and 0 < i < 7:
-            canvas.create_rectangle((480+ver*220)*Ratio, 335*Ratio, (530+ver*220)*Ratio,385*Ratio, width=1.2)
+            canvas.create_rectangle((480+ver*220)*Ratio, 336*Ratio, (530+ver*220)*Ratio,386*Ratio, width=1.4)
             
             if i == 1 or i == 3 or i == 5:
                 canvas.create_oval((500+ver*220) * Ratio, 355 * Ratio, (510+ver*220) * Ratio, 365 * Ratio, fill="black")
