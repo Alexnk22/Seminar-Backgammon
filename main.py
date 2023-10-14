@@ -7,14 +7,14 @@ TOPorBOT = 0
 TOPorBOT2 = 0
 Dreieck = 0
 Dreieck2 = 0
-Pos1 = 0    # linke maus 
+Pos1 = -1    # linke maus 
 Pos2 = 0    # rechte maus 
 Pos3 = 0    # geschlagene Figur 
 Pos4 = 0    # gewinn Position 
 Würfel1 = [7,7]
 Würfel2 = [7,8]
-Pos21= 0
-Pos22= 0
+Pos21= -1
+Pos22= -1
 move_list1 = []
 move_list2 = []
 
@@ -26,6 +26,7 @@ White_Cap_Piece = 0
 
 root = Tk()
 
+colorbeginning = 0
 
 root.minsize(width=600,height=600)
 #root.maxsize(width=900,height=900)
@@ -52,8 +53,6 @@ spielfeld2 = [0,0,0,0,0,0   ,0,1,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 #                       0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
 
 
-
-
 def Ratios (event=NONE):
     global White_Cap_Piece,Red_Cap_Piece
     canvas.delete("all")
@@ -61,7 +60,6 @@ def Ratios (event=NONE):
         Ratio = root.winfo_width()/900
     else:
         Ratio = root.winfo_height()/900
-    
     Feld(Ratio)
     win_progress(Ratio)
     Figuren(Ratio, spielfeld1, "white",12)
@@ -75,9 +73,6 @@ def Ratios (event=NONE):
     mark_possible_pos(Ratio, spielfeld3,"yellow",12)
     show_Cap_Piece(Ratio)
     
-        
-
-
 
 def Feld(Ratio):
     canvas.create_rectangle(55*Ratio,55*Ratio,(780)*Ratio,670*Ratio,width=2, fill="darkorange4")
@@ -89,11 +84,11 @@ def Feld(Ratio):
     else:
         canvas.create_rectangle(0,0,55*Ratio,55*Ratio,fill="white")
         movecounter_menu.entryconfig("white",state="disabled")
-        
+        if colorbeginning == 0:
+            Bgcolor_menu.entryconfig("light", state="disabled")
     for u in range (2):
-        
         canvas.create_rectangle((75+u*367.5)*Ratio,75*Ratio,(392.5+u*367.5)*Ratio,650*Ratio,fill="goldenrod",width=2) # done 
-         
+        
     for u in range (2):
         for i in range (3):
             # done 
@@ -145,7 +140,7 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
 
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass
-    Pos21, Pos22, Pos3, Pos4 = 0, 0, 0, 0
+    Pos21, Pos22, Pos3, Pos4 = -1, -1, 0, 0
     spielfeld3 = [0] * 24
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/900         
@@ -212,9 +207,9 @@ def Würfel_wurf():
         if Pass == False:
             movecounter = movecounter + 1
         if Pos21 > 24:
-            Pos21 = 0
+            Pos21 = -1
         if Pos22 > 24:
-            Pos22 = 0
+            Pos22 = -1
         # setzt nahc jedem wurf Spielfeld3 zurück da es neu besetzt wird 
         spielfeld3[Pos21 - 1] = spielfeld3[Pos22 - 1] = 0
         Würfel1.clear()
@@ -347,9 +342,10 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
         canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio,outline="yellow",width=4)
         # zeigt das eine weiße figur rausfahren kann 
         Pos4 = 1
-    if Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
+    elif Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
         canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
         Pos4 = 2
+        
 
 
 def Position2(event=NONE):
@@ -447,7 +443,7 @@ def move():
                 Cap_Pieces(0)
             else:
                 Cap_Pieces(1)
-    spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, 0, 0, 0, 0, 0, 0
+    spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, -1, -1, 0, 0, 0, 0
     move_list1.extend(spielfeld1)
     move_list2.extend(spielfeld2)
     Check_winning_pos()
@@ -491,8 +487,11 @@ def Back_move():
 def winner():
     if all(x == 0 for x in spielfeld1[18:25]) and White_winning_pos == True:
         messagebox.showinfo("", "Weiß Gewinnt")
+        root.quit
     if all(x == 0 for x in spielfeld2[:7]) and Red_winning_pos == True:
         messagebox.showinfo("", "Rot Gewinnt")
+        root.quit
+
 
 def key(event):
     if event.char == "w":
@@ -502,9 +501,6 @@ def key(event):
     elif event.char == "z":
         Back_move()
 
-def color_cange():
-    canvas.configure(bg="gray16")
-
 def File():
     global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22, Pos3, Pos4
     if movecounter != 0:
@@ -513,6 +509,7 @@ def File():
         movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 1, 0, 0, 0, 0, [0]*24,
         Pos1, Pos2, Pos21, Pos22, Pos3, Pos4 = 0, 0, 0, 0, 0, 0
         Würfel1, Würfel2 = [7,7], [7,8]
+        mein_menu.entryconfig("Starter", state="normal")
         Ratios()
     else:
         pass
@@ -545,7 +542,7 @@ def Check_winning_pos():
         Red_winning_pos = False
 
 def disable_starter():
-    if movecounter > 0:
+    if movecounter > 1:
         mein_menu.entryconfig("Starter", state="disabled")
 
 def starter2():
@@ -555,6 +552,7 @@ def starter2():
     movecounter_menu.entryconfig("white", state="normal")
     Ratios()
     Pass = True
+
 def starter1():
     global movecounter,Pass
     movecounter = 2 
@@ -564,13 +562,19 @@ def starter1():
     Pass = True
 
 def light_mode():
+    global colorbeginning
     canvas.configure(bg="white")
     Bgcolor_menu.entryconfig("light", state="disabled")
     Bgcolor_menu.entryconfig("dark", state="normal")
+    colorbeginning = 1
+
 def dark_mode():
+    global colorbeginning
     canvas.configure(bg="gray16")
     Bgcolor_menu.entryconfig("dark", state="disabled")
     Bgcolor_menu.entryconfig("light", state="normal")
+    colorbeginning = 1
+
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
 
