@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 
-movecounter = 0
+movecounter = 1
 TOPorBOT = 0 
 TOPorBOT2 = 0
 Dreieck = 0
@@ -51,7 +51,9 @@ spielfeld2 = [0,0,0,0,0,0   ,0,1,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 #            
 #                       0 1 2        3 4 5 6 7 8    9 0 1 2 3 4
 
-    
+
+
+
 def Ratios (event=NONE):
     global White_Cap_Piece,Red_Cap_Piece
     canvas.delete("all")
@@ -59,34 +61,35 @@ def Ratios (event=NONE):
         Ratio = root.winfo_width()/900
     else:
         Ratio = root.winfo_height()/900
-    if movecounter == 0:
-        start(Ratio)
-    else:
-        Feld(Ratio)
-        win_progress(Ratio)
-        Figuren(Ratio, spielfeld1, "white",12)
-        Figuren(Ratio, spielfeld2, "maroon",12)
-        if movecounter % 2 == 0 and White_Cap_Piece == 0:
+    
+    Feld(Ratio)
+    win_progress(Ratio)
+    Figuren(Ratio, spielfeld1, "white",12)
+    Figuren(Ratio, spielfeld2, "maroon",12)
+    if movecounter % 2 == 0 and White_Cap_Piece == 0:
             mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
-        elif movecounter % 2 != 0 and Red_Cap_Piece == 0:
-            mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
-        show_Würfel(Ratio,Würfel1,0)
-        show_Würfel(Ratio,Würfel2,1)
-        mark_possible_pos(Ratio, spielfeld3,"yellow",12)
-        show_Cap_Piece(Ratio)
+    elif movecounter % 2 != 0 and Red_Cap_Piece == 0:
+        mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
+    show_Würfel(Ratio,Würfel1,0)
+    show_Würfel(Ratio,Würfel2,1)
+    mark_possible_pos(Ratio, spielfeld3,"yellow",12)
+    show_Cap_Piece(Ratio)
+    
+        
 
-def start(Ratio):
-    canvas.create_rectangle(0*Ratio,0*Ratio,450*Ratio,896*Ratio, fill="red")
-    canvas.create_rectangle(450*Ratio,0*Ratio,896*Ratio,896*Ratio, fill="white",outline="black")
 
 
 def Feld(Ratio):
     canvas.create_rectangle(55*Ratio,55*Ratio,(780)*Ratio,670*Ratio,width=2, fill="darkorange4")
     canvas.create_line(417*Ratio,55*Ratio,417*Ratio,670*Ratio,width=2)
-    if movecounter % 2 != 0 :
+    if movecounter % 2 != 0 and movecounter != 1:
         canvas.create_rectangle(0,0,55*Ratio,55*Ratio,fill="red")
-    elif movecounter % 2 == 0:
+    elif movecounter % 2 == 0 and movecounter != 1:
         canvas.create_rectangle(0,0,55*Ratio,55*Ratio,fill="white")
+    else:
+        canvas.create_rectangle(0,0,55*Ratio,55*Ratio,fill="white")
+        movecounter_menu.entryconfig("white",state="disabled")
+        
     for u in range (2):
         
         canvas.create_rectangle((75+u*367.5)*Ratio,75*Ratio,(392.5+u*367.5)*Ratio,650*Ratio,fill="goldenrod",width=2) # done 
@@ -177,13 +180,7 @@ def Position(event):
     else:
         Pos1,Pos2 = 0, 0
         Ratios()
-    if movecounter == 0:
-        if event.x < 450 * Ratio:
-            movecounter = 3
-        elif event.x > 450 * Ratio:
-            movecounter = 2
-        Ratios()
-        Pass = True
+    
 
 
 def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
@@ -230,6 +227,7 @@ def Würfel_wurf():
             Würfel1.extend([a, 7])
             Würfel2.extend([b, 8])
         Ratios()
+        disable_starter()
         Pass = False
 
    
@@ -504,6 +502,9 @@ def key(event):
     elif event.char == "z":
         Back_move()
 
+def color_cange():
+    canvas.configure(bg="gray16")
+
 def File():
     global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22, Pos3, Pos4
     if movecounter != 0:
@@ -543,21 +544,51 @@ def Check_winning_pos():
     else:
         Red_winning_pos = False
 
+def disable_starter():
+    if movecounter > 0:
+        mein_menu.entryconfig("Starter", state="disabled")
+
+def starter2():
+    global movecounter, Pass
+    movecounter = 3
+    movecounter_menu.entryconfig("Red", state="disabled")
+    movecounter_menu.entryconfig("white", state="normal")
+    Ratios()
+    Pass = True
+def starter1():
+    global movecounter,Pass
+    movecounter = 2 
+    movecounter_menu.entryconfig("white", state="disabled")
+    movecounter_menu.entryconfig("Red", state="normal")
+    Ratios()
+    Pass = True
+
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
 
-file_menu = Menu(mein_menu)
+file_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="File", menu=file_menu)
 file_menu.add_command(label="New...", command=File)
 file_menu.add_command(label="Exit", command=root.quit)
 
-Würfel_menu = Menu(mein_menu)
+Würfel_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Dice",command=Würfel_wurf)
 
-Pass_menu = Menu(mein_menu)
+Pass_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Pass",command=Pass_turn)
 
-Game_mode_menu = Menu(mein_menu)
+Bgcolor_menu = Menu(mein_menu,tearoff=False)
+mein_menu.add_cascade(label="Bg-Theme",menu=Bgcolor_menu)
+Bgcolor_menu.add_command(label="light")
+Bgcolor_menu.add_command(label="dark")
+
+
+movecounter_menu = Menu(mein_menu,tearoff=False)
+mein_menu.add_cascade(label="Starter",menu=movecounter_menu)
+movecounter_menu.add_command(label="white",command=starter1)
+movecounter_menu.add_command(label="Red",command=starter2)
+
+Game_mode_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Game mode", menu=Game_mode_menu)
 Game_mode_menu.add_command(label="Player vs. AI", command=AI)
 Game_mode_menu.add_command(label="Player  vs. Player",command=PvP)
