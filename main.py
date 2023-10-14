@@ -510,7 +510,7 @@ def File():
     if movecounter != 0:
         spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
         spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-        movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 0, 0, 0, 0, 0, [0]*24,
+        movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 1, 0, 0, 0, 0, [0]*24,
         Pos1, Pos2, Pos21, Pos22, Pos3, Pos4 = 0, 0, 0, 0, 0, 0
         Würfel1, Würfel2 = [7,7], [7,8]
         Ratios()
