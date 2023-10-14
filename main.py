@@ -25,9 +25,10 @@ Pass=False
 Red_Cap_Piece = 0
 White_Cap_Piece = 0
 
+colorbeginning = 0
 root = Tk()
 
-colorbeginning = 0
+
 
 root.minsize(width=600,height=600)
 #root.maxsize(width=900,height=900)
@@ -143,7 +144,7 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
             canvas.create_oval((75+u*53+r)*Ratio, (75+i*50-(h*25))*Ratio, (125+u*53+r)*Ratio, (125+i*50-(h*25))*Ratio, fill=farbe, width=1.33)
 
 def Position(event):
-    global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass
+    global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass, regelcounter
     Pos21, Pos22, Pos3, Pos4 = -1, -1, 0, 0
     spielfeld3 = [0] * 24
     if root.winfo_width() < root.winfo_height():
@@ -179,6 +180,12 @@ def Position(event):
     else:
         Pos1,Pos2 = 0, 0
         Ratios()
+    if regelcounter == 1 and  0 < event.x < 55 and 0 < event.y < 55: 
+        canvas.create_rectangle(0,0,40,40,fill="red")
+        regelcounter = 0
+        Ratios()
+    else:
+        pass
     
 
 
@@ -580,11 +587,21 @@ def dark_mode():
     colorbeginning = 1
 
 def show_regeln():
-    global regelcounter
+    global regelcounter, Pos22, Pos21, Pos2, Pos1
     canvas.delete("all")
+    Pos1,Pos2,Pos21,Pos22 = 0,0,-1,-1
     regelcounter = 1 
-    
+    spielregeln_text = """
+                                                        Backgammon Regeln
 
+
+    hallllllllllllo
+    """
+
+    canvas.create_text(0, 10, anchor=NW, text=spielregeln_text, font=("Helvetica", 12))
+    canvas.create_rectangle(0,0,40,40,fill="")
+    canvas.create_line(30,10,10,20,width=2)
+    canvas.create_line(30,30,10,20,width=2)
 
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
