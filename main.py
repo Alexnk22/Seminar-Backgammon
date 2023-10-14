@@ -563,6 +563,14 @@ def starter1():
     Ratios()
     Pass = True
 
+def light_mode():
+    canvas.configure(bg="white")
+    Bgcolor_menu.entryconfig("light", state="disabled")
+    Bgcolor_menu.entryconfig("dark", state="normal")
+def dark_mode():
+    canvas.configure(bg="gray16")
+    Bgcolor_menu.entryconfig("dark", state="disabled")
+    Bgcolor_menu.entryconfig("light", state="normal")
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
 
@@ -579,8 +587,8 @@ mein_menu.add_cascade(label="Pass",command=Pass_turn)
 
 Bgcolor_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Bg-Theme",menu=Bgcolor_menu)
-Bgcolor_menu.add_command(label="light")
-Bgcolor_menu.add_command(label="dark")
+Bgcolor_menu.add_command(label="light",command=light_mode)
+Bgcolor_menu.add_command(label="dark",command=dark_mode)
 
 
 movecounter_menu = Menu(mein_menu,tearoff=False)
