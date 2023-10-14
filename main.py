@@ -17,6 +17,7 @@ Pos21= -1
 Pos22= -1
 move_list1 = []
 move_list2 = []
+regelcounter = 0
 
 White_winning_pos = False
 Red_winning_pos = False
@@ -55,23 +56,26 @@ spielfeld2 = [0,0,0,0,0,0   ,0,1,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 def Ratios (event=NONE):
     global White_Cap_Piece,Red_Cap_Piece
-    canvas.delete("all")
-    if root.winfo_width() < root.winfo_height():
-        Ratio = root.winfo_width()/900
+    if regelcounter == 0:
+        canvas.delete("all")
+        if root.winfo_width() < root.winfo_height():
+            Ratio = root.winfo_width()/900
+        else:
+            Ratio = root.winfo_height()/900
+        Feld(Ratio)
+        win_progress(Ratio)
+        Figuren(Ratio, spielfeld1, "white",12)
+        Figuren(Ratio, spielfeld2, "maroon",12)
+        if movecounter % 2 == 0 and White_Cap_Piece == 0:
+                mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
+        elif movecounter % 2 != 0 and Red_Cap_Piece == 0:
+            mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
+        show_Würfel(Ratio,Würfel1,0)
+        show_Würfel(Ratio,Würfel2,1)
+        mark_possible_pos(Ratio, spielfeld3,"yellow",12)
+        show_Cap_Piece(Ratio)
     else:
-        Ratio = root.winfo_height()/900
-    Feld(Ratio)
-    win_progress(Ratio)
-    Figuren(Ratio, spielfeld1, "white",12)
-    Figuren(Ratio, spielfeld2, "maroon",12)
-    if movecounter % 2 == 0 and White_Cap_Piece == 0:
-            mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
-    elif movecounter % 2 != 0 and Red_Cap_Piece == 0:
-        mark_mouse_pos1(Ratio,Pos1,spielfeld2,"blue")
-    show_Würfel(Ratio,Würfel1,0)
-    show_Würfel(Ratio,Würfel2,1)
-    mark_possible_pos(Ratio, spielfeld3,"yellow",12)
-    show_Cap_Piece(Ratio)
+        pass
     
 
 def Feld(Ratio):
@@ -575,6 +579,13 @@ def dark_mode():
     Bgcolor_menu.entryconfig("light", state="normal")
     colorbeginning = 1
 
+def show_regeln():
+    global regelcounter
+    canvas.delete("all")
+    regelcounter = 1 
+    
+
+
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
 
@@ -589,21 +600,23 @@ mein_menu.add_cascade(label="Dice",command=Würfel_wurf)
 Pass_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Pass",command=Pass_turn)
 
+Game_mode_menu = Menu(mein_menu,tearoff=False)
+mein_menu.add_cascade(label="Game mode", menu=Game_mode_menu)
+Game_mode_menu.add_command(label="Player vs. AI", command=AI)
+Game_mode_menu.add_command(label="Player  vs. Player",command=PvP)
+
 Bgcolor_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Bg-Theme",menu=Bgcolor_menu)
 Bgcolor_menu.add_command(label="light",command=light_mode)
 Bgcolor_menu.add_command(label="dark",command=dark_mode)
-
 
 movecounter_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Starter",menu=movecounter_menu)
 movecounter_menu.add_command(label="white",command=starter1)
 movecounter_menu.add_command(label="Red",command=starter2)
 
-Game_mode_menu = Menu(mein_menu,tearoff=False)
-mein_menu.add_cascade(label="Game mode", menu=Game_mode_menu)
-Game_mode_menu.add_command(label="Player vs. AI", command=AI)
-Game_mode_menu.add_command(label="Player  vs. Player",command=PvP)
+Regel_menu = Menu(mein_menu,tearoff=False)
+mein_menu.add_cascade(label="Rules", command=show_regeln)
 
 
 canvas.bind("<Button-1>", Position)
