@@ -17,6 +17,8 @@ Pos21= -1
 Pos22= -1
 move_list1 = []
 move_list2 = []
+würfel_list1 = []
+würfel_list2 = []
 regelcounter = 0
 
 White_winning_pos = False
@@ -39,16 +41,16 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]   
 
 
-#spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]  
-#spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0] 
+spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]  
+spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0] 
 
 
 #spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
 #spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
 
 
-spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   1,5,5,0,0,0]
-spielfeld2 = [0,0,0,0,0,0   ,0,1,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   1,5,5,0,0,0]
+#spielfeld2 = [0,0,0,0,0,0   ,0,1,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -212,8 +214,8 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
 
   
 def Würfel_wurf():
-    global Pos21, Pos22, Pos1, movecounter, Pass
-    
+    global Pos21, Pos22, Pos1, movecounter, Pass, move_list1, move_list2, würfel_list1,würfel_list2
+
     if ((Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True) and movecounter != 0:
         if Pass == False:
             movecounter = movecounter + 1
@@ -232,6 +234,12 @@ def Würfel_wurf():
         else:
             Würfel1.extend([a, 7])
             Würfel2.extend([b, 8])
+
+        move_list1.extend(spielfeld1)
+        move_list2.extend(spielfeld2) 
+        würfel_list1.extend(Würfel1)
+        würfel_list2.extend(Würfel2)
+
         Ratios()
         disable_starter()
         Pass = False
@@ -426,8 +434,9 @@ def pasch():
             Würfel2[0] = 0
 
 def move():
-    global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3, Pos4
+    global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3, Pos4, backcounter
     # überprüft ob Pos2 == Pos21/22 bei einem geschlagenen zug und wenn ja bewegt die figurt 
+   
     if spielfeld3[Pos2-1] != 0 and ((Pos3 == 2 and White_Cap_Piece != 0) or (Pos3 == 1 and Red_Cap_Piece != 0)):
         spielfeld = spielfeld1 if Pos3 == 2 else spielfeld2
         spielfeldx = spielfeld2 if Pos3 == 2 else spielfeld1
@@ -454,9 +463,7 @@ def move():
                 Cap_Pieces(0)
             else:
                 Cap_Pieces(1)
-    spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, -1, -1, 0, 0, 0, 0
-    move_list1.extend(spielfeld1)
-    move_list2.extend(spielfeld2)
+    spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, -1, -1, 0, 0, 0, 0       
     Check_winning_pos()
     winner()
     Ratios()
@@ -484,14 +491,30 @@ def show_Cap_Piece(Ratio):
             canvas.create_oval(392.5 * Ratio, (350 + 50 * 5) * Ratio, 442.5 * Ratio, (400 + 50 * 5) * Ratio, fill="white")
 
 def Back_move():
-    global spielfeld1, spielfeld2, move_list1, move_list2
-    if len(move_list1) > 24 and len(move_list2) > 24:
-        spielfeld1 = move_list1[-48:-24]
-        spielfeld2 = move_list2[-48:-24]
+        global spielfeld1, spielfeld2, move_list1, move_list2, Würfel1, Würfel2, würfel_list1, würfel_list2, movecounter, backcounter
+         
+        print(würfel_list1)
+        print(würfel_list2)
+        if Würfel1[0] != 0 and Würfel2[0] != 0:
+            move_list1 = move_list1[:-24]
+            move_list2 = move_list2[:-24]
+            würfel_list1 = würfel_list1[:-2]
+            würfel_list2 = würfel_list2[:-2]
+            print("hallo")
+            
+            movecounter = movecounter - 1
+        spielfeld1 = move_list1[-24:]
+        spielfeld2 = move_list2[-24:]
+        Würfel1 = würfel_list1[-2:]
+        Würfel2 = würfel_list2[-2:]
         
-        move_list1 = move_list1[:-24]
-        move_list2 = move_list2[:-24]
-        print(move_list1)
+        
+
+        print(würfel_list1)
+        print(würfel_list2)
+         
+
+        
         Ratios()
 
 # überprüft ob keine steine mehr auf dem feld sind 
@@ -505,11 +528,13 @@ def winner():
 
 
 def key(event):
+    global backcounter
     if event.char == "w":
         Würfel_wurf()
     elif event.char == "p":
         Pass_turn()
     elif event.char == "z":
+        
         Back_move()
 
 def File():
