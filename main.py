@@ -41,12 +41,12 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]   
 
 
-#spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]  
-#spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0] 
+spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]  
+spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0] 
 
 
-spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
-spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
+#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
+#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
 
 
 #spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   1,5,5,0,0,0]
@@ -497,12 +497,13 @@ def show_Cap_Piece(Ratio):
             canvas.create_oval(392.5 * Ratio, (350 + 50 * 5) * Ratio, 442.5 * Ratio, (400 + 50 * 5) * Ratio, fill="white")
 
 def Back_move():
-        global spielfeld1, spielfeld2, move_list1, move_list2, Würfel1, Würfel2, würfel_list1, würfel_list2, movecounter, backcounter,White_Cap_Piece,Red_Cap_Piece
+        global spielfeld1, spielfeld2, move_list1, move_list2,spielfeld3, Würfel1, Würfel2, würfel_list1, würfel_list2, movecounter, backcounter,White_Cap_Piece,Red_Cap_Piece
         if (Würfel1[0] != 0 and Würfel2[0] != 0):
             move_list1 = move_list1[:-24]
             move_list2 = move_list2[:-24]
             würfel_list1 = würfel_list1[:-2]
             würfel_list2 = würfel_list2[:-2]
+        if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] != 0 and Würfel2[0] != 0):
             movecounter = movecounter - 1   
         spielfeld1 = move_list1[-24:]
         spielfeld2 = move_list2[-24:]
@@ -513,6 +514,7 @@ def Back_move():
                 White_Cap_Piece = i
             if 12-int(sum(spielfeld2)) == i:
                 Red_Cap_Piece = i  
+        spielfeld3 = 24*[0]
         Ratios()
 
 # überprüft ob keine steine mehr auf dem feld sind 
