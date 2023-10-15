@@ -7,14 +7,14 @@ TOPorBOT = 0
 TOPorBOT2 = 0
 Dreieck = 0
 Dreieck2 = 0
-Pos1 = -1    # linke maus 
+Pos1 = 0    # linke maus 
 Pos2 = 0    # rechte maus 
 Pos3 = 0    # geschlagene Figur 
 Pos4 = 0    # gewinn Position 
 Würfel1 = [7,7]
 Würfel2 = [7,8]
-Pos21= -1
-Pos22= -1
+Pos21= -7
+Pos22= -7
 move_list1 = []
 move_list2 = []
 würfel_list1 = []
@@ -149,7 +149,7 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
 
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass, regelcounter
-    Pos21, Pos22, Pos3, Pos4 = -1, -1, 0, 0
+    Pos21, Pos22, Pos3, Pos4 = -7, -7, 0, 0
     spielfeld3 = [0] * 24
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/900         
@@ -225,9 +225,9 @@ def Würfel_wurf():
         #if Pass == False:
         #    movecounter = movecounter + 1
         if Pos21 > 24:
-            Pos21 = -1
+            Pos21 = -7
         if Pos22 > 24:
-            Pos22 = -1
+            Pos22 = -7
         # setzt nahc jedem wurf Spielfeld3 zurück da es neu besetzt wird 
         spielfeld3[Pos21 - 1] = spielfeld3[Pos22 - 1] = 0
         Würfel1.clear()
@@ -367,7 +367,7 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
             canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio,outline="yellow",width=4)
             # zeigt das eine weiße figur rausfahren kann 
             Pos4 = 1
-        elif Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
+        elif Red_winning_pos == True and ( -6 < Pos21 < 1 or -6 < Pos22 < 1) and Pos1 != 0 and movecounter % 2 != 0:    
             canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
             Pos4 = 2
     elif difficulty == 2 or difficulty == 3:
@@ -406,7 +406,7 @@ def Position2(event=NONE):
     if (800 < event.x / Ratio < 875) and (80 < event.y/Ratio < 275) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1:
         Pos2 = -1
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
-        if Pos21 == 25:
+        if Pos21 > 24:
             if Würfel1[1] == Würfel2[1]:
                 Würfel1[0], Würfel1[1] = Würfel1[1], 0
             else:
@@ -421,7 +421,7 @@ def Position2(event=NONE):
     if (800 < event.x / Ratio < 875) and (450 < event.y /Ratio < 645) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 : 
         Pos2 = -1
         spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
-        if Pos21 == 0:     
+        if -6 < Pos21 < 0:     
             if Würfel1[1] == Würfel2[1]:
                 Würfel1[0], Würfel1[1] = Würfel1[1], 0
             else:
@@ -480,7 +480,7 @@ def move():
     if Würfel1[0] == 0 and Würfel2[0] == 0:
         movecounter = movecounter +1
 
-    spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, -1, -1, 0, 0, 0, 0       
+    spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, -7, -7, 0, 0, 0, 0       
     Check_winning_pos()
     winner()
     Ratios()
@@ -554,7 +554,7 @@ def File():
         spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
         spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
         movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 1, 0, 0, 0, 0, [0]*24,
-        Pos1, Pos2, Pos21, Pos22, Pos3, Pos4 = 0, 0, 0, 0, 0, 0
+        Pos1, Pos2, Pos21, Pos22, Pos3, Pos4 = 0, 0, -7, -7, 0, 0
         Würfel1, Würfel2 = [7,7], [7,8]
         mein_menu.entryconfig("Starter", state="normal")
         Ratios()
