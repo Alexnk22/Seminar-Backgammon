@@ -217,8 +217,11 @@ def Würfel_wurf():
     global Pos21, Pos22, Pos1, movecounter, Pass, move_list1, move_list2, würfel_list1,würfel_list2
 
     if ((Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True) and movecounter != 0:
-        if Pass == False:
-            movecounter = movecounter + 1
+        if movecounter == 1:
+            movecounter = 2
+        
+        #if Pass == False:
+        #    movecounter = movecounter + 1
         if Pos21 > 24:
             Pos21 = -1
         if Pos22 > 24:
@@ -463,6 +466,9 @@ def move():
                 Cap_Pieces(0)
             else:
                 Cap_Pieces(1)
+    if Würfel1[0] == 0 and Würfel2[0] == 0:
+        movecounter = movecounter +1
+
     spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, -1, -1, 0, 0, 0, 0       
     Check_winning_pos()
     winner()
@@ -648,6 +654,12 @@ movecounter_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Starter",menu=movecounter_menu)
 movecounter_menu.add_command(label="white",command=starter1)
 movecounter_menu.add_command(label="Red",command=starter2)
+
+difficulty_menu = Menu(mein_menu,tearoff=False)
+mein_menu.add_cascade(label="Difficulty",menu=difficulty_menu)
+difficulty_menu.add_command(label="Easy ")
+difficulty_menu.add_command(label="Normal")
+difficulty_menu.add_command(label="Hard")
 
 Regel_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Rules", command=show_regeln)
