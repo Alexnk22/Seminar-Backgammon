@@ -20,7 +20,7 @@ move_list2 = []
 würfel_list1 = []
 würfel_list2 = []
 regelcounter = 0
-
+difficulty = 1
 White_winning_pos = False
 Red_winning_pos = False
 Pass=False
@@ -41,16 +41,16 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]   
 
 
-spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]  
-spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0] 
+#spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]  
+#spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0] 
 
 
 #spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
 #spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
 
 
-#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   1,5,5,0,0,0]
-#spielfeld2 = [0,0,0,0,0,0   ,0,1,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   1,5,5,0,0,0]
+spielfeld2 = [0,0,0,0,0,0   ,0,1,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -93,6 +93,8 @@ def Feld(Ratio):
         movecounter_menu.entryconfig("white",state="disabled")
         if colorbeginning == 0:
             Bgcolor_menu.entryconfig("light", state="disabled")
+        if difficultycounter == 0:
+            difficulty_menu.entryconfig("Easy ",state="disabled")
     for u in range (2):
         canvas.create_rectangle((75+u*367.5)*Ratio,75*Ratio,(392.5+u*367.5)*Ratio,650*Ratio,fill="goldenrod",width=2) # done 
         
@@ -338,7 +340,7 @@ def set_possibel_pos():
     
 
 def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
-    global Pos4
+    global Pos4, difficulty
     for u in range(12):
         r = 15 if u >= 6 else -35
         if spielfeld[u] != -1 and spielfeld[u] != 0 and spielfeld[u] <= 5:
@@ -360,14 +362,22 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
         elif spielfeld[u + verschiebung] == -1:
             canvas.create_oval((85 + u * 53 + r) * Ratio, (85) * Ratio, (115 + u * 53 + r) * Ratio, (115) * Ratio, fill=farbe, width=1)
 
-    if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25)and Pos1 != 0 and movecounter % 2 == 0:
-        canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio,outline="yellow",width=4)
-        # zeigt das eine weiße figur rausfahren kann 
-        Pos4 = 1
-    elif Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
-        canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
-        Pos4 = 2
-        
+    if difficulty == 1:
+        if White_winning_pos == True and (Pos21 > 24 or Pos22 > 24)and Pos1 != 0 and movecounter % 2 == 0:
+            canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio,outline="yellow",width=4)
+            # zeigt das eine weiße figur rausfahren kann 
+            Pos4 = 1
+        elif Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
+            canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
+            Pos4 = 2
+    elif difficulty == 2 or difficulty == 3:
+        if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25)and Pos1 != 0 and movecounter % 2 == 0:
+            canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio,outline="yellow",width=4)
+            # zeigt das eine weiße figur rausfahren kann 
+            Pos4 = 1
+        elif Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
+            canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
+            Pos4 = 2
 
 
 def Position2(event=NONE):
@@ -391,8 +401,9 @@ def Position2(event=NONE):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
         pasch()
         move()
+    
     # wenn das markierte schwarze feld an der seite bei einer gewinnposition angeklickt wwird die entsprächende if schleife ausgelöst 
-    if (800 < event.x / Ratio < 875) and (80 < event.y/Ratio < 275) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and (Pos21 == 25 or Pos22 == 25):
+    if (800 < event.x / Ratio < 875) and (80 < event.y/Ratio < 275) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1:
         Pos2 = -1
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
         if Pos21 == 25:
@@ -407,7 +418,7 @@ def Position2(event=NONE):
                 Würfel2[0] = 0
         Ratios() 
         move()
-    if (800 < event.x / Ratio < 875) and (450 < event.y /Ratio < 645) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and (Pos21 == 0 or Pos22 == 0): 
+    if (800 < event.x / Ratio < 875) and (450 < event.y /Ratio < 645) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 : 
         Pos2 = -1
         spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
         if Pos21 == 0:     
@@ -628,6 +639,30 @@ def show_regeln():
     canvas.create_line(30,10,10,20,width=2)
     canvas.create_line(30,30,10,20,width=2)
 
+difficultycounter = 0
+
+def easy():
+    global difficulty, difficultycounter
+    difficulty = 1
+    difficulty_menu.entryconfig("Normal",state="normal")
+    difficulty_menu.entryconfig("Easy ",state="disabled")
+    difficulty_menu.entryconfig("Hard",state="normal")
+    difficultycounter = 1
+def normal():
+    global difficulty, difficultycounter
+    difficulty = 2
+    difficulty_menu.entryconfig("Normal",state="disabled")
+    difficulty_menu.entryconfig("Easy ",state="normal")
+    difficulty_menu.entryconfig("Hard",state="normal")
+    difficultycounter = 1
+def hard():
+    global difficulty, difficultycounter
+    difficulty = 3
+    difficulty_menu.entryconfig("Normal",state="normal")
+    difficulty_menu.entryconfig("Easy ",state="normal")
+    difficulty_menu.entryconfig("Hard",state="disabled")
+    difficultycounter = 1
+
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
 
@@ -659,9 +694,9 @@ movecounter_menu.add_command(label="Red",command=starter2)
 
 difficulty_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Difficulty",menu=difficulty_menu)
-difficulty_menu.add_command(label="Easy ")
-difficulty_menu.add_command(label="Normal")
-difficulty_menu.add_command(label="Hard")
+difficulty_menu.add_command(label="Easy ",command=easy)
+difficulty_menu.add_command(label="Normal",command=normal)
+difficulty_menu.add_command(label="Hard",command=hard)
 
 Regel_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Rules", command=show_regeln)
