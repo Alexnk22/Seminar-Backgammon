@@ -247,6 +247,7 @@ def Würfel_wurf():
 
         Ratios()
         disable_starter()
+        disable_difficulty()
         Pass = False
 
    
@@ -662,6 +663,12 @@ def hard():
     difficulty_menu.entryconfig("Easy ",state="normal")
     difficulty_menu.entryconfig("Hard",state="disabled")
     difficultycounter = 1
+
+
+def disable_difficulty():
+    if movecounter > 1:
+        mein_menu.entryconfig("Difficulty", state="disabled")
+
 
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
