@@ -540,9 +540,9 @@ def Back_move():
         Würfel1 = würfel_list1[-2:]
         Würfel2 = würfel_list2[-2:]
         for i in range (12):
-            if 12-int(sum(spielfeld1)) == i:
+            if 12-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
                 White_Cap_Piece = i
-            if 12-int(sum(spielfeld2)) == i:
+            if 12-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
                 Red_Cap_Piece = i  
         spielfeld3 = 24*[0]
         Ratios()
