@@ -85,14 +85,10 @@ def Ratios (event=NONE):
 def Feld(Ratio):
     canvas.create_rectangle(55*Ratio,55*Ratio,(780)*Ratio,670*Ratio,width=2, fill="darkorange4")
     canvas.create_line(417*Ratio,55*Ratio,417*Ratio,670*Ratio,width=2)
-    if movecounter % 2 != 0 :
-        canvas.create_rectangle(0,0,55*Ratio,55*Ratio,fill="red")
-    elif movecounter % 2 == 0:
-        canvas.create_rectangle(0,0,55*Ratio,55*Ratio,fill="white")
+
     for u in range (2):
-        
         canvas.create_rectangle((75+u*367.5)*Ratio,75*Ratio,(392.5+u*367.5)*Ratio,650*Ratio,fill="goldenrod",width=2) # done 
-         
+        
     for u in range (2):
         for i in range (3):
             # done 
@@ -101,7 +97,34 @@ def Feld(Ratio):
             # done 
             canvas.create_polygon((i*106+75+u*369)*Ratio, 650*Ratio, (i*106+100+u*369)*Ratio, 400*Ratio, (i*106+125+u*369)*Ratio, 650*Ratio)
             canvas.create_polygon((i*106+127.5+u*369)*Ratio, 650*Ratio, (i*106+152.5+u*369)*Ratio, 400*Ratio, (i*106+177.5+u*369)*Ratio, 650*Ratio,fill="red",outline="black")
+
+
+def leiste(Ratio):
+
+    canvas.create_rectangle(55*Ratio,685*Ratio,780*Ratio,840*Ratio, fill="darkorange4",width=2)
+    canvas.create_rectangle(70*Ratio,700*Ratio,765*Ratio,825*Ratio, fill="goldenrod",width=2)
+    canvas.create_rectangle(70*Ratio,700*Ratio,150*Ratio,730*Ratio,fill="white")
+    canvas.create_rectangle(685*Ratio,700*Ratio,765*Ratio,730*Ratio,fill="red")
+    if movecounter % 2 != 0 and movecounter != 1:
+        canvas.create_rectangle(685*Ratio,701*Ratio,763*Ratio,730*Ratio,outline="green",width=4)
+    elif movecounter % 2 == 0 and movecounter != 1:
+        canvas.create_rectangle(71*Ratio,701*Ratio,150*Ratio,730*Ratio,outline="green",width=4)
+    else:
+        canvas.create_rectangle(71*Ratio,701*Ratio,150*Ratio,730*Ratio,outline="green",width=4)
+        movecounter_menu.entryconfig("white",state="disabled")
+        if colorbeginning == 0:
+            Bgcolor_menu.entryconfig("light", state="disabled")
+        if difficultycounter == 0:
+            difficulty_menu.entryconfig("Easy ",state="disabled")
+
+    canvas.create_rectangle(345*Ratio,685*Ratio,490*Ratio,840*Ratio,fill="darkorange4")
+    canvas.create_rectangle(360*Ratio,700*Ratio,475*Ratio,825*Ratio,fill="goldenrod")
+    canvas.create_rectangle(385*Ratio,735*Ratio,445*Ratio,795*Ratio)
+
     
+
+
+
 def win_progress(Ratio):
     # zeigt durch einen block die gewinnpos an (soll schöner werden)
     if White_winning_pos == True:
@@ -143,8 +166,8 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
             canvas.create_oval((75+u*53+r)*Ratio, (75+i*50-(h*25))*Ratio, (125+u*53+r)*Ratio, (125+i*50-(h*25))*Ratio, fill=farbe, width=1.33)
 
 def Position(event):
-    global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass
-    Pos21, Pos22, Pos3, Pos4 = 0, 0, 0, 0
+    global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass, regelcounter
+    Pos21, Pos22, Pos3, Pos4 = -7, -7, 0, 0
     spielfeld3 = [0] * 24
     if root.winfo_width() < root.winfo_height():
         Ratio = root.winfo_width()/900         
@@ -179,13 +202,13 @@ def Position(event):
     else:
         Pos1,Pos2 = 0, 0
         Ratios()
-    if movecounter == 0:
-        if event.x < 450 * Ratio:
-            movecounter = 3
-        elif event.x > 450 * Ratio:
-            movecounter = 2
+    if regelcounter == 1 and  0 < event.x < 55 and 0 < event.y < 55: 
+        canvas.create_rectangle(0,0,40,40,fill="red")
+        regelcounter = 0
         Ratios()
-        Pass = True
+    else:
+        pass
+    
 
 
 def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
@@ -211,15 +234,18 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
 
   
 def Würfel_wurf():
-    global Pos21, Pos22, Pos1, movecounter, Pass
-    
+    global Pos21, Pos22, Pos1, movecounter, Pass, move_list1, move_list2, würfel_list1,würfel_list2
+
     if ((Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True) and movecounter != 0:
-        if Pass == False:
-            movecounter = movecounter + 1
+        if movecounter == 1:
+            movecounter = 2
+        
+        #if Pass == False:
+        #    movecounter = movecounter + 1
         if Pos21 > 24:
-            Pos21 = 0
+            Pos21 = -7
         if Pos22 > 24:
-            Pos22 = 0
+            Pos22 = -7
         # setzt nahc jedem wurf Spielfeld3 zurück da es neu besetzt wird 
         spielfeld3[Pos21 - 1] = spielfeld3[Pos22 - 1] = 0
         Würfel1.clear()
@@ -231,7 +257,15 @@ def Würfel_wurf():
         else:
             Würfel1.extend([a, 7])
             Würfel2.extend([b, 8])
+
+        move_list1.extend(spielfeld1)
+        move_list2.extend(spielfeld2) 
+        würfel_list1.extend(Würfel1)
+        würfel_list2.extend(Würfel2)
+
         Ratios()
+        disable_starter()
+        disable_difficulty()
         Pass = False
 
    
@@ -323,9 +357,9 @@ def set_possibel_pos():
                 spielfeld3[Pos22 - 1] = -1
         Ratios()
     
-#jhghjk
+
 def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
-    global Pos4
+    global Pos4, difficulty
     for u in range(12):
         r = 15 if u >= 6 else -35
         if spielfeld[u] != -1 and spielfeld[u] != 0 and spielfeld[u] <= 5:
@@ -347,13 +381,22 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
         elif spielfeld[u + verschiebung] == -1:
             canvas.create_oval((85 + u * 53 + r) * Ratio, (85) * Ratio, (115 + u * 53 + r) * Ratio, (115) * Ratio, fill=farbe, width=1)
 
-    if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25)and Pos1 != 0 and movecounter % 2 == 0:
-        canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio,outline="yellow",width=4)
-        # zeigt das eine weiße figur rausfahren kann 
-        Pos4 = 1
-    if Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
-        canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
-        Pos4 = 2
+    if difficulty == 1:
+        if White_winning_pos == True and (Pos21 > 24 or Pos22 > 24)and Pos1 != 0 and movecounter % 2 == 0:
+            canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio,outline="yellow",width=4)
+            # zeigt das eine weiße figur rausfahren kann 
+            Pos4 = 1
+        elif Red_winning_pos == True and ( -6 < Pos21 < 1 or -6 < Pos22 < 1) and Pos1 != 0 and movecounter % 2 != 0:    
+            canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
+            Pos4 = 2
+    elif difficulty == 2 or difficulty == 3:
+        if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25)and Pos1 != 0 and movecounter % 2 == 0:
+            canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio,outline="yellow",width=4)
+            # zeigt das eine weiße figur rausfahren kann 
+            Pos4 = 1
+        elif Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
+            canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
+            Pos4 = 2
 
 
 def Position2(event=NONE):
@@ -377,11 +420,12 @@ def Position2(event=NONE):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
         pasch()
         move()
+    
     # wenn das markierte schwarze feld an der seite bei einer gewinnposition angeklickt wwird die entsprächende if schleife ausgelöst 
-    if (800 < event.x / Ratio < 875) and (80 < event.y/Ratio < 275) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1 and (Pos21 == 25 or Pos22 == 25):
+    if (800 < event.x / Ratio < 875) and (80 < event.y/Ratio < 275) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1:
         Pos2 = -1
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
-        if Pos21 == 25:
+        if Pos21 > 24:
             if Würfel1[1] == Würfel2[1]:
                 Würfel1[0], Würfel1[1] = Würfel1[1], 0
             else:
@@ -393,10 +437,10 @@ def Position2(event=NONE):
                 Würfel2[0] = 0
         Ratios() 
         move()
-    if (800 < event.x / Ratio < 875) and (450 < event.y /Ratio < 645) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 and (Pos21 == 0 or Pos22 == 0): 
+    if (800 < event.x / Ratio < 875) and (450 < event.y /Ratio < 645) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 : 
         Pos2 = -1
         spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
-        if Pos21 == 0:     
+        if -6 < Pos21 < 0:     
             if Würfel1[1] == Würfel2[1]:
                 Würfel1[0], Würfel1[1] = Würfel1[1], 0
             else:
@@ -423,8 +467,9 @@ def pasch():
             Würfel2[0] = 0
 
 def move():
-    global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3, Pos4
+    global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3, Pos4, backcounter
     # überprüft ob Pos2 == Pos21/22 bei einem geschlagenen zug und wenn ja bewegt die figurt 
+   
     if spielfeld3[Pos2-1] != 0 and ((Pos3 == 2 and White_Cap_Piece != 0) or (Pos3 == 1 and Red_Cap_Piece != 0)):
         spielfeld = spielfeld1 if Pos3 == 2 else spielfeld2
         spielfeldx = spielfeld2 if Pos3 == 2 else spielfeld1
@@ -451,9 +496,10 @@ def move():
                 Cap_Pieces(0)
             else:
                 Cap_Pieces(1)
-    spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, 0, 0, 0, 0, 0, 0
-    move_list1.extend(spielfeld1)
-    move_list2.extend(spielfeld2)
+    if Würfel1[0] == 0 and Würfel2[0] == 0:
+        movecounter = movecounter +1
+
+    spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, -7, -7, 0, 0, 0, 0       
     Check_winning_pos()
     winner()
     Ratios()
@@ -481,29 +527,44 @@ def show_Cap_Piece(Ratio):
             canvas.create_oval(392.5 * Ratio, (350 + 50 * 5) * Ratio, 442.5 * Ratio, (400 + 50 * 5) * Ratio, fill="white")
 
 def Back_move():
-    global spielfeld1, spielfeld2, move_list1, move_list2
-    if len(move_list1) > 24 and len(move_list2) > 24:
-        spielfeld1 = move_list1[-48:-24]
-        spielfeld2 = move_list2[-48:-24]
-        
-        move_list1 = move_list1[:-24]
-        move_list2 = move_list2[:-24]
-        print(move_list1)
+        global spielfeld1, spielfeld2, move_list1, move_list2,spielfeld3, Würfel1, Würfel2, würfel_list1, würfel_list2, movecounter, backcounter,White_Cap_Piece,Red_Cap_Piece
+        if (Würfel1[0] != 0 and Würfel2[0] != 0):
+            move_list1 = move_list1[:-24]
+            move_list2 = move_list2[:-24]
+            würfel_list1 = würfel_list1[:-2]
+            würfel_list2 = würfel_list2[:-2]
+        if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] != 0 and Würfel2[0] != 0):
+            movecounter = movecounter - 1   
+        spielfeld1 = move_list1[-24:]
+        spielfeld2 = move_list2[-24:]
+        Würfel1 = würfel_list1[-2:]
+        Würfel2 = würfel_list2[-2:]
+        for i in range (12):
+            if 12-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
+                White_Cap_Piece = i
+            if 12-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
+                Red_Cap_Piece = i  
+        spielfeld3 = 24*[0]
         Ratios()
 
 # überprüft ob keine steine mehr auf dem feld sind 
 def winner():
     if all(x == 0 for x in spielfeld1[18:25]) and White_winning_pos == True:
         messagebox.showinfo("", "Weiß Gewinnt")
+        root.quit
     if all(x == 0 for x in spielfeld2[:7]) and Red_winning_pos == True:
         messagebox.showinfo("", "Rot Gewinnt")
+        root.quit
+
 
 def key(event):
+    global backcounter
     if event.char == "w":
         Würfel_wurf()
     elif event.char == "p":
         Pass_turn()
     elif event.char == "z":
+        
         Back_move()
 
 def File():
@@ -511,9 +572,10 @@ def File():
     if movecounter != 0:
         spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
         spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
-        movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 0, 0, 0, 0, 0, [0]*24,
-        Pos1, Pos2, Pos21, Pos22, Pos3, Pos4 = 0, 0, 0, 0, 0, 0
+        movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 1, 0, 0, 0, 0, [0]*24,
+        Pos1, Pos2, Pos21, Pos22, Pos3, Pos4 = 0, 0, -7, -7, 0, 0
         Würfel1, Würfel2 = [7,7], [7,8]
+        mein_menu.entryconfig("Starter", state="normal")
         Ratios()
     else:
         pass
@@ -545,25 +607,124 @@ def Check_winning_pos():
     else:
         Red_winning_pos = False
 
+def disable_starter():
+    if movecounter > 1:
+        mein_menu.entryconfig("Starter", state="disabled")
+
+def starter2():
+    global movecounter, Pass
+    movecounter = 3
+    movecounter_menu.entryconfig("Red", state="disabled")
+    movecounter_menu.entryconfig("white", state="normal")
+    Ratios()
+    Pass = True
+
+def starter1():
+    global movecounter,Pass
+    movecounter = 2 
+    movecounter_menu.entryconfig("white", state="disabled")
+    movecounter_menu.entryconfig("Red", state="normal")
+    Ratios()
+    Pass = True
+
+def light_mode():
+    global colorbeginning
+    canvas.configure(bg="white")
+    Bgcolor_menu.entryconfig("light", state="disabled")
+    Bgcolor_menu.entryconfig("dark", state="normal")
+    colorbeginning = 1
+
+def dark_mode():
+    global colorbeginning
+    canvas.configure(bg="gray16")
+    Bgcolor_menu.entryconfig("dark", state="disabled")
+    Bgcolor_menu.entryconfig("light", state="normal")
+    colorbeginning = 1
+
+def show_regeln():
+    global regelcounter, Pos22, Pos21, Pos2, Pos1
+    canvas.delete("all")
+    Pos1,Pos2,Pos21,Pos22 = 0,0,-1,-1
+    regelcounter = 1 
+    spielregeln_text = """
+                                                        Backgammon Regeln
+
+
+    hallllllllllllo
+    """
+
+    canvas.create_text(0, 10, anchor=NW, text=spielregeln_text, font=("Helvetica", 12))
+    canvas.create_rectangle(0,0,40,40,fill="")
+    canvas.create_line(30,10,10,20,width=2)
+    canvas.create_line(30,30,10,20,width=2)
+
+difficultycounter = 0
+
+def easy():
+    global difficulty, difficultycounter
+    difficulty = 1
+    difficulty_menu.entryconfig("Normal",state="normal")
+    difficulty_menu.entryconfig("Easy ",state="disabled")
+    difficulty_menu.entryconfig("Hard",state="normal")
+    difficultycounter = 1
+def normal():
+    global difficulty, difficultycounter
+    difficulty = 2
+    difficulty_menu.entryconfig("Normal",state="disabled")
+    difficulty_menu.entryconfig("Easy ",state="normal")
+    difficulty_menu.entryconfig("Hard",state="normal")
+    difficultycounter = 1
+def hard():
+    global difficulty, difficultycounter
+    difficulty = 3
+    difficulty_menu.entryconfig("Normal",state="normal")
+    difficulty_menu.entryconfig("Easy ",state="normal")
+    difficulty_menu.entryconfig("Hard",state="disabled")
+    difficultycounter = 1
+
+
+def disable_difficulty():
+    if movecounter > 1:
+        mein_menu.entryconfig("Difficulty", state="disabled")
+
+
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
 
-file_menu = Menu(mein_menu)
+file_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="File", menu=file_menu)
 file_menu.add_command(label="New...", command=File)
 file_menu.add_command(label="Exit", command=root.quit)
 
-Würfel_menu = Menu(mein_menu)
+Würfel_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Dice",command=Würfel_wurf)
 
-Pass_menu = Menu(mein_menu)
+Pass_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Pass",command=Pass_turn)
 
-Game_mode_menu = Menu(mein_menu)
+Game_mode_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Game mode", menu=Game_mode_menu)
 Game_mode_menu.add_command(label="Player vs. AI", command=AI)
 Game_mode_menu.add_command(label="Player  vs. Player",command=PvP)
 
+Bgcolor_menu = Menu(mein_menu,tearoff=False)
+mein_menu.add_cascade(label="Bg-Theme",menu=Bgcolor_menu)
+Bgcolor_menu.add_command(label="light",command=light_mode)
+Bgcolor_menu.add_command(label="dark",command=dark_mode)
+
+movecounter_menu = Menu(mein_menu,tearoff=False)
+mein_menu.add_cascade(label="Starter",menu=movecounter_menu)
+movecounter_menu.add_command(label="white",command=starter1)
+movecounter_menu.add_command(label="Red",command=starter2)
+
+difficulty_menu = Menu(mein_menu,tearoff=False)
+mein_menu.add_cascade(label="Difficulty",menu=difficulty_menu)
+difficulty_menu.add_command(label="Easy ",command=easy)
+difficulty_menu.add_command(label="Normal",command=normal)
+difficulty_menu.add_command(label="Hard",command=hard)
+
+Regel_menu = Menu(mein_menu,tearoff=False)
+mein_menu.add_cascade(label="Rules", command=show_regeln)
 
 canvas.bind("<Button-1>", Position)
 canvas.bind("<Button-3>", Position2)
