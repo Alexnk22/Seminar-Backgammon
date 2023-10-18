@@ -545,6 +545,7 @@ def Back_move():
             if 12-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
                 Red_Cap_Piece = i  
         spielfeld3 = 24*[0]
+        Check_winning_pos()
         Ratios()
 
 # überprüft ob keine steine mehr auf dem feld sind 
