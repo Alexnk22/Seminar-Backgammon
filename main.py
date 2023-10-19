@@ -117,9 +117,9 @@ def leiste(Ratio):
         if difficultycounter == 0:
             difficulty_menu.entryconfig("Easy ",state="disabled")
 
-    canvas.create_rectangle(345*Ratio,685*Ratio,490*Ratio,840*Ratio,fill="darkorange4")
-    canvas.create_rectangle(360*Ratio,700*Ratio,475*Ratio,825*Ratio,fill="goldenrod")
-    canvas.create_rectangle(385*Ratio,735*Ratio,445*Ratio,795*Ratio)
+    #canvas.create_rectangle(345*Ratio,685*Ratio,490*Ratio,840*Ratio,fill="darkorange4")
+    #canvas.create_rectangle(360*Ratio,700*Ratio,475*Ratio,825*Ratio,fill="goldenrod")
+    #canvas.create_rectangle(385*Ratio,735*Ratio,445*Ratio,795*Ratio)
 
     
 
