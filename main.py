@@ -123,8 +123,6 @@ def leiste(Ratio):
 
     
 
-
-
 def win_progress(Ratio):
     # zeigt durch einen block die gewinnpos an (soll schöner werden)
     if White_winning_pos == True:
