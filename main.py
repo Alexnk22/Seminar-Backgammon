@@ -419,31 +419,57 @@ def Position2(event=NONE):
     if (800 < event.x / Ratio < 875) and (80 < event.y/Ratio < 275) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1:
         Pos2 = -1
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
-        if Pos21 > 24:
-            if Würfel1[1] == Würfel2[1]:
-                Würfel1[0], Würfel1[1] = Würfel1[1], 0
+        if difficulty == 1:
+            if Pos21 > 24:
+                if Würfel1[1] == Würfel2[1]:
+                    Würfel1[0], Würfel1[1] = Würfel1[1], 0
+                else:
+                    Würfel1[0] = 0
             else:
-                Würfel1[0] = 0
-        else:
-            if Würfel1[0] == 0 and Würfel1[1] == 0:
-                Würfel2[0], Würfel2[1] = Würfel2[1], 0
+                if Würfel1[0] == 0 and Würfel1[1] == 0:
+                    Würfel2[0], Würfel2[1] = Würfel2[1], 0
+                else:
+                    Würfel2[0] = 0
+        if difficulty == 2 or difficulty == 3:
+            if Pos21 == 25:
+                if Würfel1[1] == Würfel2[1]:
+                    Würfel1[0], Würfel1[1] = Würfel1[1], 0
+                else:
+                    Würfel1[0] = 0
             else:
-                Würfel2[0] = 0
+                if Würfel1[0] == 0 and Würfel1[1] == 0:
+                    Würfel2[0], Würfel2[1] = Würfel2[1], 0
+                else:
+                    Würfel2[0] = 0
+
         Ratios() 
         move()
     if (800 < event.x / Ratio < 875) and (450 < event.y /Ratio < 645) and Red_winning_pos ==True and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 2 : 
         Pos2 = -1
         spielfeld2[Pos1-1] = spielfeld2[Pos1-1]-1
-        if -6 < Pos21 < 0:     
-            if Würfel1[1] == Würfel2[1]:
-                Würfel1[0], Würfel1[1] = Würfel1[1], 0
+        if difficulty == 1:
+            if -6 < Pos21 < 0:     
+                if Würfel1[1] == Würfel2[1]:
+                    Würfel1[0], Würfel1[1] = Würfel1[1], 0
+                else:
+                    Würfel1[0] = 0    
             else:
-                Würfel1[0] = 0    
-        else:
-            if Würfel1[0] == 0 and Würfel1[1] == 0:
-                Würfel2[0], Würfel2[1] = Würfel2[1], 0
+                if Würfel1[0] == 0 and Würfel1[1] == 0:
+                    Würfel2[0], Würfel2[1] = Würfel2[1], 0
+                else:
+                    Würfel2[0] = 0     
+        if difficulty == 2 or difficulty == 3:
+            if -6 < Pos21 < 0:     
+                if Würfel1[1] == Würfel2[1]:
+                    Würfel1[0], Würfel1[1] = Würfel1[1], 0
+                else:
+                    Würfel1[0] = 0    
             else:
-                Würfel2[0] = 0     
+                if Würfel1[0] == 0 and Würfel1[1] == 0:
+                    Würfel2[0], Würfel2[1] = Würfel2[1], 0
+                else:
+                    Würfel2[0] = 0 
+
         Ratios() 
         move()
 
