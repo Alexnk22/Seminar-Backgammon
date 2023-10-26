@@ -61,7 +61,6 @@ def Ratios (event=NONE):
             Ratio = root.winfo_width()/900
         else:
             Ratio = root.winfo_height()/900
-        leiste(Ratio)
         Feld(Ratio)
         win_progress(Ratio)
         Figuren(Ratio, spielfeld1, "white",12)
@@ -93,30 +92,6 @@ def Feld(Ratio):
             # done 
             canvas.create_polygon((i*106+75+u*369)*Ratio, 650*Ratio, (i*106+100+u*369)*Ratio, 400*Ratio, (i*106+125+u*369)*Ratio, 650*Ratio)
             canvas.create_polygon((i*106+127.5+u*369)*Ratio, 650*Ratio, (i*106+152.5+u*369)*Ratio, 400*Ratio, (i*106+177.5+u*369)*Ratio, 650*Ratio,fill="red",outline="black")
-
-
-def leiste(Ratio):
-
-    #canvas.create_rectangle(55*Ratio,685*Ratio,780*Ratio,840*Ratio, fill="darkorange4",width=2)
-    #canvas.create_rectangle(70*Ratio,700*Ratio,765*Ratio,825*Ratio, fill="goldenrod",width=2)
-    #canvas.create_rectangle(70*Ratio,700*Ratio,150*Ratio,730*Ratio,fill="white")
-    #canvas.create_rectangle(685*Ratio,700*Ratio,765*Ratio,730*Ratio,fill="red")
-    #if movecounter % 2 != 0 and movecounter != 1:
-    #    canvas.create_rectangle(685*Ratio,701*Ratio,763*Ratio,730*Ratio,outline="green",width=4)
-    #elif movecounter % 2 == 0 and movecounter != 1:
-    #    canvas.create_rectangle(71*Ratio,701*Ratio,150*Ratio,730*Ratio,outline="green",width=4)
-    #else:
-    #    canvas.create_rectangle(71*Ratio,701*Ratio,150*Ratio,730*Ratio,outline="green",width=4)
-    #    movecounter_menu.entryconfig("white",state="disabled")
-    #    if colorbeginning == 0:
-    #        Bgcolor_menu.entryconfig("light", state="disabled")
-    #    if difficultycounter == 0:
-    #        difficulty_menu.entryconfig("Easy ",state="disabled")
-    pass
-    #canvas.create_rectangle(345*Ratio,685*Ratio,490*Ratio,840*Ratio,fill="darkorange4")
-    #canvas.create_rectangle(360*Ratio,700*Ratio,475*Ratio,825*Ratio,fill="goldenrod")
-    #canvas.create_rectangle(385*Ratio,735*Ratio,445*Ratio,795*Ratio)
-
     
 
 def win_progress(Ratio):
