@@ -97,22 +97,22 @@ def Feld(Ratio):
 
 def leiste(Ratio):
 
-    canvas.create_rectangle(55*Ratio,685*Ratio,780*Ratio,840*Ratio, fill="darkorange4",width=2)
-    canvas.create_rectangle(70*Ratio,700*Ratio,765*Ratio,825*Ratio, fill="goldenrod",width=2)
-    canvas.create_rectangle(70*Ratio,700*Ratio,150*Ratio,730*Ratio,fill="white")
-    canvas.create_rectangle(685*Ratio,700*Ratio,765*Ratio,730*Ratio,fill="red")
-    if movecounter % 2 != 0 and movecounter != 1:
-        canvas.create_rectangle(685*Ratio,701*Ratio,763*Ratio,730*Ratio,outline="green",width=4)
-    elif movecounter % 2 == 0 and movecounter != 1:
-        canvas.create_rectangle(71*Ratio,701*Ratio,150*Ratio,730*Ratio,outline="green",width=4)
-    else:
-        canvas.create_rectangle(71*Ratio,701*Ratio,150*Ratio,730*Ratio,outline="green",width=4)
-        movecounter_menu.entryconfig("white",state="disabled")
-        if colorbeginning == 0:
-            Bgcolor_menu.entryconfig("light", state="disabled")
-        if difficultycounter == 0:
-            difficulty_menu.entryconfig("Easy ",state="disabled")
-
+    #canvas.create_rectangle(55*Ratio,685*Ratio,780*Ratio,840*Ratio, fill="darkorange4",width=2)
+    #canvas.create_rectangle(70*Ratio,700*Ratio,765*Ratio,825*Ratio, fill="goldenrod",width=2)
+    #canvas.create_rectangle(70*Ratio,700*Ratio,150*Ratio,730*Ratio,fill="white")
+    #canvas.create_rectangle(685*Ratio,700*Ratio,765*Ratio,730*Ratio,fill="red")
+    #if movecounter % 2 != 0 and movecounter != 1:
+    #    canvas.create_rectangle(685*Ratio,701*Ratio,763*Ratio,730*Ratio,outline="green",width=4)
+    #elif movecounter % 2 == 0 and movecounter != 1:
+    #    canvas.create_rectangle(71*Ratio,701*Ratio,150*Ratio,730*Ratio,outline="green",width=4)
+    #else:
+    #    canvas.create_rectangle(71*Ratio,701*Ratio,150*Ratio,730*Ratio,outline="green",width=4)
+    #    movecounter_menu.entryconfig("white",state="disabled")
+    #    if colorbeginning == 0:
+    #        Bgcolor_menu.entryconfig("light", state="disabled")
+    #    if difficultycounter == 0:
+    #        difficulty_menu.entryconfig("Easy ",state="disabled")
+    pass
     #canvas.create_rectangle(345*Ratio,685*Ratio,490*Ratio,840*Ratio,fill="darkorange4")
     #canvas.create_rectangle(360*Ratio,700*Ratio,475*Ratio,825*Ratio,fill="goldenrod")
     #canvas.create_rectangle(385*Ratio,735*Ratio,445*Ratio,795*Ratio)
@@ -264,30 +264,55 @@ def Würfel_wurf():
 
    
 def show_Würfel(Ratio, würfel_list, ver):
-    for i in range(9):
-        if würfel_list[0] == i and 0 < i < 7:
-            canvas.create_rectangle((550+ver*80)*Ratio, 336*Ratio, (600+ver*80)*Ratio, 386*Ratio, width=1.4)
-            if i == 1 or i == 3 or i == 5:
-                canvas.create_oval((570+ver*80) * Ratio, 355 * Ratio, (580+ver*80) * Ratio, 365 * Ratio, fill="black")
-            for u in range(2):
-                if 1 < i < 7:
-                    canvas.create_oval(((u*34)+553+ver*80) * Ratio, ((u*35)+338) * Ratio, ((u*34)+563+ver*80) * Ratio, ((u*35)+348) * Ratio, fill="black")
-                if 3 < i < 7:
-                    canvas.create_oval(((u*34)+553+ver*80) * Ratio, (373-(35*u)) * Ratio, ((u*34)+563+ver*80) * Ratio, (383-(35*u)) * Ratio, fill="black")
-                if i == 6:
-                    canvas.create_oval(((u*34)+553+ver*80) * Ratio, 355 * Ratio, ((u*34)+563+ver*80) * Ratio, 365 * Ratio, fill="black")
-        if  würfel_list[1] == i and 0 < i < 7:
-            canvas.create_rectangle((480+ver*220)*Ratio, 336*Ratio, (530+ver*220)*Ratio,386*Ratio, width=1.4)
-            if i == 1 or i == 3 or i == 5:
-                canvas.create_oval((500+ver*220) * Ratio, 355 * Ratio, (510+ver*220) * Ratio, 365 * Ratio, fill="black")
-            for u in range(2):
-                if 1 < i < 7:
-                    canvas.create_oval(((u*34)+483+ver*220) * Ratio, ((u*35)+338) * Ratio, ((u*34)+493+ver*220) * Ratio, ((u*35)+348) * Ratio, fill="black")
-                if 3 < i < 7:
-                    canvas.create_oval(((u*34)+483+ver*220) * Ratio, (373-(35*u)) * Ratio, ((u*34)+493+ver*220) * Ratio, (383-(35*u)) * Ratio, fill="black")
-                if i == 6:
-                    canvas.create_oval(((u*34)+483+ver*220) * Ratio, 355 * Ratio, ((u*34)+493+ver*220) * Ratio, 365 * Ratio, fill="black")
-       
+    
+    if movecounter % 2 == 0:
+        for i in range(9):
+            if würfel_list[0] == i and 0 < i < 7:
+                canvas.create_rectangle((550+ver*80)*Ratio, 336*Ratio, (600+ver*80)*Ratio, 386*Ratio, width=1.4,fill="white")
+                if i == 1 or i == 3 or i == 5:
+                    canvas.create_oval((570+ver*80) * Ratio, 355 * Ratio, (580+ver*80) * Ratio, 365 * Ratio, fill="black")
+                for u in range(2):
+                    if 1 < i < 7:
+                        canvas.create_oval(((u*34)+553+ver*80) * Ratio, ((u*35)+338) * Ratio, ((u*34)+563+ver*80) * Ratio, ((u*35)+348) * Ratio, fill="black")
+                    if 3 < i < 7:
+                        canvas.create_oval(((u*34)+553+ver*80) * Ratio, (373-(35*u)) * Ratio, ((u*34)+563+ver*80) * Ratio, (383-(35*u)) * Ratio, fill="black")
+                    if i == 6:
+                        canvas.create_oval(((u*34)+553+ver*80) * Ratio, 355 * Ratio, ((u*34)+563+ver*80) * Ratio, 365 * Ratio, fill="black")
+            if  würfel_list[1] == i and 0 < i < 7:
+                canvas.create_rectangle((480+ver*220)*Ratio, 336*Ratio, (530+ver*220)*Ratio,386*Ratio, width=1.4,fill="white")
+                if i == 1 or i == 3 or i == 5:
+                    canvas.create_oval((500+ver*220) * Ratio, 355 * Ratio, (510+ver*220) * Ratio, 365 * Ratio, fill="black")
+                for u in range(2):
+                    if 1 < i < 7:
+                        canvas.create_oval(((u*34)+483+ver*220) * Ratio, ((u*35)+338) * Ratio, ((u*34)+493+ver*220) * Ratio, ((u*35)+348) * Ratio, fill="black")
+                    if 3 < i < 7:
+                        canvas.create_oval(((u*34)+483+ver*220) * Ratio, (373-(35*u)) * Ratio, ((u*34)+493+ver*220) * Ratio, (383-(35*u)) * Ratio, fill="black")
+                    if i == 6:
+                        canvas.create_oval(((u*34)+483+ver*220) * Ratio, 355 * Ratio, ((u*34)+493+ver*220) * Ratio, 365 * Ratio, fill="black")
+    else:
+        for i in range(9):
+            if würfel_list[0] == i and 0 < i < 7:
+                canvas.create_rectangle((150+ver*80)*Ratio, 336*Ratio, (200+ver*80)*Ratio, 386*Ratio, width=1.4,fill="maroon")
+                if i == 1 or i == 3 or i == 5:
+                    canvas.create_oval((170+ver*80) * Ratio, 355 * Ratio, (180+ver*80) * Ratio, 365 * Ratio, fill="black")
+                for u in range(2):
+                    if 1 < i < 7:
+                        canvas.create_oval(((u*34)+153+ver*80) * Ratio, ((u*35)+338) * Ratio, ((u*34)+163+ver*80) * Ratio, ((u*35)+348) * Ratio, fill="black")
+                    if 3 < i < 7:
+                        canvas.create_oval(((u*34)+153+ver*80) * Ratio, (373-(35*u)) * Ratio, ((u*34)+163+ver*80) * Ratio, (383-(35*u)) * Ratio, fill="black")
+                    if i == 6:
+                        canvas.create_oval(((u*34)+153+ver*80) * Ratio, 355 * Ratio, ((u*34)+163+ver*80) * Ratio, 365 * Ratio, fill="black")
+            if  würfel_list[1] == i and 0 < i < 7:
+                canvas.create_rectangle((80+ver*220)*Ratio, 336*Ratio, (130+ver*220)*Ratio,386*Ratio, width=1.4,fill="maroon")
+                if i == 1 or i == 3 or i == 5:
+                    canvas.create_oval((100+ver*220) * Ratio, 355 * Ratio, (110+ver*220) * Ratio, 365 * Ratio, fill="black")
+                for u in range(2):
+                    if 1 < i < 7:
+                        canvas.create_oval(((u*34)+83+ver*220) * Ratio, ((u*35)+338) * Ratio, ((u*34)+93+ver*220) * Ratio, ((u*35)+348) * Ratio, fill="black")
+                    if 3 < i < 7:
+                        canvas.create_oval(((u*34)+83+ver*220) * Ratio, (373-(35*u)) * Ratio, ((u*34)+93+ver*220) * Ratio, (383-(35*u)) * Ratio, fill="black")
+                    if i == 6:
+                        canvas.create_oval(((u*34)+83+ver*220) * Ratio, 355 * Ratio, ((u*34)+93+ver*220) * Ratio, 365 * Ratio, fill="black")
 
 
 def set_Cap_possible_pos():
