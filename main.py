@@ -19,6 +19,8 @@ move_list1 = []
 move_list2 = []
 würfel_list1 = []
 würfel_list2 = []
+moves1 = []
+moves2 = []
 regelcounter = 0
 difficulty = 1
 White_winning_pos = False
@@ -45,7 +47,7 @@ spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 #spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
 
 
-spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   5,5,1,0,0,0]
+spielfeld1 = [1,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   5,5,1,0,0,1]
 spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
@@ -231,7 +233,7 @@ def Würfel_wurf():
         move_list2.extend(spielfeld2) 
         würfel_list1.extend(Würfel1)
         würfel_list2.extend(Würfel2)
-
+        fish_moves()
         Ratios()
         disable_starter()
         disable_difficulty()
@@ -707,6 +709,23 @@ def hard():
 def disable_difficulty():
     if movecounter > 1:
         mein_menu.entryconfig("Difficulty", state="disabled")
+
+
+
+def fish_moves():
+    if movecounter % 2 == 0:
+        for i in range (24):
+            if spielfeld1[i] != 0:
+                moves1.append(i+1)
+        print(moves1)
+    else:
+        for i in range (24):
+            if spielfeld2[i] != 0:
+                moves2.append(i+1)
+        print(moves2)
+
+
+    
 
 
 mein_menu = Menu(root)
