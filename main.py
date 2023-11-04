@@ -42,13 +42,13 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]   
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    
-#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
+spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    
-#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
+spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
 
 
-spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   5,5,1,0,0,1]
-spielfeld2 = [0,5,2,2,2,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   5,5,1,0,0,1]
+#spielfeld2 = [0,5,2,2,2,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -811,12 +811,18 @@ def AI_move():
     if movecounter % 2 != 0:
         global Pos1, Pos2
         i = random.randint(1,len(moves1))
-        print(i)
         Pos1 = moves1[i-1]+Würfel1[0]
-        print(Pos1)
         Pos2 = moves1[i-1]
+        set_possibel_pos()
+        pasch()
         move()
-#hahaahah
+        u = random.randint(1,len(moves2))
+        Pos1 = moves2[u-1]+Würfel2[0]
+        Pos2 = moves2[u-1]
+        set_possibel_pos()
+        pasch()
+        move()
+        
     
 
 
