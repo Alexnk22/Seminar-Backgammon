@@ -47,8 +47,8 @@ spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 #spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
 
 
-spielfeld1 = [1,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   5,5,1,0,0,1]
-spielfeld2 = [0,0,2,2,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,1,5,0]
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   5,5,1,0,0,1]
+spielfeld2 = [0,5,2,2,2,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -691,6 +691,7 @@ def easy():
     difficulty_menu.entryconfig("Easy ",state="disabled")
     difficulty_menu.entryconfig("Hard",state="normal")
     difficultycounter = 1
+
 def normal():
     global difficulty, difficultycounter
     difficulty = 2
@@ -698,6 +699,7 @@ def normal():
     difficulty_menu.entryconfig("Easy ",state="normal")
     difficulty_menu.entryconfig("Hard",state="normal")
     difficultycounter = 1
+    
 def hard():
     global difficulty, difficultycounter
     difficulty = 3
@@ -712,43 +714,109 @@ def disable_difficulty():
         mein_menu.entryconfig("Difficulty", state="disabled")
 
 
-
 def fish_moves():
     if movecounter % 2 == 0:
         if White_Cap_Piece == 0:
-            for i in range (24):
-                if spielfeld1[i] != 0:
-                    if Würfel1[0]+i+1 < 25:
-                        if(spielfeld2[Würfel1[0]+i] == 0 or spielfeld2[Würfel1[0]+i] == 1) :
-                            moves1.append(Würfel1[0]+i+1)
-                    if Würfel2[0]+i+1 < 25:
-                        if (spielfeld2[Würfel2[0]+i] == 0 or spielfeld2[Würfel2[0]+i] == 1):
-                            moves1.append(Würfel2[0]+i+1)
+            if White_winning_pos == False:
+                for i in range (24):
+                    if spielfeld1[i] != 0:
+                        if Würfel1[0]+i+1 < 25:
+                            if(spielfeld2[Würfel1[0]+i] == 0 or spielfeld2[Würfel1[0]+i] == 1) :
+                                moves1.append(Würfel1[0]+i+1)
+                        if Würfel2[0]+i+1 < 25:
+                            if (spielfeld2[Würfel2[0]+i] == 0 or spielfeld2[Würfel2[0]+i] == 1):
+                                moves2.append(Würfel2[0]+i+1)
+            elif White_winning_pos == True and difficulty == 1:
+                #!!! wenn stein auf 24 ist wird 25 nur einmal aufgefühlt(warscheinlich weil es beim letzten mal nicht nocheinnal durch die liste geht)
+                for i in range (24):
+                    if spielfeld1[i] != 0:
+                        if Würfel1[0]+i+1 < 25:
+                            if(spielfeld2[Würfel1[0]+i] == 0 or spielfeld2[Würfel1[0]+i] == 1) :
+                                moves1.append(Würfel1[0]+i+1)
+                        else:
+                            moves1.append(25)
+                        if Würfel2[0]+i+1 < 25:
+                            if (spielfeld2[Würfel2[0]+i] == 0 or spielfeld2[Würfel2[0]+i] == 1):
+                                moves2.append(Würfel2[0]+i+1)
+                        else:
+                            moves2.append(25)
+            elif White_winning_pos == True and difficulty == 2 or difficulty == 3:
+                for i in range (24):
+                    if spielfeld1[i] != 0:
+                        if Würfel1[0]+i+1 < 25:
+                            if(spielfeld2[Würfel1[0]+i] == 0 or spielfeld2[Würfel1[0]+i] == 1) :
+                                moves1.append(Würfel1[0]+i+1)
+                        elif Würfel1[0]+i+1 == 25:
+                            moves1.append(25)
+                        if Würfel2[0]+i+1 < 25:
+                            if (spielfeld2[Würfel2[0]+i] == 0 or spielfeld2[Würfel2[0]+i] == 1):
+                                moves2.append(Würfel2[0]+i+1)
+                        elif Würfel2[0]+i+1 == 25:
+                            moves2.append(25)
         elif White_Cap_Piece != 0:
-            if(spielfeld2[Würfel1[0]-1] == 0 or spielfeld2[Würfel1[0]-1] == 1) :
+            if(spielfeld2[Würfel1[0]-1] == 0 or spielfeld2[Würfel1[0]-1] == 1):
                 moves1.append(Würfel1[0])
-            if (spielfeld2[Würfel2[0]-1] == 0 or spielfeld2[Würfel2[0]-1] == 1):
-                moves1.append(Würfel2[0])
+            if(spielfeld2[Würfel2[0]-1] == 0 or spielfeld2[Würfel2[0]-1] == 1):
+                moves2.append(Würfel2[0])
+        print(moves2)
         print(moves1)
     else:
         if Red_Cap_Piece == 0:
-            for i in range (24):
-                if spielfeld2[i] != 0:
-                    if i+1-Würfel1[0] > 0:
-                        if (spielfeld1[i-Würfel1[0]] == 0 or spielfeld1[i-Würfel1[0]] == 1) :
-                            moves2.append(1+i-Würfel1[0])
-                    if i+1-Würfel2[0] > 0:
-                        if (spielfeld1[i-Würfel2[0]] == 0 or spielfeld1[i-Würfel2[0]] == 1) :
-                            moves2.append(1+i-Würfel2[0])
+            if Red_winning_pos == False:
+                for i in range (24):
+                    if spielfeld2[i] != 0:
+                        if i+1-Würfel1[0] > 0:
+                            if (spielfeld1[i-Würfel1[0]] == 0 or spielfeld1[i-Würfel1[0]] == 1) :
+                                moves1.append(1+i-Würfel1[0])
+                        if i+1-Würfel2[0] > 0:
+                            if (spielfeld1[i-Würfel2[0]] == 0 or spielfeld1[i-Würfel2[0]] == 1) :
+                                moves2.append(1+i-Würfel2[0])
+            elif Red_winning_pos == True and difficulty == 1:
+                for i in range (24):
+                    if spielfeld2[i] != 0:
+                        if i+1-Würfel1[0] > 0:
+                            if (spielfeld1[i-Würfel1[0]] == 0 or spielfeld1[i-Würfel1[0]] == 1) :
+                                moves1.append(1+i-Würfel1[0])
+                        else:
+                            moves1.append(0)
+                        if i+1-Würfel2[0] > 0:
+                            if (spielfeld1[i-Würfel2[0]] == 0 or spielfeld1[i-Würfel2[0]] == 1) :
+                                moves2.append(1+i-Würfel2[0])
+                        else: 
+                            moves2.append(0)
+            elif Red_winning_pos == True and difficulty == 2 or difficulty == 3:
+                for i in range (24):
+                    if spielfeld2[i] != 0:
+                        if i+1-Würfel1[0] > 0:
+                            if (spielfeld1[i-Würfel1[0]] == 0 or spielfeld1[i-Würfel1[0]] == 1) :
+                                moves1.append(1+i-Würfel1[0])
+                        elif i+1-Würfel1[0] == 0:
+                            moves1.append(0)
+                        if i+1-Würfel2[0] > 0:
+                            if (spielfeld1[i-Würfel2[0]] == 0 or spielfeld1[i-Würfel2[0]] == 1) :
+                                moves2.append(1+i-Würfel2[0])
+                        elif i+1-Würfel2[0] == 0:
+                            moves2.append(0)
         elif Red_Cap_Piece != 0:
-            if(spielfeld1[24-Würfel1[0]] == 0 or spielfeld1[24-Würfel1[0]] == 1) :
-                moves2.append(25-Würfel1[0])
-            if (spielfeld1[24-Würfel2[0]] == 0 or spielfeld1[24-Würfel2[0]] == 1):
+            if(spielfeld1[24-Würfel1[0]] == 0 or spielfeld1[24-Würfel1[0]] == 1):
+                moves1.append(25-Würfel1[0])
+            if(spielfeld1[24-Würfel2[0]] == 0 or spielfeld1[24-Würfel2[0]] == 1):
                 moves2.append(25-Würfel2[0])
-
         print(moves2)
+        print(moves1)
+        AI_move()
 
 
+def AI_move():
+    if movecounter % 2 != 0:
+        global Pos1, Pos2
+        i = random.randint(1,len(moves1))
+        print(i)
+        Pos1 = moves1[i-1]+Würfel1[0]
+        print(Pos1)
+        Pos2 = moves1[i-1]
+        move()
+#hahaahah
     
 
 
