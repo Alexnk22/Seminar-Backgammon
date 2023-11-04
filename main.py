@@ -48,7 +48,7 @@ spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 
 spielfeld1 = [1,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   5,5,1,0,0,1]
-spielfeld2 = [0,0,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+spielfeld2 = [0,0,2,2,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,1,5,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -228,7 +228,8 @@ def Würfel_wurf():
         else:
             Würfel1.extend([a, 7])
             Würfel2.extend([b, 8])
-
+        moves1.clear()
+        moves2.clear()
         move_list1.extend(spielfeld1)
         move_list2.extend(spielfeld2) 
         würfel_list1.extend(Würfel1)
@@ -714,14 +715,37 @@ def disable_difficulty():
 
 def fish_moves():
     if movecounter % 2 == 0:
-        for i in range (24):
-            if spielfeld1[i] != 0:
-                moves1.append(i+1)
+        if White_Cap_Piece == 0:
+            for i in range (24):
+                if spielfeld1[i] != 0:
+                    if Würfel1[0]+i+1 < 25:
+                        if(spielfeld2[Würfel1[0]+i] == 0 or spielfeld2[Würfel1[0]+i] == 1) :
+                            moves1.append(Würfel1[0]+i+1)
+                    if Würfel2[0]+i+1 < 25:
+                        if (spielfeld2[Würfel2[0]+i] == 0 or spielfeld2[Würfel2[0]+i] == 1):
+                            moves1.append(Würfel2[0]+i+1)
+        elif White_Cap_Piece != 0:
+            if(spielfeld2[Würfel1[0]-1] == 0 or spielfeld2[Würfel1[0]-1] == 1) :
+                moves1.append(Würfel1[0])
+            if (spielfeld2[Würfel2[0]-1] == 0 or spielfeld2[Würfel2[0]-1] == 1):
+                moves1.append(Würfel2[0])
         print(moves1)
     else:
-        for i in range (24):
-            if spielfeld2[i] != 0:
-                moves2.append(i+1)
+        if Red_Cap_Piece == 0:
+            for i in range (24):
+                if spielfeld2[i] != 0:
+                    if i+1-Würfel1[0] > 0:
+                        if (spielfeld1[i-Würfel1[0]] == 0 or spielfeld1[i-Würfel1[0]] == 1) :
+                            moves2.append(1+i-Würfel1[0])
+                    if i+1-Würfel2[0] > 0:
+                        if (spielfeld1[i-Würfel2[0]] == 0 or spielfeld1[i-Würfel2[0]] == 1) :
+                            moves2.append(1+i-Würfel2[0])
+        elif Red_Cap_Piece != 0:
+            if(spielfeld1[24-Würfel1[0]] == 0 or spielfeld1[24-Würfel1[0]] == 1) :
+                moves2.append(25-Würfel1[0])
+            if (spielfeld1[24-Würfel2[0]] == 0 or spielfeld1[24-Würfel2[0]] == 1):
+                moves2.append(25-Würfel2[0])
+
         print(moves2)
 
 
