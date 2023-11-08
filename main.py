@@ -814,13 +814,13 @@ def AI_move():
         Pos1 = moves1[i-1]+Würfel1[0]
         Pos2 = moves1[i-1]
         set_possibel_pos()
-        pasch()
+        #pasch()
         move()
         u = random.randint(1,len(moves2))
         Pos1 = moves2[u-1]+Würfel2[0]
         Pos2 = moves2[u-1]
         set_possibel_pos()
-        pasch()
+        #pasch()
         move()
         
     
