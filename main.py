@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import random
-
+AI = 0
 movecounter = 1
 TOPorBOT = 0 
 TOPorBOT2 = 0
@@ -234,7 +234,8 @@ def Würfel_wurf():
         move_list2.extend(spielfeld2) 
         würfel_list1.extend(Würfel1)
         würfel_list2.extend(Würfel2)
-        fish_moves()
+        if AI == 1:    
+            fish_moves()
         Ratios()
         disable_starter()
         disable_difficulty()
@@ -604,10 +605,17 @@ def File():
     else:
         pass
 
-def AI():
-    pass
+def Ai():
+    global AI 
+    AI = 1
+    Game_mode_menu.entryconfig("Player vs. AI", state="disabled")
+    Game_mode_menu.entryconfig("Player  vs. Player", state="normal")
+
 def PvP():
-    pass
+    global AI
+    AI = 0
+    Game_mode_menu.entryconfig("Player  vs. Player", state="disabled")
+    Game_mode_menu.entryconfig("Player vs. AI", state="normal")
 
 def Pass_turn():
     global Pass, movecounter, Pos1, spielfeld3, Würfel1, Würfel2, Pos4
@@ -707,7 +715,7 @@ def hard():
     difficulty_menu.entryconfig("Easy ",state="normal")
     difficulty_menu.entryconfig("Hard",state="disabled")
     difficultycounter = 1
-
+    
 
 def disable_difficulty():
     if movecounter > 1:
@@ -809,20 +817,63 @@ def fish_moves():
 
 def AI_move():
     if movecounter % 2 != 0:
-        global Pos1, Pos2
-        i = random.randint(1,len(moves1))
-        Pos1 = moves1[i-1]+Würfel1[0]
-        Pos2 = moves1[i-1]
-        set_possibel_pos()
-        #pasch()
-        move()
-        u = random.randint(1,len(moves2))
-        Pos1 = moves2[u-1]+Würfel2[0]
-        Pos2 = moves2[u-1]
-        set_possibel_pos()
-        #pasch()
-        move()
-        
+        global Pos1, Pos2, Pos3
+        if Red_Cap_Piece == 0:
+            i = random.randint(1,len(moves1))
+            Pos1 = moves1[i-1]+Würfel1[0]
+            Pos2 = moves1[i-1]
+            set_possibel_pos()
+            move()
+            u = random.randint(1,len(moves2))
+            Pos1 = moves2[u-1]+Würfel2[0]
+            Pos2 = moves2[u-1]
+            set_possibel_pos()
+            move()
+            if Würfel1[0] == Würfel2[0]:
+                i = random.randint(1,len(moves1))
+                Pos1 = moves1[i-1]+Würfel1[0]
+                Pos2 = moves1[i-1]
+                set_possibel_pos()
+                move()
+                u = random.randint(1,len(moves2))
+                Pos1 = moves2[u-1]+Würfel2[0]
+                Pos2 = moves2[u-1]
+                set_possibel_pos()
+                move()
+        else:
+            i = random.randint(1,len(moves1))
+            Pos1 = moves1[i-1]+Würfel1[0]
+            Pos2 = moves1[i-1]
+            set_Cap_possible_pos()
+            move()
+            if Red_Cap_Piece != 0:
+                Pos3 = 1 
+                u = random.randint(1,len(moves2))
+                Pos1 = moves2[u-1]+Würfel2[0]
+                Pos2 = moves2[u-1]
+                set_Cap_possible_pos()
+                move()
+            else:
+                # ES MUSS DIE LISTE NEU BERECHNEN ALSO CALL FISCHING MOVE UND DANN WEITER SEHEN 
+                u = random.randint(1,len(moves2))
+                Pos1 = moves2[u-1]+Würfel2[0]
+                Pos2 = moves2[u-1]
+                set_possibel_pos()
+                move()
+                if Würfel1[0] == Würfel2[0]:
+                    Pos3 = 1 
+                    i = random.randint(1,len(moves1))
+                    Pos1 = moves1[i-1]+Würfel1[0]
+                    Pos2 = moves1[i-1]
+                    set_Cap_possible_pos()
+                    move()
+                    Pos3 = 1
+                    u = random.randint(1,len(moves2))
+                    Pos1 = moves2[u-1]+Würfel2[0]
+                    Pos2 = moves2[u-1]
+                    set_Cap_possible_pos()
+                    move()
+            
     
 
 
@@ -842,7 +893,7 @@ mein_menu.add_cascade(label="Pass",command=Pass_turn)
 
 Game_mode_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Game mode", menu=Game_mode_menu)
-Game_mode_menu.add_command(label="Player vs. AI", command=AI)
+Game_mode_menu.add_command(label="Player vs. AI", command=Ai)
 Game_mode_menu.add_command(label="Player  vs. Player",command=PvP)
 
 Bgcolor_menu = Menu(mein_menu,tearoff=False)
