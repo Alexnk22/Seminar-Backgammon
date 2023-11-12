@@ -205,8 +205,8 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
 
   
 def Würfel_wurf():
-    global Pos21, Pos22, Pos1, movecounter, Pass, move_list1, move_list2, würfel_list1,würfel_list2
-
+    global Pos21, Pos22, Pos1, movecounter, Pass, move_list1, move_list2, würfel_list1,würfel_list2, xx
+    xx = 0
     if ((Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True) and movecounter != 0:
         if movecounter == 1:
             movecounter = 2
