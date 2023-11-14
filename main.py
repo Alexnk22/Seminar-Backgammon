@@ -818,8 +818,9 @@ def fish_moves():
 
 
 def AI_move():
+    global Pos1, Pos2, Pos3, Pos4, xx, c, movecounter, Pass
     if movecounter % 2 != 0:
-        global Pos1, Pos2, Pos3, Pos4, xx, c
+        
         if Red_winning_pos == False:
             if Red_Cap_Piece == 0:
                 if xx == 0 or xx == 2:
@@ -935,6 +936,9 @@ def AI_move():
             if Würfel1[0] == Würfel2[0] and c == 0:
                 c = 1
                 fish_moves()
+    
+    #movecounter = 2
+
             
             
     
