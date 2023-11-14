@@ -817,78 +817,118 @@ def fish_moves():
 
 def AI_move():
     if movecounter % 2 != 0:
-        global Pos1, Pos2, Pos3, xx
-        if Red_Cap_Piece == 0:
-            if xx == 0 or xx == 2:
-                print("hallo")
-                i = random.randint(1,len(moves1))
-                Pos1 = moves1[i-1]+Würfel1[0]
-                Pos2 = moves1[i-1]
-                set_possibel_pos()
-                move()
-            u = random.randint(1,len(moves2))
-            Pos1 = moves2[u-1]+Würfel2[0]
-            Pos2 = moves2[u-1]
-            set_possibel_pos()
-            move()
-            if Würfel1[0] == Würfel2[0] and xx != 2 and xx != 3:
-                print("hallo")
-                i = random.randint(1,len(moves1))
-                Pos1 = moves1[i-1]+Würfel1[0]
-                Pos2 = moves1[i-1]
-                set_possibel_pos()
-                move()
+        global Pos1, Pos2, Pos3, Pos4, xx
+        if Red_winning_pos == False:
+            if Red_Cap_Piece == 0:
+                if xx == 0 or xx == 2:
+                    print("hallo")
+                    i = random.randint(1,len(moves1))
+                    Pos1 = moves1[i-1]+Würfel1[0]
+                    Pos2 = moves1[i-1]
+                    set_possibel_pos()
+                    move()
                 u = random.randint(1,len(moves2))
                 Pos1 = moves2[u-1]+Würfel2[0]
                 Pos2 = moves2[u-1]
                 set_possibel_pos()
                 move()
-        if Red_Cap_Piece != 0:
-            Pos3 = 1
-            i = random.randint(1,len(moves1))
-            Pos1 = moves1[i-1]+Würfel1[0]
-            Pos2 = moves1[i-1]
-            set_Cap_possible_pos()
-            move()
-            if Red_Cap_Piece != 0:
+                if Würfel1[0] == Würfel2[0] and xx != 2 and xx != 3:
+                    print("hallo")
+                    i = random.randint(1,len(moves1))
+                    Pos1 = moves1[i-1]+Würfel1[0]
+                    Pos2 = moves1[i-1]
+                    set_possibel_pos()
+                    move()
+                    u = random.randint(1,len(moves2))
+                    Pos1 = moves2[u-1]+Würfel2[0]
+                    Pos2 = moves2[u-1]
+                    set_possibel_pos()
+                    move()
+            else:
                 Pos3 = 1
-                u = random.randint(1,len(moves2))
-                Pos1 = moves2[u-1]+Würfel2[0]
-                Pos2 = moves2[u-1]
-                set_Cap_possible_pos()   
+                i = random.randint(1,len(moves1))
+                Pos1 = moves1[i-1]+Würfel1[0]
+                Pos2 = moves1[i-1]
+                set_Cap_possible_pos()
                 move()
-                if Würfel1[0] == Würfel2[0]:
-                    if Red_Cap_Piece != 0:
-                        Pos3 = 1
-                        i = random.randint(1,len(moves1))
-                        Pos1 = moves1[i-1]+Würfel1[0]
-                        Pos2 = moves1[i-1]
-                        set_Cap_possible_pos()
-                        move()
+                if Red_Cap_Piece != 0:
+                    Pos3 = 1
+                    u = random.randint(1,len(moves2))
+                    Pos1 = moves2[u-1]+Würfel2[0]
+                    Pos2 = moves2[u-1]
+                    set_Cap_possible_pos()   
+                    move()
+                    if Würfel1[0] == Würfel2[0]:
                         if Red_Cap_Piece != 0:
                             Pos3 = 1
-                            u = random.randint(1,len(moves2))
-                            Pos1 = moves2[u-1]+Würfel2[0]
-                            Pos2 = moves2[u-1]
-                            set_Cap_possible_pos()   
+                            i = random.randint(1,len(moves1))
+                            Pos1 = moves1[i-1]+Würfel1[0]
+                            Pos2 = moves1[i-1]
+                            set_Cap_possible_pos()
                             move()
-                            #geht bis max 4 geschlagene steine 
+                            if Red_Cap_Piece != 0:
+                                Pos3 = 1
+                                u = random.randint(1,len(moves2))
+                                Pos1 = moves2[u-1]+Würfel2[0]
+                                Pos2 = moves2[u-1]
+                                set_Cap_possible_pos()   
+                                move()
+                                #geht bis max 4 geschlagene steine 
+                            else:
+                                xx = 3
+                                moves1.clear()
+                                moves2.clear()
+                                fish_moves()
                         else:
-                            xx = 3
+                            xx = 2
                             moves1.clear()
                             moves2.clear()
                             fish_moves()
-                    else:
-                        xx = 2
-                        moves1.clear()
-                        moves2.clear()
-                        fish_moves()
+                else:
+                    print("haaalo")
+                    xx = 1
+                    moves1.clear()
+                    moves2.clear()
+                    fish_moves()
+        else:
+            i = random.randint(1,len(moves1))
+            if moves1[i-1] == 0:
+                if difficulty == 1: 
+                    for u in range (7):
+                        if spielfeld2[u] != 0:
+                            spielfeld2[u] = spielfeld2[u]-1
+                            Ratios()
+                            move()
+                            break
+                elif difficulty == 2 or difficulty == 3:
+                    spielfeld2[int(Würfel1[0])-1] = spielfeld2[int(Würfel1[0])-1]-1
+                    Ratios()
+                    move()
             else:
-                print("haaalo")
-                xx = 1
-                moves1.clear()
-                moves2.clear()
-                fish_moves()
+                Pos1 = moves1[i-1]+Würfel1[0]
+                Pos2 = moves1[i-1]
+                set_possibel_pos()
+                move()
+
+
+            i = random.randint(1,len(moves2))
+            if moves2[i-1] == 0:
+                if difficulty == 1: 
+                    for u in range (7):
+                        if spielfeld2[u] != 0:
+                            spielfeld2[u] = spielfeld2[u]-1
+                            Ratios()
+                            move()
+                            break
+                elif difficulty == 2 or difficulty == 3:
+                    spielfeld2[int(Würfel2[0])-1] = spielfeld2[int(Würfel2[0])-1]-1
+                    Ratios()
+                    move()
+            else:
+                Pos1 = moves2[i-1]+Würfel2[0]
+                Pos2 = moves2[i-1]
+                set_possibel_pos()
+                move()
             
             
     
