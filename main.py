@@ -29,6 +29,7 @@ Pass=False
 Red_Cap_Piece = 0
 White_Cap_Piece = 0
 xx = 0
+c = 0
 colorbeginning = 0
 root = Tk()
 
@@ -205,8 +206,9 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
 
   
 def Würfel_wurf():
-    global Pos21, Pos22, Pos1, movecounter, Pass, move_list1, move_list2, würfel_list1,würfel_list2, xx
+    global Pos21, Pos22, Pos1, movecounter, Pass, move_list1, move_list2, würfel_list1,würfel_list2, xx, c
     xx = 0
+    c = 0
     if ((Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True) and movecounter != 0:
         if movecounter == 1:
             movecounter = 2
@@ -817,7 +819,7 @@ def fish_moves():
 
 def AI_move():
     if movecounter % 2 != 0:
-        global Pos1, Pos2, Pos3, Pos4, xx
+        global Pos1, Pos2, Pos3, Pos4, xx, c
         if Red_winning_pos == False:
             if Red_Cap_Piece == 0:
                 if xx == 0 or xx == 2:
@@ -929,6 +931,10 @@ def AI_move():
                 Pos2 = moves2[i-1]
                 set_possibel_pos()
                 move()
+
+            if Würfel1[0] == Würfel2[0] and c == 0:
+                c = 1
+                fish_moves()
             
             
     
