@@ -43,13 +43,13 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]   
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    
-spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
+#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    
-spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
+#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
 
 
-#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   5,5,1,0,0,1]
-#spielfeld2 = [0,5,2,2,2,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,3,0,0,1]
+spielfeld2 = [0,5,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -98,22 +98,27 @@ def Feld(Ratio):
     
 
 def win_progress(Ratio):
-    # zeigt durch einen block die gewinnpos an (soll schöner werden)
     if White_winning_pos == True:
-        canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio, fill="darkorange4",width=2)
-        canvas.create_rectangle(810* Ratio,90 * Ratio,865 * Ratio,265 * Ratio, fill="goldenrod",width=2)
+        canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,295 * Ratio, fill="darkorange4",width=2)
+        canvas.create_rectangle(810* Ratio,90 * Ratio,865 * Ratio,285 * Ratio, fill="goldenrod",width=2)
 
-        for i in range (12-sum(spielfeld1)):
-            u = 1 if i > 5 else 0
-            canvas.create_oval((810+u*27.5)*Ratio,((90+i*27.5)- u*27.5*6)*Ratio,(837.5+u*27.5)*Ratio,((117.5+i*27.5)- u*27.5*6)*Ratio, fill="white")
+        for i in range (15-sum(spielfeld1)):
+            u = 1 if i > 6 else 0
+            if i < 14:
+                canvas.create_oval((810+u*27.5)*Ratio,((90+i*27.5)- u*27.5*7)*Ratio,(837.5+u*27.5)*Ratio,((117.5+i*27.5)- u*27.5*7)*Ratio, fill="white")
+            if i == 14:
+                canvas.create_rectangle(810* Ratio,90 * Ratio,865 * Ratio,285 * Ratio, fill="white")
             
     if Red_winning_pos == True:
-        canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, fill="darkorange4",width=2)
-        canvas.create_rectangle(810* Ratio,460 * Ratio,865 * Ratio,635 * Ratio, fill="goldenrod",width=2)
+        canvas.create_rectangle(800* Ratio,430 * Ratio,875 * Ratio,645 * Ratio, fill="darkorange4",width=2)
+        canvas.create_rectangle(810* Ratio,440 * Ratio,865 * Ratio,635 * Ratio, fill="goldenrod",width=2)
 
-        for i in range (12-sum(spielfeld2)):
-            u = 1 if i > 5 else 0
-            canvas.create_oval((810+u*27.5)*Ratio,((607.5-i*27.5)+ u*27.5*6)*Ratio,(837.5+u*27.5)*Ratio,((635-i*27.5)+ u*27.5*6)*Ratio, fill="maroon")
+        for i in range (15-sum(spielfeld2)):
+            u = 1 if i > 6 else 0
+            if i < 14:
+                canvas.create_oval((810+u*27.5)*Ratio,((607.5-i*27.5)+ u*27.5*7)*Ratio,(837.5+u*27.5)*Ratio,((635-i*27.5)+ u*27.5*7)*Ratio, fill="maroon")
+            if i == 14:
+                canvas.create_rectangle(810* Ratio,460 * Ratio,865 * Ratio,635 * Ratio, fill="maroon")
 
 
 def Figuren(Ratio, spielfeld, farbe,verschiebung):
@@ -383,19 +388,19 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
 
     if difficulty == 1:
         if White_winning_pos == True and (Pos21 > 24 or Pos22 > 24)and Pos1 != 0 and movecounter % 2 == 0:
-            canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio,outline="yellow",width=4)
+            canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,295 * Ratio,outline="yellow",width=4)
             # zeigt das eine weiße figur rausfahren kann 
             Pos4 = 1
         elif Red_winning_pos == True and ( -6 < Pos21 < 1 or -6 < Pos22 < 1) and Pos1 != 0 and movecounter % 2 != 0:    
-            canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
+            canvas.create_rectangle(800* Ratio,430 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
             Pos4 = 2
     elif difficulty == 2 or difficulty == 3:
         if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25)and Pos1 != 0 and movecounter % 2 == 0:
-            canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,275 * Ratio,outline="yellow",width=4)
+            canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,295 * Ratio,outline="yellow",width=4)
             # zeigt das eine weiße figur rausfahren kann 
             Pos4 = 1
         elif Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
-            canvas.create_rectangle(800* Ratio,450 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
+            canvas.create_rectangle(800* Ratio,430 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
             Pos4 = 2
 
 
@@ -737,7 +742,6 @@ def fish_moves():
                             if (spielfeld2[Würfel2[0]+i] == 0 or spielfeld2[Würfel2[0]+i] == 1):
                                 moves2.append(Würfel2[0]+i+1)
             elif White_winning_pos == True and difficulty == 1:
-                #!!! wenn stein auf 24 ist wird 25 nur einmal aufgefühlt(warscheinlich weil es beim letzten mal nicht nocheinnal durch die liste geht)
                 for i in range (24):
                     if spielfeld1[i] != 0:
                         if Würfel1[0]+i+1 < 25:
@@ -932,7 +936,7 @@ def AI_move():
             if Würfel1[0] == Würfel2[0] and c == 0:
                 c = 1
                 fish_moves()
-    movecounter = 2
+    #movecounter = 2
 
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
