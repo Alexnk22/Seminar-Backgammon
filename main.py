@@ -910,7 +910,6 @@ def AI_move():
                 set_possibel_pos()
                 move()
 
-
             i = random.randint(1,len(moves2))
             if moves2[i-1] == 0:
                 if difficulty == 1: 
@@ -933,13 +932,7 @@ def AI_move():
             if Würfel1[0] == Würfel2[0] and c == 0:
                 c = 1
                 fish_moves()
-    
     movecounter = 2
-
-            
-            
-    
-
 
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
