@@ -824,7 +824,6 @@ def AI_move():
         if Red_winning_pos == False:
             if Red_Cap_Piece == 0:
                 if xx == 0 or xx == 2:
-                    print("hallo")
                     i = random.randint(1,len(moves1))
                     Pos1 = moves1[i-1]+Würfel1[0]
                     Pos2 = moves1[i-1]
@@ -836,7 +835,6 @@ def AI_move():
                 set_possibel_pos()
                 move()
                 if Würfel1[0] == Würfel2[0] and xx != 2 and xx != 3:
-                    print("hallo")
                     i = random.randint(1,len(moves1))
                     Pos1 = moves1[i-1]+Würfel1[0]
                     Pos2 = moves1[i-1]
@@ -888,7 +886,6 @@ def AI_move():
                             moves2.clear()
                             fish_moves()
                 else:
-                    print("haaalo")
                     xx = 1
                     moves1.clear()
                     moves2.clear()
@@ -937,7 +934,7 @@ def AI_move():
                 c = 1
                 fish_moves()
     
-    #movecounter = 2
+    movecounter = 2
 
             
             
