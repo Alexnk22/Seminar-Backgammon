@@ -820,45 +820,63 @@ def fish_moves():
         print(moves1)
         AI_move()
 
+ai_difficulty = 1
 
 def AI_move():
     global Pos1, Pos2, Pos3, Pos4, xx, c, movecounter, Pass
     if movecounter % 2 != 0:
-        
         if Red_winning_pos == False:
             if Red_Cap_Piece == 0:
                 if xx == 0 or xx == 2:
-                    i = random.randint(1,len(moves1))
+                    if ai_difficulty == 1:
+                        i = random.randint(1,len(moves1))
+                    elif ai_difficulty == 2:
+                        pass
                     Pos1 = moves1[i-1]+Würfel1[0]
                     Pos2 = moves1[i-1]
                     set_possibel_pos()
                     move()
-                u = random.randint(1,len(moves2))
+                if ai_difficulty == 1:
+                    u = random.randint(1,len(moves2))
+                elif ai_difficulty == 2:
+                    pass
                 Pos1 = moves2[u-1]+Würfel2[0]
                 Pos2 = moves2[u-1]
                 set_possibel_pos()
                 move()
                 if Würfel1[0] == Würfel2[0] and xx != 2 and xx != 3:
-                    i = random.randint(1,len(moves1))
+                    if ai_difficulty == 1:
+                        i = random.randint(1,len(moves1))
+                    elif ai_difficulty == 2:
+                        pass
                     Pos1 = moves1[i-1]+Würfel1[0]
                     Pos2 = moves1[i-1]
                     set_possibel_pos()
                     move()
-                    u = random.randint(1,len(moves2))
+                    if ai_difficulty == 1:
+                        u = random.randint(1,len(moves2))
+                    elif ai_difficulty == 2:
+                        pass
                     Pos1 = moves2[u-1]+Würfel2[0]
                     Pos2 = moves2[u-1]
                     set_possibel_pos()
                     move()
             else:
                 Pos3 = 1
-                i = random.randint(1,len(moves1))
+                if ai_difficulty == 1:
+                    i = random.randint(1,len(moves1))
+                elif ai_difficulty == 2:
+                    pass
                 Pos1 = moves1[i-1]+Würfel1[0]
                 Pos2 = moves1[i-1]
                 set_Cap_possible_pos()
                 move()
                 if Red_Cap_Piece != 0:
                     Pos3 = 1
-                    u = random.randint(1,len(moves2))
+                    if ai_difficulty == 1:
+                        u = random.randint(1,len(moves2))
+                    elif ai_difficulty == 2:
+                        pass
                     Pos1 = moves2[u-1]+Würfel2[0]
                     Pos2 = moves2[u-1]
                     set_Cap_possible_pos()   
@@ -866,14 +884,20 @@ def AI_move():
                     if Würfel1[0] == Würfel2[0]:
                         if Red_Cap_Piece != 0:
                             Pos3 = 1
-                            i = random.randint(1,len(moves1))
+                            if ai_difficulty == 1:
+                                i = random.randint(1,len(moves1))
+                            elif ai_difficulty == 2:
+                                pass
                             Pos1 = moves1[i-1]+Würfel1[0]
                             Pos2 = moves1[i-1]
                             set_Cap_possible_pos()
                             move()
                             if Red_Cap_Piece != 0:
                                 Pos3 = 1
-                                u = random.randint(1,len(moves2))
+                                if ai_difficulty == 1:
+                                    u = random.randint(1,len(moves2))
+                                elif ai_difficulty == 2:
+                                    pass
                                 Pos1 = moves2[u-1]+Würfel2[0]
                                 Pos2 = moves2[u-1]
                                 set_Cap_possible_pos()   
@@ -895,7 +919,10 @@ def AI_move():
                     moves2.clear()
                     fish_moves()
         else:
-            i = random.randint(1,len(moves1))
+            if ai_difficulty == 1:
+                i = random.randint(1,len(moves1))
+            elif ai_difficulty == 2:
+                pass
             if moves1[i-1] == 0:
                 if difficulty == 1: 
                     for u in range (7):
@@ -913,8 +940,10 @@ def AI_move():
                 Pos2 = moves1[i-1]
                 set_possibel_pos()
                 move()
-
-            i = random.randint(1,len(moves2))
+            if ai_difficulty == 1:
+                i = random.randint(1,len(moves2))
+            elif ai_difficulty == 2:
+                pass
             if moves2[i-1] == 0:
                 if difficulty == 1: 
                     for u in range (7):
@@ -937,6 +966,9 @@ def AI_move():
                 c = 1
                 fish_moves()
     #movecounter = 2
+
+
+
 
 mein_menu = Menu(root)
 root.config(menu=mein_menu)
