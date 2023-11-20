@@ -773,8 +773,7 @@ def fish_moves():
                 moves1.append(Würfel1[0])
             if(spielfeld2[Würfel2[0]-1] == 0 or spielfeld2[Würfel2[0]-1] == 1):
                 moves2.append(Würfel2[0])
-        print(moves2)
-        print(moves1)
+
     else:
         if Red_Cap_Piece == 0:
             if Red_winning_pos == False:
@@ -817,8 +816,7 @@ def fish_moves():
                 moves1.append(25-Würfel1[0])
             if(spielfeld1[24-Würfel2[0]] == 0 or spielfeld1[24-Würfel2[0]] == 1):
                 moves2.append(25-Würfel2[0])
-        print(moves2)
-        print(moves1)
+
         if c == 0:
             if ai_difficulty == 1:
                 if len(moves1) != 0:
@@ -920,7 +918,8 @@ def AI_move_W2(i):
         fish_moves()
 
 def pick_move_ai2():
-    pass 
+    print(moves1)
+    print(moves2)
     # soll am ende AI_move(i) aufrufen 
 
 
