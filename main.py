@@ -601,12 +601,16 @@ def key(event):
         Back_move()
 
 def File():
-    global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22, Pos3, Pos4
+    global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22, Pos3, Pos4, White_Cap_Piece, Red_Cap_Piece, Red_winning_pos, White_winning_pos
     if movecounter != 0:
         spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    #black
         spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    #white
         movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 1, 0, 0, 0, 0, [0]*24,
         Pos1, Pos2, Pos21, Pos22, Pos3, Pos4 = 0, 0, -7, -7, 0, 0
+        Red_Cap_Piece = 0
+        White_Cap_Piece = 0
+        Red_winning_pos = False
+        White_winning_pos = False
         Würfel1, Würfel2 = [7,7], [7,8]
         mein_menu.entryconfig("Starter", state="normal")
         Ratios()
