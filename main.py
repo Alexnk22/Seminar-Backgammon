@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import random
+ai_difficulty = 1
 AI = 0
 movecounter = 1
 TOPorBOT = 0 
@@ -819,88 +820,98 @@ def fish_moves():
         print(moves2)
         print(moves1)
         if c == 0:
-            if len(moves1) != 0:
-                AI_move_W1()
-            else:
-                pass
+            if ai_difficulty == 1:
+                if len(moves1) != 0:
+                    i = random.randint(1,len(moves1))
+
+                AI_move_W1(i)
+            elif ai_difficulty == 2:
+                pick_move_ai2()
+
         elif c == 1:
-            if len(moves2) != 0:
-                AI_move_W2()
-            else:
-                pass
+            if ai_difficulty == 1:
+                if len(moves2) != 0:
+                    i = random.randint(1,len(moves2))
 
-ai_difficulty = 1
+                AI_move_W2(i)
+            elif ai_difficulty == 2:
+                pick_move_ai2()
 
-def AI_move_W1():
+
+
+
+def AI_move_W1(i):
     global Pos1, Pos2, Pos3, Pos4, xx, c, movecounter, Pass
-    i = random.randint(1,len(moves1))
-    if Red_Cap_Piece == 0 and Red_winning_pos == False:
-        Pos1 = moves1[i-1]+Würfel1[0]
-        Pos2 = moves1[i-1]
-        set_possibel_pos()
-        move()
-    elif Red_Cap_Piece != 0 and Red_winning_pos == False:
-        Pos3 = 1
-        Pos1 = moves1[i-1]+Würfel1[0]
-        Pos2 = moves1[i-1]
-        set_Cap_possible_pos()
-        move()
-    elif Red_Cap_Piece == 0 and Red_winning_pos == True:
-        if moves1[i-1] == 0:
-            if difficulty == 1: 
-                for u in range (7):
-                    if spielfeld2[u] != 0:
-                        spielfeld2[u] = spielfeld2[u]-1
-                        Ratios()
-                        move()
-                        break
-            elif difficulty == 2 or difficulty == 3:
-                spielfeld2[int(Würfel1[0])-1] = spielfeld2[int(Würfel1[0])-1]-1
-                Ratios()
-                move()
-        else:
+    if len(moves1) != 0:
+        
+        if Red_Cap_Piece == 0 and Red_winning_pos == False:
             Pos1 = moves1[i-1]+Würfel1[0]
             Pos2 = moves1[i-1]
             set_possibel_pos()
             move()
+        elif Red_Cap_Piece != 0 and Red_winning_pos == False:
+            Pos3 = 1
+            Pos1 = moves1[i-1]+Würfel1[0]
+            Pos2 = moves1[i-1]
+            set_Cap_possible_pos()
+            move()
+        elif Red_Cap_Piece == 0 and Red_winning_pos == True:
+            if moves1[i-1] == 0:
+                if difficulty == 1: 
+                    for u in range (7):
+                        if spielfeld2[u] != 0:
+                            spielfeld2[u] = spielfeld2[u]-1
+                            Ratios()
+                            move()
+                            break
+                elif difficulty == 2 or difficulty == 3:
+                    spielfeld2[int(Würfel1[0])-1] = spielfeld2[int(Würfel1[0])-1]-1
+                    Ratios()
+                    move()
+            else:
+                Pos1 = moves1[i-1]+Würfel1[0]
+                Pos2 = moves1[i-1]
+                set_possibel_pos()
+                move()
     c = 1 
     moves1.clear()
     moves2.clear()
     fish_moves()
     
 
-def AI_move_W2():
+def AI_move_W2(i):
     global Pos1, Pos2, Pos3, Pos4, xx, c, movecounter, Pass
-    i = random.randint(1,len(moves2))
-    if Red_Cap_Piece == 0 and Red_winning_pos == False:
-        Pos1 = moves2[i-1]+Würfel2[0]
-        Pos2 = moves2[i-1]
-        set_possibel_pos()
-        move()
-    if Red_Cap_Piece != 0 and Red_winning_pos == False:
-        Pos3 = 1 
-        Pos1 = moves2[i-1]+Würfel2[0]
-        Pos2 = moves2[i-1]
-        set_Cap_possible_pos()   
-        move()
-    if Red_Cap_Piece == 0 and Red_winning_pos == True:
-        if moves2[i-1] == 0:
-            if difficulty == 1: 
-                for u in range (7):
-                    if spielfeld2[u] != 0:
-                        spielfeld2[u] = spielfeld2[u]-1
-                        Ratios()
-                        move()
-                        break
-            elif difficulty == 2 or difficulty == 3:
-                spielfeld2[int(Würfel2[0])-1] = spielfeld2[int(Würfel2[0])-1]-1
-                Ratios()
-                move()
-        else:
+    if len(moves2) != 0:
+    
+        if Red_Cap_Piece == 0 and Red_winning_pos == False:
             Pos1 = moves2[i-1]+Würfel2[0]
             Pos2 = moves2[i-1]
             set_possibel_pos()
             move()
+        if Red_Cap_Piece != 0 and Red_winning_pos == False:
+            Pos3 = 1 
+            Pos1 = moves2[i-1]+Würfel2[0]
+            Pos2 = moves2[i-1]
+            set_Cap_possible_pos()   
+            move()
+        if Red_Cap_Piece == 0 and Red_winning_pos == True:
+            if moves2[i-1] == 0:
+                if difficulty == 1: 
+                    for u in range (7):
+                        if spielfeld2[u] != 0:
+                            spielfeld2[u] = spielfeld2[u]-1
+                            Ratios()
+                            move()
+                            break
+                elif difficulty == 2 or difficulty == 3:
+                    spielfeld2[int(Würfel2[0])-1] = spielfeld2[int(Würfel2[0])-1]-1
+                    Ratios()
+                    move()
+            else:
+                Pos1 = moves2[i-1]+Würfel2[0]
+                Pos2 = moves2[i-1]
+                set_possibel_pos()
+                move()
     if Würfel1[0] == Würfel2[0] and xx == 0:
         moves1.clear()
         moves2.clear()
@@ -908,6 +919,9 @@ def AI_move_W2():
         xx = 1
         fish_moves()
 
+def pick_move_ai2():
+    pass 
+    # soll am ende AI_move(i) aufrufen 
 
 
 mein_menu = Menu(root)
