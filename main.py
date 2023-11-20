@@ -833,23 +833,19 @@ ai_difficulty = 1
 
 def AI_move_W1():
     global Pos1, Pos2, Pos3, Pos4, xx, c, movecounter, Pass
+    i = random.randint(1,len(moves1))
     if Red_Cap_Piece == 0 and Red_winning_pos == False:
-        i = random.randint(1,len(moves1))
         Pos1 = moves1[i-1]+Würfel1[0]
         Pos2 = moves1[i-1]
         set_possibel_pos()
         move()
-    
     elif Red_Cap_Piece != 0 and Red_winning_pos == False:
         Pos3 = 1
-        i = random.randint(1,len(moves1))
         Pos1 = moves1[i-1]+Würfel1[0]
         Pos2 = moves1[i-1]
         set_Cap_possible_pos()
         move()
-    
     elif Red_Cap_Piece == 0 and Red_winning_pos == True:
-        i = random.randint(1,len(moves1))
         if moves1[i-1] == 0:
             if difficulty == 1: 
                 for u in range (7):
@@ -868,26 +864,26 @@ def AI_move_W1():
             set_possibel_pos()
             move()
     c = 1 
+    moves1.clear()
+    moves2.clear()
     fish_moves()
     
 
 def AI_move_W2():
     global Pos1, Pos2, Pos3, Pos4, xx, c, movecounter, Pass
+    i = random.randint(1,len(moves2))
     if Red_Cap_Piece == 0 and Red_winning_pos == False:
-        u = random.randint(1,len(moves2))
-        Pos1 = moves2[u-1]+Würfel2[0]
-        Pos2 = moves2[u-1]
+        Pos1 = moves2[i-1]+Würfel2[0]
+        Pos2 = moves2[i-1]
         set_possibel_pos()
         move()
     if Red_Cap_Piece != 0 and Red_winning_pos == False:
         Pos3 = 1 
-        u = random.randint(1,len(moves2))
-        Pos1 = moves2[u-1]+Würfel2[0]
-        Pos2 = moves2[u-1]
+        Pos1 = moves2[i-1]+Würfel2[0]
+        Pos2 = moves2[i-1]
         set_Cap_possible_pos()   
         move()
     if Red_Cap_Piece == 0 and Red_winning_pos == True:
-        i = random.randint(1,len(moves2))
         if moves2[i-1] == 0:
             if difficulty == 1: 
                 for u in range (7):
@@ -906,6 +902,8 @@ def AI_move_W2():
             set_possibel_pos()
             move()
     if Würfel1[0] == Würfel2[0] and xx == 0:
+        moves1.clear()
+        moves2.clear()
         c = 0
         xx = 1
         fish_moves()
