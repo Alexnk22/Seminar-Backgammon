@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import random
-ai_difficulty = 1
+ai_difficulty = 2
 AI = 0
 movecounter = 1
 TOPorBOT = 0 
@@ -828,7 +828,7 @@ def fish_moves():
 
                 AI_move_W1(i)
             elif ai_difficulty == 2:
-                pick_move_ai2()
+                pick_move_ai2(1)
 
         elif c == 1:
             if ai_difficulty == 1:
@@ -837,7 +837,7 @@ def fish_moves():
 
                 AI_move_W2(i)
             elif ai_difficulty == 2:
-                pick_move_ai2()
+                pick_move_ai2(2)
 
 
 
@@ -921,9 +921,28 @@ def AI_move_W2(i):
         xx = 1
         fish_moves()
 
-def pick_move_ai2():
+def pick_move_ai2(W):
+    global spielfeld2, c, xx 
     print(moves1)
     print(moves2)
+    if W == 1:
+        for i in reversed(range(len(moves1))):
+            if spielfeld2[int(moves1[i])-1] != 0: 
+                AI_move_W1(int(i+1))
+                break
+            if i == 0:
+                c = 1 
+                moves1.clear()
+                moves2.clear()
+                fish_moves()
+                break
+                
+    elif W == 2:
+        for i in reversed(range(len(moves2))):  
+            if spielfeld2[int(moves2[i])-1] != 0: 
+                AI_move_W2(int(i+1))
+                break
+    
     # soll am ende AI_move(i) aufrufen 
 
 
