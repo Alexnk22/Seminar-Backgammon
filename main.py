@@ -145,47 +145,49 @@ def Figuren(Ratio, spielfeld, farbe,verschiebung):
 
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass, regelcounter
-    Pos21, Pos22, Pos3, Pos4 = -7, -7, 0, 0
-    spielfeld3 = [0] * 24
-    if root.winfo_width() < root.winfo_height():
-        Ratio = root.winfo_width()/900         
-    else:
-        Ratio = root.winfo_height()/900
-    for i in range (1,13):
-        r = 50 if i > 6 else 0
-        if (event.x/Ratio-27-r)//52 == i:
-            Dreieck = i
-    if   0 < (event.y/Ratio-75) < 250:
-        TOPorBOT = 2    #oben
-    elif 325 < (event.y/Ratio-75) < 575:
-        TOPorBOT = 1    #unten
-    else:
-        TOPorBOT = 0
-    # erstellt Pos1 für alle normalen züge 
-    if (int(TOPorBOT) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 442.5 < event.x / Ratio < 760) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0) :
-        Pos1 = 13 - int(Dreieck) if TOPorBOT == 1 else int(Dreieck) + 12
-        Pos3 = 0
-        Ratios()        
-        set_possibel_pos()
-    # erstellt Pos1 wenn figuren geschlagen sind(entsprechend bei 0 anfangen müssen)
-    elif ((392.5< event.x / Ratio < 442.5) and (290 < event.y / Ratio < 340) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)) or ((392.5 < event.x / Ratio < 442.5) and (350 < event.y / Ratio < 400) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)):
-        Pos1 = -2
-        Pos3 = 1 if movecounter % 2 != 0 else 2
-        Ratios()
-        set_Cap_possible_pos()
-        if Pos3 == 1:
-            canvas.create_oval(392.5 * Ratio, 290 * Ratio, 442.5 * Ratio, 340 * Ratio, outline="blue", width=4)
+    if AI == 0 or (AI == 1 and movecounter %2 == 0):
+
+        Pos21, Pos22, Pos3, Pos4 = -7, -7, 0, 0
+        spielfeld3 = [0] * 24
+        if root.winfo_width() < root.winfo_height():
+            Ratio = root.winfo_width()/900         
         else:
-            canvas.create_oval(392.5 * Ratio, 350 * Ratio, 442.5 * Ratio, 400 * Ratio, outline="green", width=4)
-    else:
-        Pos1,Pos2 = 0, 0
-        Ratios()
-    if regelcounter == 1 and  0 < event.x < 55 and 0 < event.y < 55: 
-        canvas.create_rectangle(0,0,40,40,fill="red")
-        regelcounter = 0
-        Ratios()
-    else:
-        pass
+            Ratio = root.winfo_height()/900
+        for i in range (1,13):
+            r = 50 if i > 6 else 0
+            if (event.x/Ratio-27-r)//52 == i:
+                Dreieck = i
+        if   0 < (event.y/Ratio-75) < 250:
+            TOPorBOT = 2    #oben
+        elif 325 < (event.y/Ratio-75) < 575:
+            TOPorBOT = 1    #unten
+        else:
+            TOPorBOT = 0
+        # erstellt Pos1 für alle normalen züge 
+        if (int(TOPorBOT) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 442.5 < event.x / Ratio < 760) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0) :
+            Pos1 = 13 - int(Dreieck) if TOPorBOT == 1 else int(Dreieck) + 12
+            Pos3 = 0
+            Ratios()        
+            set_possibel_pos()
+        # erstellt Pos1 wenn figuren geschlagen sind(entsprechend bei 0 anfangen müssen)
+        elif ((392.5< event.x / Ratio < 442.5) and (290 < event.y / Ratio < 340) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)) or ((392.5 < event.x / Ratio < 442.5) and (350 < event.y / Ratio < 400) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)):
+            Pos1 = -2
+            Pos3 = 1 if movecounter % 2 != 0 else 2
+            Ratios()
+            set_Cap_possible_pos()
+            if Pos3 == 1:
+                canvas.create_oval(392.5 * Ratio, 290 * Ratio, 442.5 * Ratio, 340 * Ratio, outline="blue", width=4)
+            else:
+                canvas.create_oval(392.5 * Ratio, 350 * Ratio, 442.5 * Ratio, 400 * Ratio, outline="green", width=4)
+        else:
+            Pos1,Pos2 = 0, 0
+            Ratios()
+        if regelcounter == 1 and  0 < event.x < 55 and 0 < event.y < 55: 
+            canvas.create_rectangle(0,0,40,40,fill="red")
+            regelcounter = 0
+            Ratios()
+        else:
+            pass
     
 
 
@@ -920,6 +922,7 @@ def AI_move_W2(i):
         c = 0
         xx = 1
         fish_moves()
+
 
 def pick_move_ai2(W):
     global spielfeld2, c, xx 
