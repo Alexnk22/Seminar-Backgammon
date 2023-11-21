@@ -44,13 +44,13 @@ canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]   
 #spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    
-spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
+#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
 #spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    
-spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
+#spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
 
 
-#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,3,0,0,1]
-#spielfeld2 = [0,5,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,3,0,0,1]
+spielfeld2 = [0,5,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -927,21 +927,40 @@ def pick_move_ai2(W):
     print(moves2)
     if W == 1:
         for i in reversed(range(len(moves1))):
-            if spielfeld2[int(moves1[i])-1] != 0: 
+            if moves1[0] == 0:
+                AI_move_W1(1)
+                break
+            elif spielfeld1[int(moves1[i])-1] == 1: 
                 AI_move_W1(int(i+1))
                 break
-            if i == 0:
-                c = 1 
-                moves1.clear()
-                moves2.clear()
-                fish_moves()
+            elif spielfeld2[int(moves1[i])-1] != 0: 
+                AI_move_W1(int(i+1))
                 break
+            elif i == 0:
+                i = len(moves1)
+                AI_move_W1(int(i))
+                break
+        if len(moves1) == 0:
+            AI_move_W1(10)
                 
     elif W == 2:
-        for i in reversed(range(len(moves2))):  
+        for i in reversed(range(len(moves2))): 
+            if moves2[0] == 0:
+                AI_move_W2(1)
+                break
+            if spielfeld1[int(moves2[i])-1] == 1: 
+                AI_move_W2(int(i+1))
+                break 
             if spielfeld2[int(moves2[i])-1] != 0: 
                 AI_move_W2(int(i+1))
                 break
+            if i == 0:
+                i = len(moves2)
+                AI_move_W2(int(i))
+                break
+        if len(moves2) == 0:
+            AI_move_W2(10)
+            
     
     # soll am ende AI_move(i) aufrufen 
 
