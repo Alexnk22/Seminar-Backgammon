@@ -26,7 +26,7 @@ regelcounter = 0
 difficulty = 2
 White_winning_pos = False
 Red_winning_pos = False
-Pass=False
+skip = False
 Red_Cap_Piece = 0
 White_Cap_Piece = 0
 xx = 0
@@ -43,14 +43,14 @@ canvas = Canvas(root,height=600, width=600)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]   
-spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    
+#spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    
 #spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
-spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    
+#spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    
 #spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,1       ,0,1,0,1,0,1,   0,1,0,1,0,1]    
 
 
-#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,3,0,0,1]
-#spielfeld2 = [0,5,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,3,0,0,1]
+spielfeld2 = [0,5,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -214,15 +214,16 @@ def mark_mouse_pos1 (Ratio,Pos1,spielfeld, farbe):
 
   
 def Würfel_wurf():
-    global Pos21, Pos22, Pos1, movecounter, Pass, move_list1, move_list2, würfel_list1,würfel_list2, xx, c
+    global Pos21, Pos22, Pos1, movecounter, Pass, move_list1, move_list2, würfel_list1,würfel_list2, xx, c, skip
     xx = 0
     c = 0
-    if ((Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or Pass == True) and movecounter != 0:
+    print(skip)
+    if ((Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] == 7 and Würfel2[0] == 7) or skip == True) and movecounter != 0:
         if movecounter == 1:
             movecounter = 2
+        if skip == True:
+            movecounter = movecounter + 1
         
-        #if Pass == False:
-        #    movecounter = movecounter + 1
         if Pos21 > 24:
             Pos21 = -7
         if Pos22 > 24:
@@ -244,12 +245,13 @@ def Würfel_wurf():
         move_list2.extend(spielfeld2) 
         würfel_list1.extend(Würfel1)
         würfel_list2.extend(Würfel2)
+        skip = False
         if AI == 1:    
             fish_moves()
         Ratios()
         disable_starter()
         disable_difficulty()
-        Pass = False
+        
 
    
 def show_Würfel(Ratio, würfel_list, ver):
@@ -532,6 +534,8 @@ def move():
                 Cap_Pieces(1)
     if Würfel1[0] == 0 and Würfel2[0] == 0:
         movecounter = movecounter +1
+        if AI == 1 and movecounter % 2 != 0:
+            Würfel_wurf()
 
     spielfeld3, Pos21, Pos22, Pos2, Pos1, Pos3, Pos4 = [0] * 24, -7, -7, 0, 0, 0, 0       
     Check_winning_pos()
@@ -586,10 +590,12 @@ def Back_move():
 def winner():
     if all(x == 0 for x in spielfeld1[18:25]) and White_winning_pos == True:
         messagebox.showinfo("", "Weiß Gewinnt")
-        root.quit
+        File()
+        
     if all(x == 0 for x in spielfeld2[:7]) and Red_winning_pos == True:
         messagebox.showinfo("", "Rot Gewinnt")
-        root.quit
+        File()
+        
 
 
 def key(event):
@@ -637,7 +643,7 @@ def Pass_turn():
         movecounter, Würfel1, Würfel2, Pos1, spielfeld3, Pos4 = movecounter + 1, [0,7], [0,8], 0, [0]*24, 0
         
         Ratios()
-        Pass = True
+        
     else:
         pass
 
@@ -645,6 +651,7 @@ def Check_winning_pos():
     global White_winning_pos, Red_winning_pos, spielfeld1, spielfeld2
     if all(x == 0 for x in spielfeld1[:18]) and White_Cap_Piece == 0:
         White_winning_pos = True
+        
     else:
         White_winning_pos = False
         
@@ -884,7 +891,7 @@ def AI_move_W1(i):
     
 
 def AI_move_W2(i):
-    global Pos1, Pos2, Pos3, Pos4, xx, c, movecounter, Pass
+    global Pos1, Pos2, Pos3, Pos4, xx, c, movecounter, Pass, Würfel1, Würfel2, skip
     if len(moves2) != 0:
     
         if Red_Cap_Piece == 0 and Red_winning_pos == False:
@@ -922,6 +929,9 @@ def AI_move_W2(i):
         c = 0
         xx = 1
         fish_moves()
+    print("hallo")
+    skip = True
+        
 
 
 def pick_move_ai2(W):
