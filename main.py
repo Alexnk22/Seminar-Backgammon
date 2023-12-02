@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 ai_difficulty = 2
-AI = 0
+AI = 1
 movecounter = 1
 TOPorBOT = 0 
 TOPorBOT2 = 0
@@ -242,6 +242,7 @@ def Würfel_wurf():
         moves2.clear()
         move_list1.extend(spielfeld1)
         move_list2.extend(spielfeld2) 
+        print(move_list1)
         würfel_list1.extend(Würfel1)
         würfel_list2.extend(Würfel2)
         skip = False
@@ -564,26 +565,71 @@ def show_Cap_Piece(Ratio):
             canvas.create_oval(392.5 * Ratio, (350 + 50 * 5) * Ratio, 442.5 * Ratio, (400 + 50 * 5) * Ratio, fill="white")
 
 def Back_move():
-        global spielfeld1, spielfeld2, move_list1, move_list2,spielfeld3, Würfel1, Würfel2, würfel_list1, würfel_list2, movecounter, backcounter,White_Cap_Piece,Red_Cap_Piece
-        if (Würfel1[0] != 0 and Würfel2[0] != 0):
-            move_list1 = move_list1[:-24]
-            move_list2 = move_list2[:-24]
-            würfel_list1 = würfel_list1[:-2]
-            würfel_list2 = würfel_list2[:-2]
-        if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] != 0 and Würfel2[0] != 0):
-            movecounter = movecounter - 1   
-        spielfeld1 = move_list1[-24:]
-        spielfeld2 = move_list2[-24:]
-        Würfel1 = würfel_list1[-2:]
-        Würfel2 = würfel_list2[-2:]
-        for i in range (12):
-            if 12-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
-                White_Cap_Piece = i
-            if 12-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
-                Red_Cap_Piece = i  
-        spielfeld3 = 24*[0]
-        Check_winning_pos()
-        Ratios()
+        global spielfeld1, AI, spielfeld2, skip, move_list1, move_list2,spielfeld3, Würfel1, Würfel2, würfel_list1, würfel_list2, movecounter, backcounter,White_Cap_Piece,Red_Cap_Piece
+        if movecounter != 0 and movecounter != 1:
+            if AI == 0:
+                if (Würfel1[0] != 0 and Würfel2[0] != 0):
+                    move_list1 = move_list1[:-24]
+                    move_list2 = move_list2[:-24]
+                    würfel_list1 = würfel_list1[:-2]
+                    würfel_list2 = würfel_list2[:-2]
+                if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] != 0 and Würfel2[0] != 0):
+                    movecounter = movecounter - 1   
+                spielfeld1 = move_list1[-24:]
+                spielfeld2 = move_list2[-24:]
+                Würfel1 = würfel_list1[-2:]
+                Würfel2 = würfel_list2[-2:]
+                for i in range (12):
+                    if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
+                        White_Cap_Piece = i
+                    if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
+                        Red_Cap_Piece = i  
+                spielfeld3 = 24*[0]
+                Check_winning_pos()
+                Ratios()
+            else:
+                if skip == True:
+                    move_list1 = move_list1[:-24]
+                    move_list2 = move_list2[:-24]
+                    würfel_list1 = würfel_list1[:-2]
+                    würfel_list2 = würfel_list2[:-2]
+                    spielfeld1 = move_list1[-24:]
+                    spielfeld2 = move_list2[-24:]
+                    Würfel1 = würfel_list1[-2:]
+                    Würfel2 = würfel_list2[-2:]
+                    movecounter = movecounter - 1 
+                    for i in range (12):
+                        if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
+                            White_Cap_Piece = i
+                        if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
+                            Red_Cap_Piece = i  
+                    spielfeld3 = 24*[0]
+                    skip = False
+                    Check_winning_pos()
+                    Ratios()
+                else:
+                    if movecounter > 2:
+                        move_list1 = move_list1[:-48]
+                        move_list2 = move_list2[:-48]
+                        würfel_list1 = würfel_list1[:-4]
+                        würfel_list2 = würfel_list2[:-4]
+                        spielfeld1 = move_list1[-24:]
+                        spielfeld2 = move_list2[-24:]
+                        Würfel1 = würfel_list1[-2:]
+                        Würfel2 = würfel_list2[-2:]
+                        movecounter = movecounter - 2
+                        for i in range (12):
+                            if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
+                                White_Cap_Piece = i
+                            if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
+                                Red_Cap_Piece = i  
+                        spielfeld3 = 24*[0]
+                        skip = False
+                        Check_winning_pos()
+                        Ratios()
+          
+                
+
 
 # überprüft ob keine steine mehr auf dem feld sind 
 def winner():
