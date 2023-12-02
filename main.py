@@ -608,25 +608,41 @@ def Back_move():
                     Check_winning_pos()
                     Ratios()
                 else:
-                    if movecounter > 2:
-                        move_list1 = move_list1[:-48]
-                        move_list2 = move_list2[:-48]
-                        würfel_list1 = würfel_list1[:-4]
-                        würfel_list2 = würfel_list2[:-4]
+
+                    if (Würfel1[0] == 0 and Würfel2[0] == 0) or (Würfel1[0] != 0 and Würfel2[0] != 0) and movecounter > 2:
+                        move_list1 = move_list1[:-24]
+                        move_list2 = move_list2[:-24]
+                        würfel_list1 = würfel_list1[:-2]
+                        würfel_list2 = würfel_list2[:-2]
                         spielfeld1 = move_list1[-24:]
                         spielfeld2 = move_list2[-24:]
                         Würfel1 = würfel_list1[-2:]
                         Würfel2 = würfel_list2[-2:]
-                        movecounter = movecounter - 2
+                        movecounter = movecounter - 1 
                         for i in range (12):
                             if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
                                 White_Cap_Piece = i
                             if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
                                 Red_Cap_Piece = i  
                         spielfeld3 = 24*[0]
-                        skip = False
+                        skip = True
+                        Back_move()
+
+                    else:
+                        spielfeld1 = move_list1[-24:]
+                        spielfeld2 = move_list2[-24:]
+                        Würfel1 = würfel_list1[-2:]
+                        Würfel2 = würfel_list2[-2:]
+                        for i in range (12):
+                            if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
+                                White_Cap_Piece = i
+                            if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
+                                Red_Cap_Piece = i  
+                        spielfeld3 = 24*[0]
+                        
                         Check_winning_pos()
                         Ratios()
+
           
                 
 
