@@ -46,10 +46,10 @@ canvas = Canvas(root,height=600, width=600)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]   
-#spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    
-spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
-#spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    
-spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,2       ,0,2,0,2,0,2,   0,2,0,2,0,2]    
+spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    
+#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
+spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    
+#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,2       ,0,2,0,2,0,2,   0,2,0,2,0,2]    
 
 
 #spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,3,0,0,1]
@@ -942,56 +942,39 @@ def AI_move_W2(i,moves,W):
             else:
                 skip = True 
 
-def pick_move_ai2():
-        global spielfeld2, c, xx, move1, move2, skip 
-        print(moves1)
-        print(moves2)
-        if len(moves1) != 0 and c == 0:
-            if ai_difficulty == 2:
-                for i in reversed(range(len(moves1))):
-                    if moves1[0] == 0:
-                        move1 = 1 
-                        break
-                    elif spielfeld1[int(moves1[i])-1] == 1: 
-                        move1 = i+1 
-                        break
-                    elif spielfeld2[int(moves1[i])-1] != 0: 
-                        move1 = i+1
-                        break
-                    elif i == 0:
-                        i = len(moves1)
-                        move1 = i
-                        break
-            elif ai_difficulty == 1:
-                move1 = random.randint(1,len(moves1))
-            c = 1 
-            AI_move_W2(move1,moves1,Würfel1)
-        
-        elif len(moves2) != 0 and xx == 0:   
-            if ai_difficulty == 2: 
-                for i in reversed(range(len(moves2))): 
-                    if moves2[0] == 0:
-                        move2 = 1 
-                        break
-                    if spielfeld1[int(moves2[i])-1] == 1: 
-                        move2 = i+1 
-                        break 
-                    if spielfeld2[int(moves2[i])-1] != 0: 
-                        move2 = i+1 
-                        break
-                    if i == 0:
-                        i = len(moves2)
-                        move2 = i
-                        break
-            elif ai_difficulty == 1:
-                move2 = random.randint(1,len(moves2))
-            xx = 1
-            AI_move_W2(move2,moves2,Würfel2)
-        else:
-            skip = True
+
             
-    
-    # soll am ende AI_move(i) aufrufen 
+def pick_move_ai2():
+    global spielfeld2, c, xx, moves1, moves2, Würfel1, Würfel2, skip
+
+    if len(moves1) != 0 and c == 0:
+        move1 = choose_move(moves1)
+        c = 1
+        AI_move_W2(move1, moves1, Würfel1)
+
+    elif len(moves2) != 0 and xx == 0:
+        move2 = choose_move(moves2)
+        xx = 1
+        AI_move_W2(move2, moves2, Würfel2)
+
+    else:
+        skip = True
+
+def choose_move(moves):
+    global spielfeld1, spielfeld2, ai_difficulty
+    if ai_difficulty == 2:
+        for i in reversed(range(len(moves))):
+            if moves[0] == 0:
+                return 1    
+            elif spielfeld1[int(moves[i])-1] == 1: 
+                return i+1     
+            elif spielfeld2[int(moves[i])-1] != 0: 
+                return i+1   
+        return len(moves)   
+    elif ai_difficulty == 1:
+        return random.randint(1, len(moves))
+    else:
+        pass
 
 
 mein_menu = Menu(root)
