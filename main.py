@@ -583,7 +583,7 @@ def Back_move():
                 spielfeld2 = move_list2[-24:]
                 Würfel1 = würfel_list1[-2:]
                 Würfel2 = würfel_list2[-2:]
-                for i in range (12):
+                for i in range (15):
                     if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
                         White_Cap_Piece = i
                     if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
@@ -602,7 +602,7 @@ def Back_move():
                     Würfel1 = würfel_list1[-2:]
                     Würfel2 = würfel_list2[-2:]
                     movecounter = movecounter - 1 
-                    for i in range (12):
+                    for i in range (15):
                         if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
                             White_Cap_Piece = i
                         if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
@@ -623,7 +623,7 @@ def Back_move():
                         Würfel1 = würfel_list1[-2:]
                         Würfel2 = würfel_list2[-2:]
                         movecounter = movecounter - 1 
-                        for i in range (12):
+                        for i in range (15):
                             if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
                                 White_Cap_Piece = i
                             if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
@@ -637,7 +637,8 @@ def Back_move():
                         spielfeld2 = move_list2[-24:]
                         Würfel1 = würfel_list1[-2:]
                         Würfel2 = würfel_list2[-2:]
-                        for i in range (12):
+                        
+                        for i in range (15):
                             if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
                                 White_Cap_Piece = i
                             if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
