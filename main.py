@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import random
-ai_difficulty = 2
+ai_difficulty = 3
 AI = 1
 movecounter = 1
 TOPorBOT = 0 
@@ -46,14 +46,14 @@ canvas = Canvas(root,height=600, width=600)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
 
 spielfeld3 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]   
-#spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    
-#spielfeld2 = [1,0,1,0,1,0   ,1,0,1,0,1,0       ,1,0,1,0,1,0,   1,0,1,0,1,0]    
-#spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    
+spielfeld2 = [0,0,0,0,0,5   ,0,3,0,0,0,0       ,5,0,0,0,0,0,   0,0,0,0,0,2]    
+#spielfeld2 = [1,0,1,0,3,0   ,1,0,3,0,2,0       ,1,0,3,0,3,0,   1,0,1,0,1,0]    
+spielfeld1 = [2,0,0,0,0,0   ,0,0,0,0,0,5       ,0,0,0,0,3,0,   5,0,0,0,0,0]    
 #spielfeld1 = [0,1,0,1,0,1   ,0,1,0,1,0,2       ,0,2,0,2,0,2,   0,2,0,2,0,2]    
 
 
-spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,3,0,0,1]
-spielfeld2 = [0,5,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
+#spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   0,0,3,0,0,1]
+#spielfeld2 = [0,5,0,0,0,0   ,1,0,0,0,0,0       ,0,0,0,0,0,0,   0,0,0,0,0,0]
 
 #             1 2 3 4 5 6    7 8 9 1 1 1        1 1 1 1 1 1    1 2 2 2 2 2
 #            
@@ -932,6 +932,9 @@ def AI_move_W2(i,moves,W):
         if c == 0 or xx == 0:
             fish_moves()
         if c == 1 and xx == 1: 
+            print(Würfel1[0])
+            print(Würfel2[0])
+
             if Würfel1[0] == Würfel2[0] and cc == 0:
                 c = 0
                 xx = 0
@@ -946,19 +949,19 @@ def pick_move_ai2():
     global spielfeld2, c, xx, moves1, moves2, Würfel1, Würfel2, skip
 
     if len(moves1) != 0 and c == 0:
-        move1 = choose_move(moves1)
+        move1 = choose_move(moves1,Würfel1)
         c = 1
         AI_move_W2(move1, moves1, Würfel1)
 
     elif len(moves2) != 0 and xx == 0:
-        move2 = choose_move(moves2)
+        move2 = choose_move(moves2,Würfel2)
         xx = 1
         AI_move_W2(move2, moves2, Würfel2)
 
     else:
         skip = True
 
-def choose_move(moves):
+def choose_move(moves,W):
     global spielfeld1, spielfeld2, ai_difficulty
     if ai_difficulty == 2:
         for i in reversed(range(len(moves))):
@@ -980,31 +983,35 @@ def choose_move(moves):
                     return i+1 
                 elif spielfeld2[int(moves[i])-1] == 1: 
                     return i+1
-                elif spielfeld2[int(moves[i])-1] > 1: 
+                elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
                     return i+1
-                elif i == 0:
-                    return len(moves)
             elif 11 < moves[i] < 18:
                 if spielfeld2[int(moves[i])-1] == 1: 
                     return i+1
                 elif spielfeld1[int(moves[i])-1] == 1: 
                     return i+1 
-                elif spielfeld2[int(moves[i])-1] > 1: 
+                elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
                     return i+1
-                elif i == 0:
-                    return len(moves)
-            elif 5 < moves[i] < 12:
+            elif 6 < moves[i] < 12:
                 if spielfeld2[int(moves[i])-1] == 1: 
                     return i+1
-                elif spielfeld2[int(moves[i])-1] > 1: 
+                elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
                     return i+1
-                elif spielfeld1[int(moves[i])-1] == 1: 
+                elif spielfeld1[int(moves[i])-1] == 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
                     return i+1 
-                elif i == 0:
-                    return len(moves)
             elif 0 < moves[i] < 7:
                 if Red_winning_pos == True:
-                    if spielfeld2[int(moves[i])-1] == 0: 
+                    if spielfeld2[int(moves[i])-1] == 0 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                        return i+1
+                    elif spielfeld2[int(moves[i])-1] == 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                        return i+1
+                    elif spielfeld2[int(moves[i])-1] == 2 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                        return i+1
+                    elif spielfeld2[int(moves[i])-1] == 3 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                        return i+1
+                    elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                        return i+1
+                    elif spielfeld2[int(moves[i])-1] == 0: 
                         return i+1
                     elif spielfeld2[int(moves[i])-1] == 1: 
                         return i+1
@@ -1014,19 +1021,15 @@ def choose_move(moves):
                         return i+1
                     elif spielfeld2[int(moves[i])-1] > 1: 
                         return i+1
-                    elif i == 0:
-                        return len(moves)
                 else:
                     if spielfeld2[int(moves[i])-1] == 1: 
                         return i+1
-                    elif spielfeld2[int(moves[i])-1] == 2: 
+                    elif spielfeld2[int(moves[i])-1] == 2 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
                         return i+1
-                    elif 2 < spielfeld2[int(moves[i])-1] < 5: 
+                    elif 2 < spielfeld2[int(moves[i])-1] < 5 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
                         return i+1
-                    elif  spielfeld2[int(moves[i])-1] > 5: 
+                    elif  spielfeld2[int(moves[i])-1] > 5 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
                         return i+1
-                    elif i == 0:
-                        return len(moves)
         return len(moves) 
                    
 
