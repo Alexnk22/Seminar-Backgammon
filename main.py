@@ -567,7 +567,8 @@ def show_Cap_Piece(Ratio):
             canvas.create_oval(392.5 * Ratio, (350 + 50 * 5) * Ratio, 442.5 * Ratio, (400 + 50 * 5) * Ratio, fill="white")
 
 def Back_move():
-        global spielfeld1, AI, spielfeld2, skip, move_list1, move_list2,spielfeld3, Würfel1, Würfel2, würfel_list1, würfel_list2, movecounter, backcounter,White_Cap_Piece,Red_Cap_Piece
+        global spielfeld1, AI, spielfeld2, skip, move_list1, move_list2,spielfeld3, Würfel1, Würfel2, würfel_list1, würfel_list2, movecounter, backcounter,White_Cap_Piece,Red_Cap_Piece, c ,cc ,xx 
+        xx = c = xx = 0
         if movecounter != 0 and movecounter != 1:
             if AI == 0:
                 if (Würfel1[0] != 0 and Würfel2[0] != 0):
@@ -702,10 +703,10 @@ def PvP():
     Game_mode_menu.entryconfig("Player vs. AI", state="normal")
 
 def Pass_turn():
-    global Pass, movecounter, Pos1, spielfeld3, Würfel1, Würfel2, Pos4
+    global Pass, movecounter, Pos1, spielfeld3, Würfel1, Würfel2, Pos4, c , xx ,cc
     if movecounter != 0:
         movecounter, Würfel1, Würfel2, Pos1, spielfeld3, Pos4 = movecounter + 1, [0,7], [0,8], 0, [0]*24, 0
-        
+        xx = c = xx = 0
         Ratios()
         
     else:
@@ -931,11 +932,14 @@ def AI_move_W2(i,moves,W):
                 move()
         if c == 0 or xx == 0:
             fish_moves()
+            print("hallo")
         if c == 1 and xx == 1: 
             print(Würfel1[0])
             print(Würfel2[0])
+            print("lol")
 
             if Würfel1[0] == Würfel2[0] and cc == 0:
+                print("rofl")
                 c = 0
                 xx = 0
                 cc = 1 
