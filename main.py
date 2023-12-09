@@ -583,9 +583,9 @@ def Back_move():
                 Würfel1 = würfel_list1[-2:]
                 Würfel2 = würfel_list2[-2:]
                 for i in range (15):
-                    if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
+                    if 15-int(sum(spielfeld1)) == i and Red_winning_pos == False:
                         White_Cap_Piece = i
-                    if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
+                    if 15-int(sum(spielfeld2)) == i and Red_winning_pos == False:
                         Red_Cap_Piece = i  
                 spielfeld3 = 24*[0]
                 Check_winning_pos()
@@ -602,9 +602,9 @@ def Back_move():
                     Würfel2 = würfel_list2[-2:]
                     movecounter = movecounter - 1 
                     for i in range (15):
-                        if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
+                        if 15-int(sum(spielfeld1)) == i and Red_winning_pos == False:
                             White_Cap_Piece = i
-                        if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
+                        if 15-int(sum(spielfeld2)) == i and Red_winning_pos == False:
                             Red_Cap_Piece = i  
                     spielfeld3 = 24*[0]
                     skip = False
@@ -623,9 +623,9 @@ def Back_move():
                         Würfel2 = würfel_list2[-2:]
                         movecounter = movecounter - 1 
                         for i in range (15):
-                            if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
+                            if 15-int(sum(spielfeld1)) == i and Red_winning_pos == False:
                                 White_Cap_Piece = i
-                            if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
+                            if 15-int(sum(spielfeld2)) == i and Red_winning_pos == False:
                                 Red_Cap_Piece = i  
                         spielfeld3 = 24*[0]
                         skip = True
@@ -638,9 +638,9 @@ def Back_move():
                         Würfel2 = würfel_list2[-2:]
                         
                         for i in range (15):
-                            if 15-int(sum(spielfeld1)) == i and White_Cap_Piece != 0:
+                            if 15-int(sum(spielfeld1)) == i and Red_winning_pos == False:
                                 White_Cap_Piece = i
-                            if 15-int(sum(spielfeld2)) == i and Red_Cap_Piece != 0:
+                            if 15-int(sum(spielfeld2)) == i and Red_winning_pos == False:
                                 Red_Cap_Piece = i  
                         spielfeld3 = 24*[0]
                         
@@ -902,6 +902,9 @@ def fish_moves():
 def AI_move_W2(i,moves,W):
         global Pos1, Pos2, Pos3, Pos4, xx, c, movecounter, Pass, Würfel1, Würfel2, skip, cc 
         if Red_Cap_Piece == 0 and Red_winning_pos == False:
+            print(moves)
+            print(moves[i-1])
+            print(moves[i-1]+W[0])
             Pos1 = moves[i-1]+W[0]
             Pos2 = moves[i-1]
             set_possibel_pos()
@@ -931,18 +934,22 @@ def AI_move_W2(i,moves,W):
                 set_possibel_pos()
                 move()
         if c == 0 or xx == 0:
+            moves1.clear()
+            moves2.clear()
             fish_moves()
-            print("hallo")
+            
         if c == 1 and xx == 1: 
             print(Würfel1[0])
             print(Würfel2[0])
-            print("lol")
+            
 
             if Würfel1[0] == Würfel2[0] and cc == 0:
-                print("rofl")
+                
                 c = 0
                 xx = 0
                 cc = 1 
+                moves1.clear()
+                moves2.clear()
                 fish_moves()
             else:
                 skip = True 
@@ -997,12 +1004,15 @@ def choose_move(moves,W):
                 elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
                     return i+1
             elif 6 < moves[i] < 12:
-                if spielfeld2[int(moves[i])-1] == 1: 
-                    return i+1
-                elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                    return i+1
-                elif spielfeld1[int(moves[i])-1] == 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                    return i+1 
+                if sum(spielfeld1[12:24]) == 15:
+                    return len(moves) 
+                else:
+                    if spielfeld2[int(moves[i])-1] == 1: 
+                        return i+1
+                    elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                        return i+1
+                    elif spielfeld1[int(moves[i])-1] == 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                        return i+1 
             elif 0 < moves[i] < 7:
                 if Red_winning_pos == True:
                     if spielfeld2[int(moves[i])-1] == 0 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
@@ -1026,14 +1036,11 @@ def choose_move(moves,W):
                     elif spielfeld2[int(moves[i])-1] > 1: 
                         return i+1
                 else:
-                    if spielfeld2[int(moves[i])-1] == 1: 
-                        return i+1
-                    elif spielfeld2[int(moves[i])-1] == 2 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                        return i+1
-                    elif 2 < spielfeld2[int(moves[i])-1] < 5 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                        return i+1
-                    elif  spielfeld2[int(moves[i])-1] > 5 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                        return i+1
+                    if sum(spielfeld1[12:24]) == 15:
+                        return len(moves)
+                    else:
+                        if spielfeld2[int(moves[i])-1] == 1: 
+                            return i+1
         return len(moves) 
                    
 
