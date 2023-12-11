@@ -1005,6 +1005,7 @@ def choose_move(moves,W):
                     return i+1
             elif 6 < moves[i] < 12:
                 if sum(spielfeld1[12:24]) == 15:
+                    print("hallo")
                     return len(moves) 
                 else:
                     if spielfeld2[int(moves[i])-1] == 1: 
@@ -1017,6 +1018,8 @@ def choose_move(moves,W):
                 if Red_winning_pos == True:
                     if spielfeld2[int(moves[i])-1] == 0 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
                         return i+1
+                    elif spielfeld2[int(moves[i])-1] == 0: 
+                        return i+1
                     elif spielfeld2[int(moves[i])-1] == 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
                         return i+1
                     elif spielfeld2[int(moves[i])-1] == 2 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
@@ -1024,8 +1027,6 @@ def choose_move(moves,W):
                     elif spielfeld2[int(moves[i])-1] == 3 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
                         return i+1
                     elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                        return i+1
-                    elif spielfeld2[int(moves[i])-1] == 0: 
                         return i+1
                     elif spielfeld2[int(moves[i])-1] == 1: 
                         return i+1
