@@ -184,7 +184,7 @@ def Position(event):
         else:
             Pos1,Pos2 = 0, 0
             Ratios()
-        if regelcounter == 1 and  0 < event.x < 55 and 0 < event.y < 55: 
+        if regelcounter == 1 and  0 < event.x < 100 and 0 < event.y < 100: 
             canvas.create_rectangle(0,0,40,40,fill="red")
             regelcounter = 0
             Ratios()
@@ -744,37 +744,45 @@ def starter1():
     Ratios()
     Pass = True
 
-def light_mode():
-    global colorbeginning
-    canvas.configure(bg="white")
-    Bgcolor_menu.entryconfig("light", state="disabled")
-    Bgcolor_menu.entryconfig("dark", state="normal")
-    colorbeginning = 1
 
-def dark_mode():
-    global colorbeginning
-    canvas.configure(bg="gray16")
-    Bgcolor_menu.entryconfig("dark", state="disabled")
-    Bgcolor_menu.entryconfig("light", state="normal")
-    colorbeginning = 1
 
 def show_regeln():
     global regelcounter, Pos22, Pos21, Pos2, Pos1
-    canvas.delete("all")
-    Pos1,Pos2,Pos21,Pos22 = 0,0,-1,-1
-    regelcounter = 1 
-    spielregeln_text = """
-                                                        Backgammon Regeln
+    if regelcounter == 0:
+        canvas.delete("all")
+        Pos1,Pos2,Pos21,Pos22 = 0,0,-1,-1
+        regelcounter = 1 
+        spielregeln_text = """
+                                                            Backgammon Regeln
 
 
-    hallllllllllllo
-    """
+        Gespielt wird Backgammon mit zwei sechsseitigen würfeln und einem Spielbrett 
+        bestehend aus 24 Dreiecken mit jeweils 12 Dreiecken pro Seite. Die Ausgangs-
+        position gibt die Position der 15 weißen und 15 schwarzen Figuren fest vor. 
+        Die weißen Spielsteine bewegen sich im Uhrzeigersinn, während die schwarzen 
+        Spielsteine entgegen dem Uhrzeigersinn ziehen. Die Augenzahl der Würfel wird 
+        einzeln und nacheinander gefahren und bei einem Pasch darf mit jedem Würfel 
+        die entsprechende Augenzahl zwei Mal gefahren werden. Es darf nur auf 
+        Positionen gezogen werden, wo entweder maximal eine Figur der gegnerischen 
+        Farbe steht oder unbegrenzt viele Figuren der eigenen Farbe platziert sind. 
+        Alleinstehende Figuren können von einer gegnerischen Figur geschlagen werden 
+        und werden in die Mitte des Spielbrettes befördert. Geschlagene Figuren starten 
+        wieder vom Anfang und müssen, sofern möglich, im nächsten Zug wieder in das 
+        Spielfeld zurückgebracht werden. Wenn dies nicht möglich ist, muss eine Runde 
+        ausgesetzt werden. Sobald sich alle Figuren einer Farbe auf den letzten 6 Feldern 
+        seiner Laufbahn befinden, beginnt für diesen Spieler das „Rauswürfeln“. Hierbei 
+        darf eine Figur auf das 25te bzw. 0te Feld gezogen werden und wird dadurch aus 
+        dem spiel genommen. Das Spiel ist gewonnen so bald alle 15 Figuren eines Spielers 
+        auf diese Art von dem Spielfeld beseitigt wurden. 
+        """
 
-    canvas.create_text(0, 10, anchor=NW, text=spielregeln_text, font=("Helvetica", 12))
-    canvas.create_rectangle(0,0,40,40,fill="")
-    canvas.create_line(30,10,10,20,width=2)
-    canvas.create_line(30,30,10,20,width=2)
-
+        canvas.create_text(0, 10, anchor=NW, text=spielregeln_text, font=("Helvetica", 12))
+        canvas.create_rectangle(0,0,40,40,fill="")
+        canvas.create_line(30,10,10,20,width=2)
+        canvas.create_line(30,30,10,20,width=2)
+    elif regelcounter == 1:
+        regelcounter = 0
+        Ratios()
 difficultycounter = 0
 
 def easy():
@@ -805,6 +813,17 @@ def hard():
 def disable_difficulty():
     if movecounter > 1:
         mein_menu.entryconfig("Difficulty", state="disabled")
+        
+def ai_difficulty1():
+    global ai_difficulty
+    ai_difficulty = 1
+def ai_difficulty2():
+    global ai_difficulty
+    ai_difficulty = 2
+def ai_difficulty3():
+    global ai_difficulty
+    ai_difficulty = 3
+
 
 
 def fish_moves():
@@ -902,9 +921,7 @@ def fish_moves():
 def AI_move_W2(i,moves,W):
         global Pos1, Pos2, Pos3, Pos4, xx, c, movecounter, Pass, Würfel1, Würfel2, skip, cc 
         if Red_Cap_Piece == 0 and Red_winning_pos == False:
-            print(moves)
-            print(moves[i-1])
-            print(moves[i-1]+W[0])
+            
             Pos1 = moves[i-1]+W[0]
             Pos2 = moves[i-1]
             set_possibel_pos()
@@ -939,12 +956,7 @@ def AI_move_W2(i,moves,W):
             fish_moves()
             
         if c == 1 and xx == 1: 
-            print(Würfel1[0])
-            print(Würfel2[0])
-            
-
             if Würfel1[0] == Würfel2[0] and cc == 0:
-                
                 c = 0
                 xx = 0
                 cc = 1 
@@ -973,7 +985,9 @@ def pick_move_ai2():
         skip = True
 
 def choose_move(moves,W):
+    
     global spielfeld1, spielfeld2, ai_difficulty
+    print(ai_difficulty)
     if ai_difficulty == 2:
         for i in reversed(range(len(moves))):
             if moves[0] == 0:
@@ -1005,7 +1019,7 @@ def choose_move(moves,W):
                     return i+1
             elif 6 < moves[i] < 12:
                 if sum(spielfeld1[12:24]) == 15:
-                    print("hallo")
+                    
                     return len(moves) 
                 else:
                     if spielfeld2[int(moves[i])-1] == 1: 
@@ -1065,10 +1079,12 @@ mein_menu.add_cascade(label="Game mode", menu=Game_mode_menu)
 Game_mode_menu.add_command(label="Player vs. AI", command=Ai)
 Game_mode_menu.add_command(label="Player  vs. Player",command=PvP)
 
-Bgcolor_menu = Menu(mein_menu,tearoff=False)
-mein_menu.add_cascade(label="Bg-Theme",menu=Bgcolor_menu)
-Bgcolor_menu.add_command(label="light",command=light_mode)
-Bgcolor_menu.add_command(label="dark",command=dark_mode)
+AI_lvl_menu = Menu(mein_menu,tearoff = False)
+mein_menu.add_cascade(label="AI_difficulty", menu=AI_lvl_menu)
+AI_lvl_menu.add_command(label="Easy", command=ai_difficulty1)
+AI_lvl_menu.add_command(label="Medium",command=ai_difficulty2)
+AI_lvl_menu.add_command(label="Hard", command=ai_difficulty3)
+
 
 movecounter_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Starter",menu=movecounter_menu)
