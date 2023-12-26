@@ -124,15 +124,21 @@ def win_progress(Ratio):
 
 
 def figures(Ratio, spielfeld, color,displacement):
+    # platzierung der figuren auf der unteren seite des Spielfeldes 
     for col in range(12):
+        # platziert eine figur bis der pieces_count die anzahl der figuren in auf dem feld hat 
         for pieces_count in range(int(spielfeld[col])):
+            # bei meht wie 5 Figuren pro Feld werden die Spielsteine versetzt plaziert
             if pieces_count > 4:
                 pieces_count -= 4
                 h = 1
             else:
                 h = 0
+            # dient zum ausgleich des Abstandes in der mitte des Feldes 
             r = 65 if col >= 6 else 15
-            canvas.create_oval((723-(col*53)-r)*Ratio, (600-(pieces_count)*50+(h*25))*Ratio, (773-(col*53)-r)*Ratio, (650-(pieces_count)*50+(h*25))*Ratio, fill=color, width=1.33)        
+            canvas.create_oval((723-(col*53)-r)*Ratio, (600-(pieces_count)*50+(h*25))*Ratio, 
+            (773-(col*53)-r)*Ratio, (650-(pieces_count)*50+(h*25))*Ratio, fill=color, width=1.33)  
+    # gleiche vorgehensweiße für die obere seite des Spielfeldes      
     for col in range(12):
         for pieces_count in range(int(spielfeld[int(col)+displacement])):
             if pieces_count > 4:
@@ -141,7 +147,8 @@ def figures(Ratio, spielfeld, color,displacement):
             else:
                 h = 0
             r = 50 if col >= 6 else 0
-            canvas.create_oval((75+col*53+r)*Ratio, (75+pieces_count*50-(h*25))*Ratio, (125+col*53+r)*Ratio, (125+pieces_count*50-(h*25))*Ratio, fill=color, width=1.33)
+            canvas.create_oval((75+col*53+r)*Ratio, (75+pieces_count*50-(h*25))*Ratio, 
+            (125+col*53+r)*Ratio, (125+pieces_count*50-(h*25))*Ratio, fill=color, width=1.33)
 
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass, regelcounter
@@ -786,23 +793,15 @@ difficultycounter = 0
 def easy():
     global difficulty, difficultycounter
     difficulty = 1
-    difficulty_menu.entryconfig("Normal",state="normal")
     difficulty_menu.entryconfig("Easy ",state="disabled")
     difficulty_menu.entryconfig("Hard",state="normal")
     difficultycounter = 1
 
-def normal():
-    global difficulty, difficultycounter
-    difficulty = 2
-    difficulty_menu.entryconfig("Normal",state="disabled")
-    difficulty_menu.entryconfig("Easy ",state="normal")
-    difficulty_menu.entryconfig("Hard",state="normal")
-    difficultycounter = 1
-    
+
 def hard():
     global difficulty, difficultycounter
     difficulty = 3
-    difficulty_menu.entryconfig("Normal",state="normal")
+
     difficulty_menu.entryconfig("Easy ",state="normal")
     difficulty_menu.entryconfig("Hard",state="disabled")
     difficultycounter = 1
@@ -1092,7 +1091,6 @@ movecounter_menu.add_command(label="Red",command=starter2)
 difficulty_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Difficulty",menu=difficulty_menu)
 difficulty_menu.add_command(label="Easy ",command=easy)
-difficulty_menu.add_command(label="Normal",command=normal)
 difficulty_menu.add_command(label="Hard",command=hard)
 
 Regel_menu = Menu(mein_menu,tearoff=False)
