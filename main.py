@@ -67,10 +67,10 @@ def Ratios (event=NONE):
             Ratio = root.winfo_width()/900
         else:
             Ratio = root.winfo_height()/900
-        Feld(Ratio)
+        field(Ratio)
         win_progress(Ratio)
-        Figuren(Ratio, spielfeld1, "white",12)
-        Figuren(Ratio, spielfeld2, "maroon",12)
+        figures(Ratio, spielfeld1, "white",12)
+        figures(Ratio, spielfeld2, "maroon",12)
         if movecounter % 2 == 0 and White_Cap_Piece == 0:
                 mark_mouse_pos1(Ratio,Pos1,spielfeld1,"green")
         elif movecounter % 2 != 0 and Red_Cap_Piece == 0:
@@ -83,67 +83,65 @@ def Ratios (event=NONE):
         pass
     
 
-def Feld(Ratio):
+def field(Ratio):
+    # Rahmen des spielfeldes 
     canvas.create_rectangle(55*Ratio,55*Ratio,(780)*Ratio,670*Ratio,width=2, fill="darkorange4")
     canvas.create_line(417*Ratio,55*Ratio,417*Ratio,670*Ratio,width=2)
+    # Inneres Feld 
+    for col in range (2):
+        canvas.create_rectangle((75+col*367.5)*Ratio,75*Ratio,(392.5+col*367.5)*Ratio,650*Ratio,fill="goldenrod",width=2) 
+    # Dreiecke
+    for u in range (2):
+        for col in range (3):
+            canvas.create_polygon((col*106+75+u*369)*Ratio, 75*Ratio, (col*106+100+u*369)*Ratio, 325*Ratio, (col*106+125+u*369)*Ratio, 75*Ratio,fill="red",outline="black",)
+            canvas.create_polygon((col*106+127.5+u*369)*Ratio, 75*Ratio, (col*106+152.5+u*369)*Ratio, 325*Ratio, (col*106+177.5+u*369)*Ratio, 75*Ratio)
+            canvas.create_polygon((col*106+75+u*369)*Ratio, 650*Ratio, (col*106+100+u*369)*Ratio, 400*Ratio, (col*106+125+u*369)*Ratio, 650*Ratio)
+            canvas.create_polygon((col*106+127.5+u*369)*Ratio, 650*Ratio, (col*106+152.5+u*369)*Ratio, 400*Ratio, (col*106+177.5+u*369)*Ratio, 650*Ratio,fill="red",outline="black")
 
-    for u in range (2):
-        canvas.create_rectangle((75+u*367.5)*Ratio,75*Ratio,(392.5+u*367.5)*Ratio,650*Ratio,fill="goldenrod",width=2) # done 
-        
-    for u in range (2):
-        for i in range (3):
-            # done 
-            canvas.create_polygon((i*106+75+u*369)*Ratio, 75*Ratio, (i*106+100+u*369)*Ratio, 325*Ratio, (i*106+125+u*369)*Ratio, 75*Ratio,fill="red",outline="black",)
-            canvas.create_polygon((i*106+127.5+u*369)*Ratio, 75*Ratio, (i*106+152.5+u*369)*Ratio, 325*Ratio, (i*106+177.5+u*369)*Ratio, 75*Ratio)
-            # done 
-            canvas.create_polygon((i*106+75+u*369)*Ratio, 650*Ratio, (i*106+100+u*369)*Ratio, 400*Ratio, (i*106+125+u*369)*Ratio, 650*Ratio)
-            canvas.create_polygon((i*106+127.5+u*369)*Ratio, 650*Ratio, (i*106+152.5+u*369)*Ratio, 400*Ratio, (i*106+177.5+u*369)*Ratio, 650*Ratio,fill="red",outline="black")
-    
 
 def win_progress(Ratio):
     if White_winning_pos == True:
+        # lehres feld für weiße steine 
         canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,295 * Ratio, fill="darkorange4",width=2)
         canvas.create_rectangle(810* Ratio,90 * Ratio,865 * Ratio,285 * Ratio, fill="goldenrod",width=2)
-
-        for i in range (15-sum(spielfeld1)):
-            u = 1 if i > 6 else 0
-            if i < 14:
-                canvas.create_oval((810+u*27.5)*Ratio,((90+i*27.5)- u*27.5*7)*Ratio,(837.5+u*27.5)*Ratio,((117.5+i*27.5)- u*27.5*7)*Ratio, fill="white")
-            if i == 14:
+        # feld auffühlen mit steinen 
+        for total_white_pieces in range (15-sum(spielfeld1)):
+            col = 1 if total_pieces > 6 else 0
+            if total_white_pieces < 14:
+                canvas.create_oval((810+col*27.5)*Ratio,((90+total_white_pieces*27.5)- col*27.5*7)*Ratio,(837.5+col*27.5)*Ratio,((117.5+total_white_pieces*27.5)- col*27.5*7)*Ratio, fill="white")
+            if total_white_pieces == 14:
                 canvas.create_rectangle(810* Ratio,90 * Ratio,865 * Ratio,285 * Ratio, fill="white")
-            
+    # selbe funktion nur für rot 
     if Red_winning_pos == True:
         canvas.create_rectangle(800* Ratio,430 * Ratio,875 * Ratio,645 * Ratio, fill="darkorange4",width=2)
         canvas.create_rectangle(810* Ratio,440 * Ratio,865 * Ratio,635 * Ratio, fill="goldenrod",width=2)
-
-        for i in range (15-sum(spielfeld2)):
-            u = 1 if i > 6 else 0
-            if i < 14:
-                canvas.create_oval((810+u*27.5)*Ratio,((607.5-i*27.5)+ u*27.5*7)*Ratio,(837.5+u*27.5)*Ratio,((635-i*27.5)+ u*27.5*7)*Ratio, fill="maroon")
-            if i == 14:
+        for total_red_pieces in range (15-sum(spielfeld2)):
+            col = 1 if total_red_pieces > 6 else 0
+            if total_red_pieces < 14:
+                canvas.create_oval((810+col*27.5)*Ratio,((607.5-total_red_pieces*27.5)+ col*27.5*7)*Ratio,(837.5+col*27.5)*Ratio,((635-total_red_pieces*27.5)+ col*27.5*7)*Ratio, fill="maroon")
+            if total_red_pieces == 14:
                 canvas.create_rectangle(810* Ratio,460 * Ratio,865 * Ratio,635 * Ratio, fill="maroon")
 
 
-def Figuren(Ratio, spielfeld, farbe,verschiebung):
-    
-    for u in range(12):
-        for i in range(int(spielfeld[u])):
-            if i > 4:
-                i -= 4
+def figures(Ratio, spielfeld, color,displacement):
+    for col in range(12):
+        for pieces_count in range(int(spielfeld[col])):
+            if pieces_count > 4:
+                pieces_count -= 4
                 h = 1
             else:
                 h = 0
-            r = 65 if u >= 6 else 15
-            canvas.create_oval((723-(u*53)-r)*Ratio, (600-(i)*50+(h*25))*Ratio, (773-(u*53)-r)*Ratio, (650-(i)*50+(h*25))*Ratio, fill=farbe, width=1.33)        
-    for u in range(12):
-        for i in range(int(spielfeld[int(u)+verschiebung])):
-            if i > 4:
-                i -= 4
+            r = 65 if col >= 6 else 15
+            canvas.create_oval((723-(col*53)-r)*Ratio, (600-(pieces_count)*50+(h*25))*Ratio, (773-(col*53)-r)*Ratio, (650-(pieces_count)*50+(h*25))*Ratio, fill=color, width=1.33)        
+    for col in range(12):
+        for pieces_count in range(int(spielfeld[int(col)+displacement])):
+            if pieces_count > 4:
+                pieces_count -= 4
                 h = 1
             else:
                 h = 0
-            r = 50 if u >= 6 else 0
-            canvas.create_oval((75+u*53+r)*Ratio, (75+i*50-(h*25))*Ratio, (125+u*53+r)*Ratio, (125+i*50-(h*25))*Ratio, fill=farbe, width=1.33)
+            r = 50 if col >= 6 else 0
+            canvas.create_oval((75+col*53+r)*Ratio, (75+pieces_count*50-(h*25))*Ratio, (125+col*53+r)*Ratio, (125+pieces_count*50-(h*25))*Ratio, fill=color, width=1.33)
 
 def Position(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass, regelcounter
