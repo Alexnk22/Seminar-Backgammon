@@ -710,6 +710,11 @@ def PvP():
 def Pass_turn():
     global Pass, movecounter, Pos1, spielfeld3, Würfel1, Würfel2, Pos4, c , xx ,cc
     if movecounter != 0:
+        for i in range (15):
+                    if 15-int(sum(spielfeld1)) == i and Red_winning_pos == False:
+                        White_Cap_Piece = i
+                    if 15-int(sum(spielfeld2)) == i and Red_winning_pos == False:
+                        Red_Cap_Piece = i  
         movecounter, Würfel1, Würfel2, Pos1, spielfeld3, Pos4 = movecounter + 1, [0,7], [0,8], 0, [0]*24, 0
         xx = c = xx = 0
         Ratios()
@@ -909,13 +914,13 @@ def fish_moves():
                 moves1.append(25-Würfel1[0])
             if(spielfeld1[24-Würfel2[0]] == 0 or spielfeld1[24-Würfel2[0]] == 1):
                 moves2.append(25-Würfel2[0])
-        pick_move_ai2()
+        pick_move_ai()
 
 
 
 
 
-def AI_move_W2(i,moves,W):
+def AI_move_W(i,moves,W):
         global Pos1, Pos2, Pos3, Pos4, xx, c, movecounter, Pass, Würfel1, Würfel2, skip, cc 
         if Red_Cap_Piece == 0 and Red_winning_pos == False:
             
@@ -965,23 +970,23 @@ def AI_move_W2(i,moves,W):
 
 
             
-def pick_move_ai2():
+def pick_move_ai():
     global spielfeld2, c, xx, moves1, moves2, Würfel1, Würfel2, skip
 
     if len(moves1) != 0 and c == 0:
-        move1 = choose_move(moves1,Würfel1)
+        move1 = choose_move_ai(moves1,Würfel1)
         c = 1
-        AI_move_W2(move1, moves1, Würfel1)
+        AI_move_W(move1, moves1, Würfel1)
 
     elif len(moves2) != 0 and xx == 0:
-        move2 = choose_move(moves2,Würfel2)
+        move2 = choose_move_ai(moves2,Würfel2)
         xx = 1
-        AI_move_W2(move2, moves2, Würfel2)
+        AI_move_W(move2, moves2, Würfel2)
 
     else:
         skip = True
 
-def choose_move(moves,W):
+def choose_move_ai(moves,W):
     
     global spielfeld1, spielfeld2, ai_difficulty
     print(ai_difficulty)
