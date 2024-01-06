@@ -711,10 +711,10 @@ def Pass_turn():
     global Pass, movecounter, Pos1, spielfeld3, Würfel1, Würfel2, Pos4, c , xx ,cc
     if movecounter != 0:
         for i in range (15):
-                    if 15-int(sum(spielfeld1)) == i and Red_winning_pos == False:
-                        White_Cap_Piece = i
-                    if 15-int(sum(spielfeld2)) == i and Red_winning_pos == False:
-                        Red_Cap_Piece = i  
+            if 15-int(sum(spielfeld1)) == i and Red_winning_pos == False:
+                White_Cap_Piece = i
+            if 15-int(sum(spielfeld2)) == i and Red_winning_pos == False:
+                Red_Cap_Piece = i  
         movecounter, Würfel1, Würfel2, Pos1, spielfeld3, Pos4 = movecounter + 1, [0,7], [0,8], 0, [0]*24, 0
         xx = c = xx = 0
         Ratios()
