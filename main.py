@@ -1019,45 +1019,49 @@ def choose_move_ai(moves,W):
                     return i+1 
                 elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
                     return i+1
-            elif 6 < moves[i] < 12:
-                if sum(spielfeld1[12:24]) == 15:
-                    
-                    return len(moves) 
-                else:
-                    if spielfeld2[int(moves[i])-1] == 1: 
+
+            elif 0 < moves[i] < 12:
+                if sum(spielfeld1[12:24]) == 15 and sum(spielfeld2[0:12]) == 15:
+                    if 0 < moves[i] < 7:
                         return i+1
-                    elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                        return i+1
-                    elif spielfeld1[int(moves[i])-1] == 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                        return i+1 
-            elif 0 < moves[i] < 7:
-                if Red_winning_pos == True:
-                    if spielfeld2[int(moves[i])-1] == 0 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                        return i+1
-                    elif spielfeld2[int(moves[i])-1] == 0: 
-                        return i+1
-                    elif spielfeld2[int(moves[i])-1] == 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                        return i+1
-                    elif spielfeld2[int(moves[i])-1] == 2 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                        return i+1
-                    elif spielfeld2[int(moves[i])-1] == 3 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                        return i+1
-                    elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
-                        return i+1
-                    elif spielfeld2[int(moves[i])-1] == 1: 
-                        return i+1
-                    elif spielfeld2[int(moves[i])-1] == 2: 
-                        return i+1
-                    elif spielfeld2[int(moves[i])-1] == 3: 
-                        return i+1
-                    elif spielfeld2[int(moves[i])-1] > 1: 
-                        return i+1
-                else:
-                    if sum(spielfeld1[12:24]) == 15:
+                    elif 6 < moves[i] < 12:
                         return len(moves)
-                    else:
-                        if spielfeld2[int(moves[i])-1] == 1: 
-                            return i+1
+                else:
+                    if 6 < moves[i] < 12:
+                            if spielfeld2[int(moves[i])-1] == 1: 
+                                return i+1
+                            elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                                return i+1
+                            elif spielfeld1[int(moves[i])-1] == 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                                return i+1 
+                    elif 0 < moves[i] < 7:
+                        if Red_winning_pos == True:
+                            if spielfeld2[int(moves[i])-1] == 0 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                                return i+1
+                            elif spielfeld2[int(moves[i])-1] == 0: 
+                                return i+1
+                            elif spielfeld2[int(moves[i])-1] == 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                                return i+1
+                            elif spielfeld2[int(moves[i])-1] == 2 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                                return i+1
+                            elif spielfeld2[int(moves[i])-1] == 3 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                                return i+1
+                            elif spielfeld2[int(moves[i])-1] > 1 and spielfeld2[int(moves[i])-1+W[0]] > 2: 
+                                return i+1
+                            elif spielfeld2[int(moves[i])-1] == 1: 
+                                return i+1
+                            elif spielfeld2[int(moves[i])-1] == 2: 
+                                return i+1
+                            elif spielfeld2[int(moves[i])-1] == 3: 
+                                return i+1
+                            elif spielfeld2[int(moves[i])-1] > 1: 
+                                return i+1
+                        else:
+                            if sum(spielfeld1[12:24]) == 15:
+                                return len(moves)
+                            else:
+                                if spielfeld2[int(moves[i])-1] == 1: 
+                                    return i+1
         return len(moves) 
                    
 
