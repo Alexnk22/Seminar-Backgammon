@@ -106,7 +106,7 @@ def win_progress(Ratio):
         canvas.create_rectangle(810* Ratio,90 * Ratio,865 * Ratio,285 * Ratio, fill="goldenrod",width=2)
         # feld auffühlen mit steinen 
         for total_white_pieces in range (15-sum(spielfeld1)):
-            col = 1 if total_pieces > 6 else 0
+            col = 1 if total_white_pieces > 6 else 0
             if total_white_pieces < 14:
                 canvas.create_oval((810+col*27.5)*Ratio,((90+total_white_pieces*27.5)- col*27.5*7)*Ratio,(837.5+col*27.5)*Ratio,((117.5+total_white_pieces*27.5)- col*27.5*7)*Ratio, fill="white")
             if total_white_pieces == 14:
@@ -1021,7 +1021,7 @@ def choose_move_ai(moves,W):
                     return i+1
 
             elif 0 < moves[i] < 12:
-                if sum(spielfeld1[12:24]) == 15 and sum(spielfeld2[0:12]) == 15:
+                if sum(spielfeld1[12:24]) == 15 and sum(spielfeld2[0:12]) == 15 and Red_winning_pos == False:
                     if 0 < moves[i] < 7:
                         return i+1
                     elif 6 < moves[i] < 12:
