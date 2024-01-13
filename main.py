@@ -784,6 +784,12 @@ def show_regeln():
         darf eine Figur auf das 25te bzw. 0te Feld gezogen werden und wird dadurch aus 
         dem spiel genommen. Das Spiel ist gewonnen so bald alle 15 Figuren eines Spielers 
         auf diese Art von dem Spielfeld beseitigt wurden. 
+
+        [w]-Taste drücken zum Würfeln 
+
+        [p]-Taste drücken um einen Zug auszusetzen 
+        
+        [z]-Taste drücken um einen Zug zurück zu gehen
         """
 
         canvas.create_text(0, 10, anchor=NW, text=spielregeln_text, font=("Helvetica", 12))
