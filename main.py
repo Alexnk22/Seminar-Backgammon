@@ -150,7 +150,7 @@ def figures(Ratio, spielfeld, color,displacement):
             canvas.create_oval((75+col*53+r)*Ratio, (75+pieces_count*50-(h*25))*Ratio, 
             (125+col*53+r)*Ratio, (125+pieces_count*50-(h*25))*Ratio, fill=color, width=1.33)
 
-def Position(event):
+def Position1(event):
     global Dreieck, TOPorBOT, Pos1,Pos22,Pos21, Pos3, Pos4, spielfeld3, Pos2, movecounter, Pass, regelcounter
     if AI == 0 or (AI == 1 and movecounter %2 == 0):
 
@@ -1111,7 +1111,7 @@ difficulty_menu.add_command(label="Hard",command=hard)
 Regel_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Rules", command=show_regeln)
 
-canvas.bind("<Button-1>", Position)
+canvas.bind("<Button-1>", Position1)
 canvas.bind("<Button-3>", Position2)
 root.bind("<Key>", key)
 root.bind("<Configure>", Ratios)
