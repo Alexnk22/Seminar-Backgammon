@@ -8,10 +8,10 @@ TOPorBOT = 0
 TOPorBOT2 = 0
 Dreieck = 0
 Dreieck2 = 0
-Pos1 = 0    # linke maus 
-Pos2 = 0    # rechte maus 
-Pos3 = 0    # geschlagene Figur 
-Pos4 = 0    # gewinn Position 
+Pos1 = 0    
+Pos2 = 0    
+Pos3 = 0    
+Pos4 = 0    
 Würfel1 = [7,7]
 Würfel2 = [7,8]
 Pos21= -7
@@ -40,7 +40,7 @@ root = Tk()
 
 
 root.minsize(width=600,height=600)
-#root.maxsize(width=900,height=900)
+
 
 canvas = Canvas(root,height=600, width=600)
 canvas.pack(side=TOP,fill=BOTH,expand=YES)
