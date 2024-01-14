@@ -170,13 +170,11 @@ def Position1(event):
             TOPorBOT = 1    #unten
         else:
             TOPorBOT = 0
-        # erstellt Pos1 für alle normalen züge 
         if (int(TOPorBOT) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 442.5 < event.x / Ratio < 760) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0) :
             Pos1 = 13 - int(Dreieck) if TOPorBOT == 1 else int(Dreieck) + 12
             Pos3 = 0
             Ratios()        
             set_possibel_pos()
-        # erstellt Pos1 wenn figuren geschlagen sind(entsprechend bei 0 anfangen müssen)
         elif ((392.5< event.x / Ratio < 442.5) and (290 < event.y / Ratio < 340) and Red_Cap_Piece != 0 and movecounter % 2 != 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)) or ((392.5 < event.x / Ratio < 442.5) and (350 < event.y / Ratio < 400) and White_Cap_Piece != 0 and movecounter % 2 == 0 and (Würfel1[0] != 0 or Würfel2[0] != 0)):
             Pos1 = -2
             Pos3 = 1 if movecounter % 2 != 0 else 2
@@ -235,7 +233,6 @@ def Würfel_wurf():
             Pos21 = -7
         if Pos22 > 24:
             Pos22 = -7
-        # setzt nahc jedem wurf Spielfeld3 zurück da es neu besetzt wird 
         spielfeld3[Pos21 - 1] = spielfeld3[Pos22 - 1] = 0
         Würfel1.clear()
         Würfel2.clear()
@@ -401,7 +398,6 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
     if difficulty == 1:
         if White_winning_pos == True and (Pos21 > 24 or Pos22 > 24)and Pos1 != 0 and movecounter % 2 == 0:
             canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,295 * Ratio,outline="yellow",width=4)
-            # zeigt das eine weiße figur rausfahren kann 
             Pos4 = 1
         elif Red_winning_pos == True and ( -6 < Pos21 < 1 or -6 < Pos22 < 1) and Pos1 != 0 and movecounter % 2 != 0:    
             canvas.create_rectangle(800* Ratio,430 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
@@ -409,7 +405,6 @@ def mark_possible_pos(Ratio,spielfeld,farbe,verschiebung):
     elif difficulty == 2 or difficulty == 3:
         if White_winning_pos == True and (Pos21 == 25 or Pos22 == 25)and Pos1 != 0 and movecounter % 2 == 0:
             canvas.create_rectangle(800* Ratio,80 * Ratio,875 * Ratio,295 * Ratio,outline="yellow",width=4)
-            # zeigt das eine weiße figur rausfahren kann 
             Pos4 = 1
         elif Red_winning_pos == True and (Pos21 == 0 or Pos22 == 0) and Pos1 != 0 and movecounter % 2 != 0:    
             canvas.create_rectangle(800* Ratio,430 * Ratio,875 * Ratio,645 * Ratio, outline="yellow",width=5)
@@ -432,13 +427,11 @@ def Position2(event=NONE):
         TOPorBOT2 = 1    #unten
     else:
         TOPorBOT2 = 0
-    # setzt  Pos2 zum mit der rechten maustaste angeklickten wert (unabhängig von ob der zug funktioniert oder nicht)
     if (int(TOPorBOT2) in (1, 2)) and (75 < event.x / Ratio < 392.5 or 442.5 < event.x / Ratio < 760) and (Würfel1[0] != 7 or Würfel2[0] != 7) and (Würfel1[0] != 0 or Würfel2[0] != 0):
         Pos2 = 13 - int(Dreieck2) if TOPorBOT2 == 1 else int(Dreieck2) + 12
         pasch()
         move()
     
-    # wenn das markierte schwarze feld an der seite bei einer gewinnposition angeklickt wwird die entsprächende if schleife ausgelöst 
     if (800 < event.x / Ratio < 875) and (80 < event.y/Ratio < 275) and White_winning_pos == True  and (Würfel1[0] != 0 or Würfel2[0] != 0) and Pos4 == 1:
         Pos2 = -1
         spielfeld1[Pos1-1] = spielfeld1[Pos1-1]-1
@@ -511,7 +504,6 @@ def pasch():
 
 def move():
     global Pos1, movecounter,Pos2, Pos21, Pos22, spielfeld3,White_Cap_Piece,Red_Cap_Piece, Pos3, Pos4, backcounter
-    # überprüft ob Pos2 == Pos21/22 bei einem geschlagenen zug und wenn ja bewegt die figurt 
    
     if spielfeld3[Pos2-1] != 0 and ((Pos3 == 2 and White_Cap_Piece != 0) or (Pos3 == 1 and Red_Cap_Piece != 0)):
         spielfeld = spielfeld1 if Pos3 == 2 else spielfeld2
@@ -527,7 +519,7 @@ def move():
                 Cap_Pieces(0)
             else:
                 Cap_Pieces(1)
-    # prüft das gleiche aber bei normalen zügen 
+
     elif spielfeld3[Pos2 - 1] != 0 and ((spielfeld1[Pos1 - 1] != 0 and White_Cap_Piece == 0) or (spielfeld2[Pos1 - 1] != 0 and Red_Cap_Piece == 0)):
         spielfeld = spielfeld1 if spielfeld1[Pos1 - 1] != 0 else spielfeld2
         spielfeldx = spielfeld2 if spielfeld1[Pos1 - 1] != 0 else spielfeld1
@@ -549,7 +541,6 @@ def move():
     winner()
     Ratios()
 
-# nach jedem move wird die funktion entweder mit 0 ode 1 gerufen. 0 = keine figur geschlagen 1 = schon 
 def Cap_Pieces(x):
     global White_Cap_Piece, Red_Cap_Piece
     if x == 0:
@@ -558,7 +549,7 @@ def Cap_Pieces(x):
         White_Cap_Piece = White_Cap_Piece + 1 
     Ratios()
 
-# lässt die geschlagenen figuren in der mitte erscheinen 
+
 def show_Cap_Piece(Ratio):
     for i in range(Red_Cap_Piece):
         if i < 6:
@@ -653,10 +644,6 @@ def Back_move():
                         Ratios()
 
           
-                
-
-
-# überprüft ob keine steine mehr auf dem feld sind 
 def winner():
     if all(x == 0 for x in spielfeld1[18:25]) and White_winning_pos == True:
         messagebox.showinfo("", "Weiß Gewinnt")
@@ -666,7 +653,6 @@ def winner():
         messagebox.showinfo("", "Rot Gewinnt")
         File()
         
-
 
 def key(event):
     global backcounter
@@ -833,7 +819,6 @@ def ai_difficulty3():
     ai_difficulty = 3
 
 
-
 def fish_moves():
     if movecounter % 2 == 0:
         if White_Cap_Piece == 0:
@@ -921,9 +906,6 @@ def fish_moves():
             if(spielfeld1[24-Würfel2[0]] == 0 or spielfeld1[24-Würfel2[0]] == 1):
                 moves2.append(25-Würfel2[0])
         pick_move_ai()
-
-
-
 
 
 def AI_move_W(i,moves,W):
@@ -1096,7 +1078,6 @@ mein_menu.add_cascade(label="AI_difficulty", menu=AI_lvl_menu)
 AI_lvl_menu.add_command(label="Easy", command=ai_difficulty1)
 AI_lvl_menu.add_command(label="Medium",command=ai_difficulty2)
 AI_lvl_menu.add_command(label="Hard", command=ai_difficulty3)
-
 
 movecounter_menu = Menu(mein_menu,tearoff=False)
 mein_menu.add_cascade(label="Starter",menu=movecounter_menu)
