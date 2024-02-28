@@ -655,14 +655,25 @@ def winner():
         
 
 def key(event):
-    global backcounter
+    global backcounter,spielfeld2,spielfeld1,movecounter,TOPorBOT,TOPorBOT2,Dreieck,Dreieck2,spielfeld3,Pos1,Pos2,Pos21,Pos22,Pos3,Pos4,Red_Cap_Piece,White_Cap_Piece,Red_winning_pos,White_winning_pos,Würfel1,Würfel2
     if event.char == "w":
         Würfel_wurf()
     elif event.char == "p":
         Pass_turn()
     elif event.char == "z":
-        
         Back_move()
+    elif event.char == "ü":
+        spielfeld2 = [2,0,0,0,0,5   ,0,3,0,0,0,5       ,0,0,0,0,0,0,   0,0,0,0,0,0]    #black
+        spielfeld1 = [0,0,0,0,0,0   ,0,0,0,0,0,0       ,0,0,0,0,0,1,   6,4,3,0,1,0]    #white
+
+        movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2,spielfeld3 = 1, 0, 0, 0, 0, [0]*24,
+        Pos1, Pos2, Pos21, Pos22, Pos3, Pos4 = 0, 0, -7, -7, 0, 0
+        Red_Cap_Piece = 0
+        White_Cap_Piece = 0
+        Red_winning_pos = False
+        White_winning_pos = False
+        Würfel1, Würfel2 = [7,7], [7,8]
+        Ratios()
 
 def File():
     global spielfeld1, spielfeld2, spielfeld3, movecounter, TOPorBOT, TOPorBOT2, Dreieck, Dreieck2, Pos1, Pos2, Würfel1, Würfel2, Pos21, Pos22, Pos3, Pos4, White_Cap_Piece, Red_Cap_Piece, Red_winning_pos, White_winning_pos
