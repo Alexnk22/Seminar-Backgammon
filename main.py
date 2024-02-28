@@ -688,6 +688,7 @@ def File():
         White_winning_pos = False
         Würfel1, Würfel2 = [7,7], [7,8]
         mein_menu.entryconfig("Starter", state="normal")
+        mein_menu.entryconfig("Difficulty", state="normal")
         Ratios()
     else:
         pass
